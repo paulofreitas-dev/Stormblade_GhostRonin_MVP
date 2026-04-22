@@ -2,8 +2,16 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Enemy
+  - Boss
+  - Ground
+  - Platform
+  - Hazard
+  - Projectile
+  - CameraBoundary
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
@@ -11,17 +19,17 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Boss
+  - Ground
+  - Platform
+  - Hazard
+  - PlayerHitbox
+  - EnemyHitbox
+  - Projectile
+  - CameraBoundary
+  - Trigger
   - 
   - 
   - 
@@ -41,3 +49,29 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3034696499
+    locked: 0
+  - name: FarEnvironment
+    uniqueID: 3893505157
+    locked: 0
+  - name: Environment
+    uniqueID: 1552951287
+    locked: 0
+  - name: Platforms
+    uniqueID: 3781702223
+    locked: 0
+  - name: Characters
+    uniqueID: 485649163
+    locked: 0
+  - name: Foreground
+    uniqueID: 2442480261
+    locked: 0
+  - name: VFX
+    uniqueID: 3187264749
+    locked: 0
+  - name: UI
+    uniqueID: 1418062563
+    locked: 0
+  m_RenderingLayers:
+  - Default
