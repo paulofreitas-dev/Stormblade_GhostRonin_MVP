@@ -8,7 +8,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     private static readonly int BaseStateHash = Animator.StringToHash("baseState");
 
-    private PlayerBaseState currentBaseState;
+    private PlayerBaseState currentBaseState = PlayerBaseState.Idle;
 
     private void Update()
     {
