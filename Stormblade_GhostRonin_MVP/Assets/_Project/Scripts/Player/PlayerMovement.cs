@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 6f;
 
     private float moveInputX;
+    private float jumpInput;
     private bool isFacingRight = true;
 
     public bool IsFacingRight => isFacingRight;
@@ -21,10 +22,12 @@ public class PlayerMovement : MonoBehaviour
         if (inputReader == null)
         {
             moveInputX = 0f;
+          
             return;
         }
 
         moveInputX = inputReader.MoveInputX;
+ 
 
         HandleFacingDirection();
     }
@@ -60,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         rb.linearVelocity = new Vector2(moveInputX * moveSpeed, rb.linearVelocity.y);
+
+
     }
 
     
