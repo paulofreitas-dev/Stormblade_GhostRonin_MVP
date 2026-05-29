@@ -793,7 +793,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputReader
   moveAction: {fileID: 7864220123889691248, guid: 0f81c0f83b5adec4ab69a2ee2f140fbb, type: 3}
+  jumpAction: {fileID: 860812198464186253, guid: 0f81c0f83b5adec4ab69a2ee2f140fbb, type: 3}
   moveInputX: 0
+  jumpRequested: 0
 --- !u!1 &1495924864
 GameObject:
   m_ObjectHideFlags: 0
