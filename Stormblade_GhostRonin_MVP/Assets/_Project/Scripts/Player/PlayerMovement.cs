@@ -6,16 +6,46 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private PlayerInputReader inputReader;
     [SerializeField] private Transform visual;
+    [SerializeField] private Transform groundCheck;
 
-    [Header("Movement Settings")]
+
+    [Header("Horizontal Movement")]
     [SerializeField] private float moveSpeed = 6f;
 
+
+    [Header("Vertical Movement")]
+    [SerializeField] private float jumpImpulse = 12f;
+    [SerializeField] private float groundCheckRadius = 0.1f;
+    [SerializeField] private LayerMask groundLayer;
+
+    [Header("Vertical State Debug")]
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool wasGroundedLastFrame;
+    [SerializeField] private bool jumpStartedThisFrame;
+    [SerializeField] private bool landedThisFrame;
+
     private float moveInputX;
-    private float jumpInput;
     private bool isFacingRight = true;
 
-    public bool IsFacingRight => isFacingRight;
     public bool IsMovingHorizontally => Mathf.Abs(moveInputX) > 0.01f;
+
+    public bool IsFacingRight => isFacingRight;
+
+    public bool IsGrounded => isGrounded;
+
+    public float VerticalVelocity => rb != null ? rb.linearVelocity.y : 0f;
+
+    public bool IsRising => VerticalVelocity > 0.01f;
+
+    public bool IsFalling => VerticalVelocity < 0.01f;
+
+    public bool JumpStartedThisFrame => jumpStartedThisFrame;
+
+    public bool LandedThisFrame => landedThisFrame;
+
+    public bool HasJumpRequest => inputReader != null && inputReader.JumpRequested;
+
+
 
     private void Update()
     {
@@ -30,6 +60,49 @@ public class PlayerMovement : MonoBehaviour
  
 
         HandleFacingDirection();
+
+        if (landedThisFrame)
+        {
+            Debug.Log("Acabou de aterrissar");
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        ResetFrameFlags();
+        CheckGround();
+
+        if (rb == null)
+            return;
+
+        rb.linearVelocity = new Vector2(moveInputX * moveSpeed, rb.linearVelocity.y);
+    }
+
+    private void ResetFrameFlags()
+    {
+        jumpStartedThisFrame = false;
+        landedThisFrame = false;
+    }
+
+    private void CheckGround()
+    {
+        wasGroundedLastFrame = isGrounded;
+
+        if (groundCheck == null)
+        {
+            isGrounded = false;
+            landedThisFrame = false;
+            return;
+        }
+
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+
+        landedThisFrame = !wasGroundedLastFrame && isGrounded;
+
+        if (landedThisFrame)
+        {
+            Debug.Log("Acabou de aterrissar");
+        }
     }
 
     void HandleFacingDirection()
@@ -57,15 +130,12 @@ public class PlayerMovement : MonoBehaviour
         visual.localScale = scale;
     }
 
-    private void FixedUpdate()
+    private void OnDrawGizmosSelected()
     {
-        if (rb == null)
+        if (groundCheck == null)
             return;
 
-        rb.linearVelocity = new Vector2(moveInputX * moveSpeed, rb.linearVelocity.y);
-
-
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
-
-    
 }
