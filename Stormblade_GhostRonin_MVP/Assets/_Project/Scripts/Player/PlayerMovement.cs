@@ -8,10 +8,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform visual;
     [SerializeField] private Transform groundCheck;
 
-
     [Header("Horizontal Movement")]
     [SerializeField] private float moveSpeed = 6f;
-
 
     [Header("Vertical Movement")]
     [SerializeField] private float jumpImpulse = 12f;
@@ -75,6 +73,12 @@ public class PlayerMovement : MonoBehaviour
         if (rb == null)
             return;
 
+        HandleHorizontalMovement();
+        HandleJump();
+    }
+
+    private void HandleHorizontalMovement()
+    {
         rb.linearVelocity = new Vector2(moveInputX * moveSpeed, rb.linearVelocity.y);
     }
 
@@ -137,5 +141,30 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+    }
+
+    private void HandleJump()
+    {
+        if (inputReader == null || rb == null)
+            return;
+
+        if (!inputReader.JumpRequested)
+            return;
+
+        if (isGrounded)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
+
+            jumpStartedThisFrame = true;
+
+            Debug.Log("Pelo executado.");
+        }
+
+        else
+        {
+            Debug.Log("Pedido de pulo descartado: o player não está grounded");
+        }
+
+            inputReader.ConsumeJumpRequest();
     }
 }
