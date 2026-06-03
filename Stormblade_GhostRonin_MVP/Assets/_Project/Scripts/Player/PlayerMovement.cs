@@ -21,29 +21,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool wasGroundedLastFrame;
     [SerializeField] private bool jumpStartedThisFrame;
     [SerializeField] private bool landedThisFrame;
+    [SerializeField] private bool leftGroundThisFrame;
 
     private float moveInputX;
     private bool isFacingRight = true;
 
     public bool IsMovingHorizontally => Mathf.Abs(moveInputX) > 0.01f;
-
     public bool IsFacingRight => isFacingRight;
-
     public bool IsGrounded => isGrounded;
-
     public float VerticalVelocity => rb != null ? rb.linearVelocity.y : 0f;
-
     public bool IsRising => VerticalVelocity > 0.01f;
-
     public bool IsFalling => VerticalVelocity < 0.01f;
-
     public bool JumpStartedThisFrame => jumpStartedThisFrame;
-
     public bool LandedThisFrame => landedThisFrame;
-
     public bool HasJumpRequest => inputReader != null && inputReader.JumpRequested;
-
-
+    public bool LeftGroundThisFrame => leftGroundThisFrame;
+    public bool IsAirborne => !isGrounded;
 
     private void Update()
     {
@@ -56,13 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
         moveInputX = inputReader.MoveInputX;
  
-
         HandleFacingDirection();
 
-        if (landedThisFrame)
-        {
-            Debug.Log("Acabou de aterrissar");
-        }
     }
 
     private void FixedUpdate()
@@ -75,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
 
         HandleHorizontalMovement();
         HandleJump();
+
+        Debug.Log($"Grounded: {isGrounded} | Rising: {IsRising} | Falling: {IsFalling} | Y Vel: {VerticalVelocity}");
+
     }
 
     private void HandleHorizontalMovement()
@@ -86,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
     {
         jumpStartedThisFrame = false;
         landedThisFrame = false;
+        leftGroundThisFrame = false;
     }
 
     private void CheckGround()
@@ -101,12 +93,13 @@ public class PlayerMovement : MonoBehaviour
 
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
 
+        leftGroundThisFrame = wasGroundedLastFrame && !isGrounded;
         landedThisFrame = !wasGroundedLastFrame && isGrounded;
 
-        if (landedThisFrame)
-        {
-            Debug.Log("Acabou de aterrissar");
-        }
+        //if (landedThisFrame)
+        //{
+        //    Debug.Log("Acabou de aterrissar");
+        //}
     }
 
     void HandleFacingDirection()
@@ -157,13 +150,13 @@ public class PlayerMovement : MonoBehaviour
 
             jumpStartedThisFrame = true;
 
-            Debug.Log("Pelo executado.");
+            //Debug.Log("Pulo executado.");
         }
 
-        else
-        {
-            Debug.Log("Pedido de pulo descartado: o player não está grounded");
-        }
+        //else
+        //{
+        //    Debug.Log("Pedido de pulo descartado: o player não está grounded");
+        //}
 
             inputReader.ConsumeJumpRequest();
     }
