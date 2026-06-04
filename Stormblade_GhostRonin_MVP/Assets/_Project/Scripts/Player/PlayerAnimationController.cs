@@ -30,6 +30,15 @@ public class PlayerAnimationController : MonoBehaviour
     {
         UpdateBaseState();
     }
+
+    private bool ShouldInterruptLandingWithJump()
+    {
+        return isTransientStateActive &&
+               transientState == PlayerBaseState.JumpLanding &&
+               playerMovement != null &&
+               playerMovement.IsGrounded &&
+               playerMovement.HasJumpRequest;
+    }
     
     private void UpdateBaseState()
     {
@@ -45,6 +54,13 @@ public class PlayerAnimationController : MonoBehaviour
 
         else if (justLeftGrounded && playerMovement.VerticalVelocity > 0.01f)
             SetTransientState(PlayerBaseState.JumpStart, jumpStartHoldTime);
+
+        // prioridade: se durante o landing o jogador já pediu novo pulo, 
+        // o landing é cancelado imediatamente
+        if (ShouldInterruptLandingWithJump())
+        {
+            SetTransientState(PlayerBaseState.JumpStart, jumpStartHoldTime);
+        }
 
         wasGroundedLastUpdate = isGroundedNow;
 
