@@ -218,7 +218,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 1230133742}
+  m_Follow: {fileID: 412040170}
   m_Lens:
     FieldOfView: 34
     OrthographicSize: 5
@@ -246,13 +246,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -24.8, y: 1.51, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -22.488888, y: 3.01, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1898138713}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 742043337891457730}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &244613319
 GameObject:
@@ -626,6 +626,37 @@ Transform:
   m_Children:
   - {fileID: 619394802}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &412040169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 412040170}
+  m_Layer: 0
+  m_Name: CameraTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &412040170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412040169}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -24.8, y: 1.51, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 742043337891457730}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &562986689
 GameObject:
@@ -2032,12 +2063,12 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_XDamping: 1
-  m_YDamping: 1
+  m_XDamping: 0.3
+  m_YDamping: 0.4
   m_ZDamping: 1
   m_TargetMovementOnly: 1
-  m_ScreenX: 0.5
-  m_ScreenY: 0.5
+  m_ScreenX: 0.37
+  m_ScreenY: 0.65
   m_CameraDistance: 10
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
@@ -2416,11 +2447,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -23.98708
+      value: -22.488888
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.48487997
+      value: 3.01
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2448,15 +2479,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4521366998602920717, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_BackGroundColor.b
-      value: 0.10679958
+      value: 0.6509434
       objectReference: {fileID: 0}
     - target: {fileID: 4521366998602920717, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_BackGroundColor.g
-      value: 0.26672208
+      value: 0.6509434
       objectReference: {fileID: 0}
     - target: {fileID: 4521366998602920717, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_BackGroundColor.r
-      value: 0.3018868
+      value: 0.6509434
       objectReference: {fileID: 0}
     - target: {fileID: 6686565080722230732, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_CameraType
@@ -2504,7 +2535,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8965861314422357810, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 149626099}
+    - targetCorrespondingSourceObject: {fileID: 8965861314422357810, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 412040170}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7283837778141148728, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       insertIndex: -1
@@ -2527,4 +2564,3 @@ SceneRoots:
   - {fileID: 705189787}
   - {fileID: 368451198}
   - {fileID: 244613320}
-  - {fileID: 149626099}
