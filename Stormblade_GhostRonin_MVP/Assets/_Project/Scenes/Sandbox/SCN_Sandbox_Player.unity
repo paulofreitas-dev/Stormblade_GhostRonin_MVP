@@ -636,6 +636,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 412040170}
+  - component: {fileID: 412040171}
   m_Layer: 0
   m_Name: CameraTarget
   m_TagString: Untagged
@@ -658,6 +659,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 742043337891457730}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &412040171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412040169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16154234408f7514ba1341db0ab593e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraTargetController
+  player: {fileID: 1230133742}
+  mainCamera: {fileID: 1868121442}
+  forwardActivationViewportX: 0.8
+  horizontalFollowSmooth: 1.7
+  backwardLimitViewportX: 0.04
 --- !u!1 &562986689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,6 +1415,7 @@ MonoBehaviour:
   inputReader: {fileID: 1230133746}
   visual: {fileID: 2098060373}
   groundCheck: {fileID: 1013081706}
+  cameraTargetController: {fileID: 412040171}
   moveSpeed: 7
   jumpImpulse: 12.2
   groundCheckRadius: 0.1
@@ -2014,6 +2033,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!20 &1868121442 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4521366998602920717, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
+  m_PrefabInstance: {fileID: 742043337891457729}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1898138712
 GameObject:
   m_ObjectHideFlags: 3

@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private PlayerInputReader inputReader;
     [SerializeField] private Transform visual;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private CameraTargetController cameraTargetController;
 
     [Header("Horizontal Movement")]
     [SerializeField] private float moveSpeed = 6f;
@@ -68,9 +69,22 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    private float GetFilteredMoveInputX()
+    {
+        float filteredMoveInputX = moveInputX;
+
+        if (cameraTargetController != null && cameraTargetController.IsBlockingBackwardMovement && filteredMoveInputX < 0f)
+        {
+            filteredMoveInputX = 0f;
+        }
+
+        return filteredMoveInputX;
+    }
+
     private void HandleHorizontalMovement()
     {
-        rb.linearVelocity = new Vector2(moveInputX * moveSpeed, rb.linearVelocity.y);
+        float filteredMoveInputX = GetFilteredMoveInputX();
+        rb.linearVelocity = new Vector2(filteredMoveInputX * moveSpeed, rb.linearVelocity.y);
     }
 
     private void ResetFrameFlags()
