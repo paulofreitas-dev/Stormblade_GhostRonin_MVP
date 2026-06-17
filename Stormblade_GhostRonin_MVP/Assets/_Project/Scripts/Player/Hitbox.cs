@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Hitbox : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class Hitbox : MonoBehaviour
 
     [Header("Hitbox Collider")]
     [SerializeField] private Collider2D hitboxCollider;
+
+    private HashSet<Hurtbox> hitHurtboxes = new HashSet<Hurtbox>();
 
     private void Awake()
     {
@@ -29,11 +32,14 @@ public class Hitbox : MonoBehaviour
 
     public void EnableHitbox()
     {
+        hitHurtboxes.Clear();
+
         if (hitboxCollider != null)
         {
             hitboxCollider.enabled = true;
             Debug.Log($"{gameObject.name}: hitbox ativada.");
         }
+        
     }
 
     public void DisableHitbox()
@@ -51,6 +57,20 @@ public class Hitbox : MonoBehaviour
 
         if (hurtbox == null)
             return;
+
+        if (damageSource != null && hurtbox.transform.root == damageSource.root)
+        {
+            Debug.Log($"{gameObject.name}: autoacerto ignorado.");
+            return;
+        }
+
+        if (hitHurtboxes.Contains(hurtbox))
+        {
+            Debug.Log($"{gameObject.name}: hurtbox já atingida nesta ativação");
+            return;
+        }
+
+        hitHurtboxes.Add(hurtbox);
 
         DamageData damageData = new DamageData(damageAmount, damageSource);
         hurtbox.ReceiveHit(damageData);
