@@ -4,14 +4,21 @@ public class PlayerCombat : MonoBehaviour
 {
     [Header("Attack References")]
     [SerializeField] private Hitbox attackHitbox;
+    [SerializeField] private PlayerInputReader inputReader;
 
     public Hitbox AttackHitbox => attackHitbox;
 
+    //belly e daniel estiveram aqui
     private void Awake()
     {
         if (attackHitbox == null)
         {
             Debug.LogWarning($"{gameObject.name}: attackHitbox não foi atribuída no PlayerCombat.");
+        }
+
+        if (inputReader == null)
+        {
+            Debug.LogWarning($"{gameObject.name}: inputReader não foi atribuída no PlayerCombat.");
         }
 
         else

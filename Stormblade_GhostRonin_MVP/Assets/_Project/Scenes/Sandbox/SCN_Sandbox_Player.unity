@@ -338,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -22.488888, y: 3.01, z: -10}
+  m_LocalPosition: {x: -22.490927, y: 3.01, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -812,7 +812,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetController
   player: {fileID: 1230133742}
   mainCamera: {fileID: 1868121442}
-  forwardActivationViewportX: 0.95
+  forwardActivationViewportX: 0.85
   horizontalFollowSmooth: 3
   backwardLimitViewportX: 0.032
 --- !u!1 &562986689
@@ -1783,7 +1783,7 @@ Transform:
   m_GameObject: {fileID: 1230133741}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.51, y: 1.51, z: 0}
+  m_LocalPosition: {x: -23.81, y: 1.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1809,7 +1809,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 3.4
+  m_GravityScale: 3.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1839,7 +1839,7 @@ MonoBehaviour:
   groundCheck: {fileID: 1013081706}
   cameraTargetController: {fileID: 412040171}
   moveSpeed: 5
-  jumpImpulse: 12.2
+  jumpImpulse: 12
   groundCheckRadius: 0.1
   groundLayer:
     serializedVersion: 2
@@ -1863,8 +1863,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputReader
   moveAction: {fileID: 7864220123889691248, guid: 0f81c0f83b5adec4ab69a2ee2f140fbb, type: 3}
   jumpAction: {fileID: 860812198464186253, guid: 0f81c0f83b5adec4ab69a2ee2f140fbb, type: 3}
+  attackAction: {fileID: -5100833742826020989, guid: 0f81c0f83b5adec4ab69a2ee2f140fbb, type: 3}
   moveInputX: 0
   jumpRequested: 0
+  attackRequested: 0
 --- !u!114 &1230133747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1892,6 +1894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
   attackHitbox: {fileID: 1085913401}
+  inputReader: {fileID: 1230133746}
 --- !u!1 &1299100919
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,7 +2923,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -22.488888
+      value: -22.490927
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y

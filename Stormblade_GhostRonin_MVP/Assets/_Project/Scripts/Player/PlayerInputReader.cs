@@ -5,14 +5,16 @@ public class PlayerInputReader : MonoBehaviour
     [Header("Input Actions")]
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference jumpAction;
+    [SerializeField] private InputActionReference attackAction;
 
     [Header("Debug")]
     [SerializeField] private float moveInputX;
     [SerializeField] private bool jumpRequested;
+    [SerializeField] private bool attackRequested;
 
     public float MoveInputX => moveInputX;
-
     public bool JumpRequested => jumpRequested;
+    public bool AttackRequested => attackRequested;
 
     private void OnEnable()
     {
@@ -24,6 +26,11 @@ public class PlayerInputReader : MonoBehaviour
         if(jumpAction != null)
         {
             jumpAction.action.Enable();
+        }
+
+        if (attackAction != null)
+        {
+            attackAction.action.Enable();
         }
 
     }
@@ -39,6 +46,11 @@ public class PlayerInputReader : MonoBehaviour
         {
             jumpAction.action.Disable();
         }
+
+        if (attackAction != null)
+        {
+            attackAction.action.Disable();
+        }
     }
 
     private void Update()
@@ -46,6 +58,8 @@ public class PlayerInputReader : MonoBehaviour
         ReadMoveInput();
 
         ReadJumpInput();
+
+        ReadAttackInput();
     }
 
     private void ReadMoveInput()
@@ -75,9 +89,29 @@ public class PlayerInputReader : MonoBehaviour
 
     }
 
+    private void ReadAttackInput()
+    {
+        if (attackAction == null)
+        {
+            attackRequested = false;
+            return;
+        }
+
+        if (attackAction.action.WasPressedThisFrame())
+        {
+            attackRequested = true;
+            Debug.Log("Pedido de ataque registrado.");
+        }
+    }
+
     public void ConsumeJumpRequest()
     {
         jumpRequested = false;
+    }
+
+    public void ConsumeAttackRequest()
+    {
+        attackRequested = false;
     }
 
 }
