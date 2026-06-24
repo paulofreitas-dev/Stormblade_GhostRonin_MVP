@@ -123,6 +123,9 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleFacingDirection()
     {
+        if (playerCombat != null && playerCombat.IsAttacking)
+            return;
+
         if(moveInputX > 0f && !isFacingRight)
         {
             Flip(true);
