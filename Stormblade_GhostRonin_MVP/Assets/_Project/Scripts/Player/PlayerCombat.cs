@@ -48,6 +48,11 @@ public class PlayerCombat : MonoBehaviour
     private void Update()
     {
         HandleAttackRequest();
+
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            EndBasicAttack();
+        }
     }
 
     private void HandleAttackRequest()
@@ -93,6 +98,15 @@ public class PlayerCombat : MonoBehaviour
         }
 
         Debug.Log("PlayerCombat: ataque básico iniciado.");
+    }
+
+    private void EndBasicAttack()
+    {
+        if (!isAttacking)
+            return;
+
+        isAttacking = false;
+        Debug.Log("PlayerCombat: ataque básico encerrado.");
     }
 
     public void EnableAttackHitbox()
