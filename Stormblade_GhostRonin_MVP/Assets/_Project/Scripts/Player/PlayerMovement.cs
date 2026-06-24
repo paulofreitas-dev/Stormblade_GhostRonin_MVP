@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform visual;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private CameraTargetController cameraTargetController;
+    [SerializeField] private PlayerCombat playerCombat;
 
     [Header("Horizontal Movement")]
     [SerializeField] private float moveSpeed = 6f;
@@ -81,6 +82,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleHorizontalMovement()
     {
+        if (playerCombat != null && playerCombat.IsAttacking)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            return;
+        }
+
         float filteredMoveInputX = GetFilteredMoveInputX();
         rb.linearVelocity = new Vector2(filteredMoveInputX * moveSpeed, rb.linearVelocity.y);
     }

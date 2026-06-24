@@ -13,6 +13,8 @@ public class PlayerCombat : MonoBehaviour
     [Header("Attack State")]
     [SerializeField] private bool isAttacking;
 
+    private Vector3 attackHitboxBaseLocalPosition;
+
     public Hitbox AttackHitbox => attackHitbox;
     public bool IsAttacking => isAttacking;
 
@@ -43,15 +45,25 @@ public class PlayerCombat : MonoBehaviour
         {
             attackHitbox.DisableHitbox();
         }
+
+        if (attackHitbox != null)
+        {
+            attackHitboxBaseLocalPosition = attackHitbox.transform.localPosition;
+        }
+
+        if (playerMovement != null)
+        {
+            UpdateAttackHitboxDirection(playerMovement.IsFacingRight);
+        }
     }
 
     private void Update()
     {
         HandleAttackRequest();
 
-        if (Input.GetKeyDown(KeyCode.O))
+        if (playerMovement != null)
         {
-            EndBasicAttack();
+            UpdateAttackHitboxDirection(playerMovement.IsFacingRight);
         }
     }
 
@@ -100,13 +112,24 @@ public class PlayerCombat : MonoBehaviour
         Debug.Log("PlayerCombat: ataque básico iniciado.");
     }
 
-    private void EndBasicAttack()
+    public void EndBasicAttack()
     {
         if (!isAttacking)
             return;
 
         isAttacking = false;
         Debug.Log("PlayerCombat: ataque básico encerrado.");
+    }
+
+    private void UpdateAttackHitboxDirection(bool isFacingRight)
+    {
+        if (attackHitbox == null)
+            return;
+
+        Vector3 localPosition = attackHitboxBaseLocalPosition;
+        localPosition.x = Mathf.Abs(localPosition.x) * (isFacingRight ? 1f : -1f);
+
+        attackHitbox.transform.localPosition = localPosition;
     }
 
     public void EnableAttackHitbox()

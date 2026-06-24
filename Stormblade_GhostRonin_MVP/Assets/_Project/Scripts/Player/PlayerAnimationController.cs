@@ -5,6 +5,7 @@ public class PlayerAnimationController : MonoBehaviour
     [Header("References")]
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerCombat playerCombat;
 
     [Header("Air State Timing")]
     [SerializeField] private float jumpStartHoldTime = 0.10f;
@@ -114,6 +115,30 @@ public class PlayerAnimationController : MonoBehaviour
             return;
 
         animator.SetTrigger(AttackHash);
+    }
+
+    public void EndBasicAttack()
+    {
+        if (playerCombat != null)
+        {
+            playerCombat.EndBasicAttack();
+        }
+    }
+
+    public void EnableAttackHitbox()
+    {
+        if (playerCombat != null)
+        {
+            playerCombat.EnableAttackHitbox();
+        }
+    }
+
+    public void DisableAttackHitbox()
+    {
+        if (playerCombat != null)
+        {
+            playerCombat.DisableAttackHitbox();
+        }
     }
 
 }
