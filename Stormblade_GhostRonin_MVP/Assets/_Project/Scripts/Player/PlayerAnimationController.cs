@@ -11,6 +11,7 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private float jumpLandingHoldTime = 0.8f;
     
     private static readonly int BaseStateHash = Animator.StringToHash("baseState");
+    private static readonly int AttackHash = Animator.StringToHash("attackBasic");
 
     private PlayerBaseState currentBaseState = PlayerBaseState.Idle;
 
@@ -105,6 +106,14 @@ public class PlayerAnimationController : MonoBehaviour
             return PlayerBaseState.Run;
 
         return PlayerBaseState.Idle;
+    }
+
+    public void PlayAttack()
+    {
+        if (animator == null)
+            return;
+
+        animator.SetTrigger(AttackHash);
     }
 
 }

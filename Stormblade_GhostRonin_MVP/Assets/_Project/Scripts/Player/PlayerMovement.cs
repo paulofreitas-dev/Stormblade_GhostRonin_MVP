@@ -65,8 +65,6 @@ public class PlayerMovement : MonoBehaviour
         HandleHorizontalMovement();
         HandleJump();
 
-        Debug.Log($"Grounded: {isGrounded} | Rising: {IsRising} | Falling: {IsFalling} | Y Vel: {VerticalVelocity}");
-
     }
 
     private float GetFilteredMoveInputX()
