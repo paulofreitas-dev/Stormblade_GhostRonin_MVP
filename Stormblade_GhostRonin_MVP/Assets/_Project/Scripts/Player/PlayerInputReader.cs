@@ -6,15 +6,18 @@ public class PlayerInputReader : MonoBehaviour
     [SerializeField] private InputActionReference moveAction;
     [SerializeField] private InputActionReference jumpAction;
     [SerializeField] private InputActionReference attackAction;
+    [SerializeField] private InputActionReference crouchAction;
 
     [Header("Debug")]
     [SerializeField] private float moveInputX;
     [SerializeField] private bool jumpRequested;
     [SerializeField] private bool attackRequested;
+    [SerializeField] private bool isCrouchHeld;
 
     public float MoveInputX => moveInputX;
     public bool JumpRequested => jumpRequested;
     public bool AttackRequested => attackRequested;
+    public bool IsCrouchHeld => isCrouchHeld; 
 
     private void OnEnable()
     {
@@ -33,6 +36,10 @@ public class PlayerInputReader : MonoBehaviour
             attackAction.action.Enable();
         }
 
+        if (crouchAction != null)
+        {
+            crouchAction.action.Enable();
+        }
     }
 
     private void OnDisable()
@@ -51,15 +58,19 @@ public class PlayerInputReader : MonoBehaviour
         {
             attackAction.action.Disable();
         }
+
+        if (crouchAction != null)
+        {
+            crouchAction.action.Disable();
+        }
     }
 
     private void Update()
     {
         ReadMoveInput();
-
         ReadJumpInput();
-
         ReadAttackInput();
+        ReadCrouchInput();
     }
 
     private void ReadMoveInput()
@@ -102,6 +113,23 @@ public class PlayerInputReader : MonoBehaviour
             attackRequested = true;
             Debug.Log("Pedido de ataque registrado.");
         }
+    }
+
+    private void ReadCrouchInput()
+    {
+        if (crouchAction == null)
+        {
+            isCrouchHeld = false;
+            return;
+        }
+
+        isCrouchHeld = crouchAction.action.IsPressed();
+
+        if (isCrouchHeld)
+        {
+            Debug.LogWarning("Agachado");
+        }
+        
     }
 
     public void ConsumeJumpRequest()
