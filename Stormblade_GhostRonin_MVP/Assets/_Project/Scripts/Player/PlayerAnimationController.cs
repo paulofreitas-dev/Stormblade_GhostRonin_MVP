@@ -20,14 +20,6 @@ public class PlayerAnimationController : MonoBehaviour
     private float transientStateTimer;
     private PlayerBaseState transientState;
 
-    private bool wasGroundedLastUpdate;
-
-    private void Awake()
-    {
-        if (playerMovement != null)
-            wasGroundedLastUpdate = playerMovement.IsGrounded;
-    }
-
     private void Update()
     {
         UpdateBaseState();
@@ -38,8 +30,7 @@ public class PlayerAnimationController : MonoBehaviour
         return isTransientStateActive &&
                transientState == PlayerBaseState.JumpLanding &&
                playerMovement != null &&
-               playerMovement.IsGrounded &&
-               playerMovement.HasJumpRequest;
+               playerMovement.JumpStartedThisFrame;
     }
     
     private void UpdateBaseState()
@@ -47,14 +38,10 @@ public class PlayerAnimationController : MonoBehaviour
         if (animator == null || playerMovement == null)
             return;
 
-        bool isGroundedNow = playerMovement.IsGrounded;
-        bool justLeftGrounded = wasGroundedLastUpdate && !isGroundedNow;
-        bool justLanded = !wasGroundedLastUpdate && isGroundedNow;
+        if (playerMovement.LandedThisFrame)
+            SetTransientState(PlayerBaseState.JumpLanding, jumpStartHoldTime);
 
-        if (justLanded)
-            SetTransientState(PlayerBaseState.JumpLanding, jumpLandingHoldTime);
-
-        else if (justLeftGrounded && playerMovement.VerticalVelocity > 0.01f)
+        else if (playerMovement.JumpStartedThisFrame)
             SetTransientState(PlayerBaseState.JumpStart, jumpStartHoldTime);
 
         // prioridade: se durante o landing o jogador já pediu novo pulo, 
@@ -63,8 +50,6 @@ public class PlayerAnimationController : MonoBehaviour
         {
             SetTransientState(PlayerBaseState.JumpStart, jumpStartHoldTime);
         }
-
-        wasGroundedLastUpdate = isGroundedNow;
 
         UpdateTransientTimer();
 
@@ -102,6 +87,9 @@ public class PlayerAnimationController : MonoBehaviour
 
         if (playerMovement.IsAirborne)
             return PlayerBaseState.JumpAir;
+
+        if (playerMovement.IsCrouching)
+            return PlayerBaseState.Crouch;
 
         if (playerMovement.IsMovingHorizontally)
             return PlayerBaseState.Run;

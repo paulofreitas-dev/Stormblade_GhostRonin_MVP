@@ -28,6 +28,10 @@ public class PlayerMovement : MonoBehaviour
     private float moveInputX;
     private bool isFacingRight = true;
 
+    [Header("Crouch State")]
+    [SerializeField]private bool isCrouching;
+    [SerializeField] private bool enteredCrouchThisFrame;
+
     public bool IsMovingHorizontally => Mathf.Abs(moveInputX) > 0.01f;
     public bool IsFacingRight => isFacingRight;
     public bool IsGrounded => isGrounded;
@@ -39,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     public bool HasJumpRequest => inputReader != null && inputReader.JumpRequested;
     public bool LeftGroundThisFrame => leftGroundThisFrame;
     public bool IsAirborne => !isGrounded;
+    public bool IsCrouching => isCrouching;
 
     private void Update()
     {
@@ -52,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         moveInputX = inputReader.MoveInputX;
  
         HandleFacingDirection();
-
+        UpdateCrouchState();
     }
 
     private void FixedUpdate()
@@ -62,6 +67,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (rb == null)
             return;
+
+        if (enteredCrouchThisFrame)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+        }
 
         HandleHorizontalMovement();
         HandleJump();
@@ -88,6 +98,12 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if (isCrouching)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            return;
+        }
+
         float filteredMoveInputX = GetFilteredMoveInputX();
         rb.linearVelocity = new Vector2(filteredMoveInputX * moveSpeed, rb.linearVelocity.y);
     }
@@ -97,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
         jumpStartedThisFrame = false;
         landedThisFrame = false;
         leftGroundThisFrame = false;
+        enteredCrouchThisFrame = false;
     }
 
     private void CheckGround()
@@ -114,16 +131,14 @@ public class PlayerMovement : MonoBehaviour
 
         leftGroundThisFrame = wasGroundedLastFrame && !isGrounded;
         landedThisFrame = !wasGroundedLastFrame && isGrounded;
-
-        //if (landedThisFrame)
-        //{
-        //    Debug.Log("Acabou de aterrissar");
-        //}
     }
 
     void HandleFacingDirection()
     {
         if (playerCombat != null && playerCombat.IsAttacking)
+            return;
+
+        if (isCrouching)
             return;
 
         if(moveInputX > 0f && !isFacingRight)
@@ -166,20 +181,44 @@ public class PlayerMovement : MonoBehaviour
         if (!inputReader.JumpRequested)
             return;
 
+        if (isCrouching)
+        {
+            inputReader.ConsumeJumpRequest();
+            return;
+        }
+            
         if (isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
 
             jumpStartedThisFrame = true;
-
-            //Debug.Log("Pulo executado.");
         }
 
-        //else
-        //{
-        //    Debug.Log("Pedido de pulo descartado: o player não está grounded");
-        //}
-
             inputReader.ConsumeJumpRequest();
+    }
+
+    private bool CanEnterOrStayCrouching()
+    {
+        if (inputReader == null)
+            return false;
+
+        if (!inputReader.IsCrouchHeld)
+            return false;
+
+        if (!isGrounded)
+            return false;
+
+        if (playerCombat != null && playerCombat.IsAttacking)
+            return false;
+
+        return true;
+    }
+
+    private void UpdateCrouchState()
+    {
+        bool wasCrouching = isCrouching;
+        isCrouching = CanEnterOrStayCrouching();
+        enteredCrouchThisFrame = !wasCrouching && isCrouching;
+
     }
 }
