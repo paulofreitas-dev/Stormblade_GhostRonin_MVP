@@ -10,6 +10,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CameraTargetController cameraTargetController;
     [SerializeField] private PlayerCombat playerCombat;
 
+    [Header("Body Collider")]
+    [SerializeField] private CapsuleCollider2D bodyCollider;
+    [SerializeField] private Vector2 standingColliderSize;
+    [SerializeField] private Vector2 standingColliderOffset;
+    [SerializeField] private Vector2 crouchingColliderSize;
+    [SerializeField] private Vector2 crouchingColliderOffset;
+
     [Header("Horizontal Movement")]
     [SerializeField] private float moveSpeed = 6f;
 
@@ -31,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Crouch State")]
     [SerializeField]private bool isCrouching;
     [SerializeField] private bool enteredCrouchThisFrame;
+    [SerializeField] private bool wasCrouchingLastFrame;
 
     public bool IsMovingHorizontally => Mathf.Abs(moveInputX) > 0.01f;
     public bool IsFacingRight => isFacingRight;
@@ -45,6 +53,12 @@ public class PlayerMovement : MonoBehaviour
     public bool IsAirborne => !isGrounded;
     public bool IsCrouching => isCrouching;
 
+    private void Start()
+    {
+        ApplyStandingBodyCollider();
+        wasCrouchingLastFrame = false;
+    }
+
     private void Update()
     {
         if (inputReader == null)
@@ -56,8 +70,9 @@ public class PlayerMovement : MonoBehaviour
 
         moveInputX = inputReader.MoveInputX;
  
-        HandleFacingDirection();
         UpdateCrouchState();
+        UpdateBodyColliderForCrouch();
+        HandleFacingDirection();
     }
 
     private void FixedUpdate()
@@ -220,5 +235,40 @@ public class PlayerMovement : MonoBehaviour
         isCrouching = CanEnterOrStayCrouching();
         enteredCrouchThisFrame = !wasCrouching && isCrouching;
 
+    }
+
+    private void ApplyStandingBodyCollider()
+    {
+        if (bodyCollider == null)
+            return;
+
+        bodyCollider.size = standingColliderSize;
+        bodyCollider.offset = standingColliderOffset;
+    }
+
+    private void ApplyCrouchingBodyCollider()
+    {
+        if (bodyCollider == null)
+            return;
+
+        bodyCollider.size = crouchingColliderSize;
+        bodyCollider.offset = crouchingColliderOffset;
+    }
+
+    private void UpdateBodyColliderForCrouch()
+    {
+        if (bodyCollider == null)
+            return;
+
+        if (isCrouching == wasCrouchingLastFrame)
+            return;
+
+        if (isCrouching)
+            ApplyCrouchingBodyCollider();
+
+        else
+            ApplyStandingBodyCollider();
+
+        wasCrouchingLastFrame = isCrouching;
     }
 }
