@@ -338,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.87111, y: 4.0599995, z: -10}
+  m_LocalPosition: {x: -20.867243, y: 4.0599995, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1731,7 +1731,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.015437126, y: -0.030875444}
+  m_Offset: {x: 0.01543713, y: -0.04}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1741,7 +1741,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.38249016, y: 1.2161288}
+  m_Size: {x: 0.38249016, y: 1.4}
   m_EdgeRadius: 0
 --- !u!1 &1230133741
 GameObject:
@@ -1835,10 +1835,10 @@ MonoBehaviour:
   crouchingColliderSize: {x: 0.8, y: 1.1}
   crouchingColliderOffset: {x: 0, y: -0.2}
   hurtboxCollider: {fileID: 1155783295}
-  standingHurtboxSize: {x: 0.3824902, y: 1.216129}
-  standingHurtboxOffset: {x: 0.01543713, y: -0.03087544}
-  crouchingHurtboxSize: {x: 0.3824902, y: 0.8}
-  crouchingHurtboxOffset: {x: 0, y: -0.2}
+  standingHurtboxSize: {x: 0.3824902, y: 1.4}
+  standingHurtboxOffset: {x: 0.01543713, y: -0.04}
+  crouchingHurtboxSize: {x: 0.3824902, y: 0.9}
+  crouchingHurtboxOffset: {x: 0, y: -0.27}
   moveSpeed: 5.7
   jumpImpulse: 12
   groundCheckRadius: 0.1
@@ -2933,7 +2933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.87111
+      value: -20.867243
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y

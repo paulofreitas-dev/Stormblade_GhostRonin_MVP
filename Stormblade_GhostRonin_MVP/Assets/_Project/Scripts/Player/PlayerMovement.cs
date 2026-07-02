@@ -63,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         ApplyStandingBodyCollider();
+        ApplyStandingHurtbox();
         wasCrouchingLastFrame = false;
     }
 
@@ -79,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
  
         UpdateCrouchState();
         UpdateBodyColliderForCrouch();
+        UpdateHurtboxForCrouch();
         HandleFacingDirection();
     }
 
@@ -262,6 +264,24 @@ public class PlayerMovement : MonoBehaviour
         bodyCollider.offset = crouchingColliderOffset;
     }
 
+    private void ApplyStandingHurtbox()
+    {
+        if (hurtboxCollider == null)
+            return;
+
+        hurtboxCollider.size = standingHurtboxSize;
+        hurtboxCollider.offset = standingHurtboxOffset;
+    }
+
+    private void ApplyCrouchingHurtbox()
+    {
+        if (hurtboxCollider == null)
+            return;
+
+        hurtboxCollider.size = crouchingHurtboxSize;
+        hurtboxCollider.offset = crouchingHurtboxOffset;
+    }
+
     private void UpdateBodyColliderForCrouch()
     {
         if (bodyCollider == null)
@@ -275,6 +295,20 @@ public class PlayerMovement : MonoBehaviour
 
         else
             ApplyStandingBodyCollider();
+
+        wasCrouchingLastFrame = isCrouching;
+    }
+
+    private void UpdateHurtboxForCrouch()
+    {
+        if (hurtboxCollider == null)
+            return;
+
+        if (isCrouching)
+            ApplyCrouchingHurtbox();
+
+        else
+            ApplyStandingHurtbox();
 
         wasCrouchingLastFrame = isCrouching;
     }
