@@ -17,6 +17,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 crouchingColliderSize;
     [SerializeField] private Vector2 crouchingColliderOffset;
 
+    [Header("Hurtbox")]
+    [SerializeField] private BoxCollider2D hurtboxCollider;
+    [SerializeField] private Vector2 standingHurtboxSize;
+    [SerializeField] private Vector2 standingHurtboxOffset;
+    [SerializeField] private Vector2 crouchingHurtboxSize;
+    [SerializeField] private Vector2 crouchingHurtboxOffset;
+
     [Header("Horizontal Movement")]
     [SerializeField] private float moveSpeed = 6f;
 

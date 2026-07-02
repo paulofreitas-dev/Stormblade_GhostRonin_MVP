@@ -338,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.867243, y: 4.0599995, z: -10}
+  m_LocalPosition: {x: -20.87111, y: 4.0599995, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1833,7 +1833,12 @@ MonoBehaviour:
   standingColliderSize: {x: 0.8, y: 1.55}
   standingColliderOffset: {x: 0, y: 0}
   crouchingColliderSize: {x: 0.8, y: 1.1}
-  crouchingColliderOffset: {x: 0, y: 0}
+  crouchingColliderOffset: {x: 0, y: -0.2}
+  hurtboxCollider: {fileID: 1155783295}
+  standingHurtboxSize: {x: 0.3824902, y: 1.216129}
+  standingHurtboxOffset: {x: 0.01543713, y: -0.03087544}
+  crouchingHurtboxSize: {x: 0.3824902, y: 0.8}
+  crouchingHurtboxOffset: {x: 0, y: -0.2}
   moveSpeed: 5.7
   jumpImpulse: 12
   groundCheckRadius: 0.1
@@ -2928,7 +2933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.867243
+      value: -20.87111
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y
