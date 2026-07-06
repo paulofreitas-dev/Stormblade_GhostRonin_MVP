@@ -47,6 +47,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool enteredCrouchThisFrame;
     [SerializeField] private bool wasCrouchingLastFrame;
 
+    [SerializeField] private bool wasAirAttackActiveLastFrame;
+    [SerializeField] private int airAttackLockedDirection;
+    [SerializeField] private float airAttackLockedSpeedX;
+
     public bool IsMovingHorizontally => Mathf.Abs(moveInputX) > 0.01f;
     public bool IsFacingRight => isFacingRight;
     public bool IsGrounded => isGrounded;
@@ -97,9 +101,34 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
         }
 
+        UpdateAirAttackLockState();
         HandleHorizontalMovement();
         HandleJump();
+    }
 
+    private void UpdateAirAttackLockState()
+    {
+        bool isAirAttackActive = playerCombat != null && playerCombat.IsAirAttackActive;
+
+        if (isAirAttackActive && !wasAirAttackActiveLastFrame)
+        {
+            airAttackLockedDirection = isFacingRight ? 1 : -1;
+            airAttackLockedSpeedX = rb != null ? rb.linearVelocity.x : 0f;
+
+            if (airAttackLockedDirection > 0)
+                airAttackLockedSpeedX = Mathf.Max(0f, airAttackLockedSpeedX);
+
+            else
+                airAttackLockedSpeedX = Mathf.Min(0f, airAttackLockedSpeedX);
+        }
+
+        else if(!isAirAttackActive && wasAirAttackActiveLastFrame)
+        {
+            airAttackLockedDirection = 0;
+            airAttackLockedSpeedX = 0f;
+        }
+
+        wasAirAttackActiveLastFrame = isAirAttackActive;
     }
 
     private float GetFilteredMoveInputX()
@@ -116,6 +145,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleHorizontalMovement()
     {
+        if (playerCombat != null && playerCombat.IsAirAttackActive)
+        {
+            HandleHorizontalMovement();
+            return;
+        }
+
         if (playerCombat != null && playerCombat.IsAttacking)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
@@ -130,6 +165,40 @@ public class PlayerMovement : MonoBehaviour
 
         float filteredMoveInputX = GetFilteredMoveInputX();
         rb.linearVelocity = new Vector2(filteredMoveInputX * moveSpeed, rb.linearVelocity.y);
+    }
+
+    private void HandleAirAttackHorizontalMovement()
+    {
+        if (rb == null)
+            return;
+
+        float filteredMoveInputX = GetFilteredMoveInputX();
+
+        if (airAttackLockedDirection == 0)
+        {
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+            return;
+        }
+
+        if ((airAttackLockedDirection > 0 && filteredMoveInputX < 0f) || (airAttackLockedDirection < 0 && filteredMoveInputX > 0f))
+            filteredMoveInputX = 0f;
+
+        float targetX;
+
+        if (Mathf.Abs(filteredMoveInputX) > 0.01f)
+            targetX = filteredMoveInputX * moveSpeed;
+
+        else
+            targetX = airAttackLockedSpeedX;
+
+        if (airAttackLockedDirection > 0)
+            targetX = Mathf.Max(0f, targetX);
+
+        else
+            targetX = Mathf.Min(0f, targetX);
+
+        airAttackLockedSpeedX = targetX;
+        rb.linearVelocity = new Vector2(targetX, rb.linearVelocity.y);
     }
 
     private void ResetFrameFlags()
@@ -159,18 +228,21 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleFacingDirection()
     {
+        if (visual == null)
+            return;
+
         if (playerCombat != null && playerCombat.IsAttacking)
             return;
 
         if (isCrouching)
             return;
 
-        if(moveInputX > 0f && !isFacingRight)
+        if(moveInputX > 0.01f && !isFacingRight)
         {
             Flip(true);
         }
 
-        else if(moveInputX < 0f && isFacingRight)
+        else if(moveInputX < 0.01f && isFacingRight)
         {
             Flip(false);
         }

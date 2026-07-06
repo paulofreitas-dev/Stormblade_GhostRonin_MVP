@@ -10,13 +10,29 @@ public class PlayerCombat : MonoBehaviour
     [Header("Attack References")]
     [SerializeField] private Hitbox attackHitbox;
 
+    [Header("Hitbox Settings")]
+    [SerializeField] private CircleCollider2D hitboxCollider;
+    [SerializeField] private float basicAttackHitboxRadius;
+    [SerializeField] private Vector2 basicAttackHitboxOffset;
+    [SerializeField] private float crouchAttackHitboxRadius;
+    [SerializeField] private Vector2 crouchAttackHitboxOffset;
+    [SerializeField] private float airAttackHitboxRadius;
+    [SerializeField] private Vector2 airAttackHitboxOffset;
+
     [Header("Attack State")]
     [SerializeField] private bool isAttacking;
+
+    [SerializeField] private AttackType currentAttackType = AttackType.None;
+
+    [SerializeField] private int airAttackLockedDirection = 0;
 
     private Vector3 attackHitboxBaseLocalPosition;
 
     public Hitbox AttackHitbox => attackHitbox;
     public bool IsAttacking => isAttacking;
+    public bool IsAirAttackActive => isAttacking && currentAttackType == AttackType.Air;
+    public AttackType CurrentAttackType => currentAttackType;
+
 
     //belly e daniel estiveram aqui
     private void Awake()
@@ -41,10 +57,7 @@ public class PlayerCombat : MonoBehaviour
             Debug.LogWarning($"{gameObject.name}: playerAnimationController não foi atribuído no PlayerCombat");
         }
 
-        if(attackHitbox != null)
-        {
-            attackHitbox.DisableHitbox();
-        }
+        DisableAttackHitbox();
 
         if (attackHitbox != null)
         {
@@ -77,13 +90,17 @@ public class PlayerCombat : MonoBehaviour
 
         playerInputReader.ConsumeAttackRequest();
 
-        if (!CanStartBasicAttack())
-        {
-            Debug.Log("PlayerCombat: pedido de ataque ignorado por regra de execução.");
+        if (isAttacking)
             return;
-        }
 
-        StartBasicAttack();
+        TryStartContextualAttack();
+
+        //if (!CanStartBasicAttack())
+        //{
+        //    Debug.Log("PlayerCombat: pedido de ataque ignorado por regra de execução.");
+        //    return;
+        //}
+
     }
 
     private bool CanStartBasicAttack()
@@ -100,25 +117,98 @@ public class PlayerCombat : MonoBehaviour
         return true;
     }
 
-    private void StartBasicAttack()
+    private void StartAirAttack()
     {
+        if (isAttacking)
+            return;
+
+        ApplyHitboxShape(
+            airAttackHitboxRadius,
+            GetFacingAdjustedOffset(airAttackHitboxOffset)
+        );
+
+        currentAttackType = AttackType.Air;
+
+        isAttacking = true;
+
+        airAttackLockedDirection = playerMovement != null && playerMovement.IsFacingRight ? 1 : -1;
+
+
+
+        if (playerAnimationController != null)
+            playerAnimationController.PlayAirAttack();
+    }
+
+    private void StartCrouchAttack()
+    {
+        if (isAttacking)
+            return;
+
+        ApplyHitboxShape(
+            crouchAttackHitboxRadius, 
+            GetFacingAdjustedOffset(crouchAttackHitboxOffset)
+        );
+
+        currentAttackType = AttackType.Crouch;
+
         isAttacking = true;
 
         if (playerAnimationController != null)
-        {
-            playerAnimationController.PlayAttack();
-        }
-
-        Debug.Log("PlayerCombat: ataque básico iniciado.");
+            playerAnimationController.PlayCrouchAttack();
     }
 
-    public void EndBasicAttack()
+    private void StartBasicAttack()
+    {
+        if (isAttacking)
+            return;
+
+        ApplyHitboxShape(
+            basicAttackHitboxRadius,
+            GetFacingAdjustedOffset(basicAttackHitboxOffset)
+        );
+
+        currentAttackType = AttackType.Basic;
+
+        isAttacking = true;
+
+        if (playerAnimationController != null)
+            playerAnimationController.PlayAttack();
+
+    }
+
+    public void EndCurrentAttack()
     {
         if (!isAttacking)
             return;
 
         isAttacking = false;
-        Debug.Log("PlayerCombat: ataque básico encerrado.");
+
+        currentAttackType = AttackType.None;
+
+        airAttackLockedDirection = 0;
+
+        Debug.Log("PlayerCombat: ataque encerrado.");
+    }
+
+    private void TryStartContextualAttack()
+    {
+        if (IsInAirAttackContext())
+        {
+            StartAirAttack();
+            return;
+        }
+
+        if (IsInCrouchAttackContext())
+        {
+            StartCrouchAttack();
+            return;
+        }
+
+        if (IsInBasicAttackContext())
+        {
+            StartBasicAttack();
+            return;
+        }
     }
 
     private void UpdateAttackHitboxDirection(bool isFacingRight)
@@ -147,5 +237,55 @@ public class PlayerCombat : MonoBehaviour
             attackHitbox.DisableHitbox();
         }
     }
+
+    private bool IsInAirAttackContext()
+    {
+        if (playerMovement == null)
+            return false;
+
+        return playerMovement.IsAirborne;
+    }
+
+    private bool IsInCrouchAttackContext()
+    {
+        if (playerMovement == null)
+            return false;
+
+        return playerMovement.IsGrounded && playerMovement.IsCrouching;
+    }
+
+    private bool IsInBasicAttackContext()
+    {
+        if (playerMovement == null)
+            return false;
+
+        return playerMovement.IsGrounded && !playerMovement.IsCrouching;
+    }
+
+    private void ApplyHitboxShape(float radius, Vector2 offset)
+    {
+        if (hitboxCollider == null)
+            return;
+
+        hitboxCollider.radius = radius;
+        hitboxCollider.offset = offset;
+    }
+
+    private Vector2 GetFacingAdjustedOffset(Vector2 baseOffset)
+    {
+        if (playerMovement != null && !playerMovement.IsFacingRight)
+            return new Vector2(-baseOffset.x, baseOffset.y);
+
+        return baseOffset;
+    }
+
+    public enum AttackType
+    {
+        None,
+        Basic,
+        Crouch,
+        Air
+    }
+
 
 }

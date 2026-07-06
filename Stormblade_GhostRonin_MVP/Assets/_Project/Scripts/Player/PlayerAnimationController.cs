@@ -13,6 +13,8 @@ public class PlayerAnimationController : MonoBehaviour
     
     private static readonly int BaseStateHash = Animator.StringToHash("baseState");
     private static readonly int AttackHash = Animator.StringToHash("attackBasic");
+    private static readonly int CrouchAttackHash = Animator.StringToHash("attackCrouch");
+    private static readonly int AirAttackHash = Animator.StringToHash("attackAir");
 
     private PlayerBaseState currentBaseState = PlayerBaseState.Idle;
 
@@ -105,11 +107,13 @@ public class PlayerAnimationController : MonoBehaviour
         animator.SetTrigger(AttackHash);
     }
 
-    public void EndBasicAttack()
+    public void EndCurrentAttack()
     {
+        DisableAttackHitbox();
+
         if (playerCombat != null)
         {
-            playerCombat.EndBasicAttack();
+            playerCombat.EndCurrentAttack();
         }
     }
 
@@ -127,6 +131,22 @@ public class PlayerAnimationController : MonoBehaviour
         {
             playerCombat.DisableAttackHitbox();
         }
+    }
+
+    public void PlayCrouchAttack()
+    {
+        if (animator == null)
+            return;
+
+        animator.SetTrigger(CrouchAttackHash);
+    }
+
+    public void PlayAirAttack()
+    {
+        if (animator == null)
+            return;
+
+        animator.SetTrigger(AirAttackHash);
     }
 
 }
