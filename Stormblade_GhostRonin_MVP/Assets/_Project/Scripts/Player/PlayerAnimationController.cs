@@ -41,7 +41,7 @@ public class PlayerAnimationController : MonoBehaviour
             return;
 
         if (playerMovement.LandedThisFrame)
-            SetTransientState(PlayerBaseState.JumpLanding, jumpStartHoldTime);
+            SetTransientState(PlayerBaseState.JumpLanding, jumpLandingHoldTime);
 
         else if (playerMovement.JumpStartedThisFrame)
             SetTransientState(PlayerBaseState.JumpStart, jumpStartHoldTime);
@@ -88,7 +88,13 @@ public class PlayerAnimationController : MonoBehaviour
             return transientState;
 
         if (playerMovement.IsAirborne)
+        {
+            if (playerMovement.IsFalling && !playerMovement.AirborneStartedByJump)
+                return PlayerBaseState.Fall;
+
             return PlayerBaseState.JumpAir;
+        }
+            
 
         if (playerMovement.IsCrouching)
             return PlayerBaseState.Crouch;

@@ -51,6 +51,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int airAttackLockedDirection;
     [SerializeField] private float airAttackLockedSpeedX;
 
+    private bool airborneStartedByJump;
+    public bool AirborneStartedByJump => airborneStartedByJump;
+
+
     public bool IsMovingHorizontally => Mathf.Abs(moveInputX) > 0.01f;
     public bool IsFacingRight => isFacingRight;
     public bool IsGrounded => isGrounded;
@@ -147,7 +151,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerCombat != null && playerCombat.IsAirAttackActive)
         {
-            HandleHorizontalMovement();
+            HandleAirAttackHorizontalMovement();
             return;
         }
 
@@ -224,6 +228,9 @@ public class PlayerMovement : MonoBehaviour
 
         leftGroundThisFrame = wasGroundedLastFrame && !isGrounded;
         landedThisFrame = !wasGroundedLastFrame && isGrounded;
+
+        if (landedThisFrame)
+            airborneStartedByJump = false;
     }
 
     void HandleFacingDirection()
@@ -242,7 +249,7 @@ public class PlayerMovement : MonoBehaviour
             Flip(true);
         }
 
-        else if(moveInputX < 0.01f && isFacingRight)
+        else if(moveInputX < -0.01f && isFacingRight)
         {
             Flip(false);
         }
@@ -288,6 +295,7 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
 
             jumpStartedThisFrame = true;
+            airborneStartedByJump = true;
         }
 
             inputReader.ConsumeJumpRequest();

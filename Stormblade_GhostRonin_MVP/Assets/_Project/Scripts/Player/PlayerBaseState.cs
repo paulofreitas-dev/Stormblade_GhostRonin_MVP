@@ -5,6 +5,7 @@
         Crouch = 2,
         JumpStart = 3,
         JumpAir = 4,
-        JumpLanding = 5
+        JumpLanding = 5,
+        Fall = 6
     }
 
