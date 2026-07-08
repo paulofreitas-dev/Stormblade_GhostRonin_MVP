@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private CameraTargetController cameraTargetController;
     [SerializeField] private PlayerCombat playerCombat;
+    [SerializeField] private Health health;
 
     [Header("Body Collider")]
     [SerializeField] private CapsuleCollider2D bodyCollider;
@@ -68,6 +69,11 @@ public class PlayerMovement : MonoBehaviour
     public bool IsAirborne => !isGrounded;
     public bool IsCrouching => isCrouching;
 
+    public bool IsDead()
+    {
+        return health != null && health.IsDead;
+    }
+
     private void Start()
     {
         ApplyStandingBodyCollider();
@@ -80,7 +86,14 @@ public class PlayerMovement : MonoBehaviour
         if (inputReader == null)
         {
             moveInputX = 0f;
-          
+            return;
+        }
+
+        if (IsDead())
+        {
+            StopMovementOnDeath();
+            UpdateBodyColliderForCrouch();
+            UpdateHurtboxForCrouch();
             return;
         }
 
@@ -99,6 +112,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (rb == null)
             return;
+
+        if (IsDead())
+        {
+            StopMovementOnDeath();
+            return;
+        }
 
         if (enteredCrouchThisFrame)
         {
@@ -205,6 +224,16 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector2(targetX, rb.linearVelocity.y);
     }
 
+    private void StopMovementOnDeath()
+    {
+        moveInputX = 0f;
+        isCrouching = false;
+        enteredCrouchThisFrame = false;
+
+        if (rb != null)
+            rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
+    }
+
     private void ResetFrameFlags()
     {
         jumpStartedThisFrame = false;
@@ -236,6 +265,9 @@ public class PlayerMovement : MonoBehaviour
     void HandleFacingDirection()
     {
         if (visual == null)
+            return;
+
+        if (IsDead())
             return;
 
         if (playerCombat != null && playerCombat.IsAttacking)
@@ -281,6 +313,12 @@ public class PlayerMovement : MonoBehaviour
         if (inputReader == null || rb == null)
             return;
 
+        if (IsDead())
+        {
+            inputReader.ConsumeJumpRequest();
+            return;
+        }
+
         if (!inputReader.JumpRequested)
             return;
 
@@ -298,7 +336,7 @@ public class PlayerMovement : MonoBehaviour
             airborneStartedByJump = true;
         }
 
-            inputReader.ConsumeJumpRequest();
+        inputReader.ConsumeJumpRequest();
     }
 
     private bool CanEnterOrStayCrouching()
@@ -320,10 +358,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateCrouchState()
     {
+        if (IsDead())
+        {
+            isCrouching = false;
+            enteredCrouchThisFrame = false;
+            return;
+        }
+
         bool wasCrouching = isCrouching;
         isCrouching = CanEnterOrStayCrouching();
         enteredCrouchThisFrame = !wasCrouching && isCrouching;
-
     }
 
     private void ApplyStandingBodyCollider()

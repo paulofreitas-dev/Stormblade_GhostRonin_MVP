@@ -6,6 +6,7 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] private int currentHealth;
     [SerializeField] private bool isDead;
 
+
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public bool IsDead => isDead;

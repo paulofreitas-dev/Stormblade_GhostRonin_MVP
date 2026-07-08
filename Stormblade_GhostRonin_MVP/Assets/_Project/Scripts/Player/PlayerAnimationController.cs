@@ -6,6 +6,7 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerCombat playerCombat;
+    [SerializeField] private Health health;
 
     [Header("Air State Timing")]
     [SerializeField] private float jumpStartHoldTime = 0.10f;
@@ -15,16 +16,43 @@ public class PlayerAnimationController : MonoBehaviour
     private static readonly int AttackHash = Animator.StringToHash("attackBasic");
     private static readonly int CrouchAttackHash = Animator.StringToHash("attackCrouch");
     private static readonly int AirAttackHash = Animator.StringToHash("attackAir");
+    private static readonly int IsDeadHash = Animator.StringToHash("IsDead");
 
     private PlayerBaseState currentBaseState = PlayerBaseState.Idle;
 
     private bool isTransientStateActive;
     private float transientStateTimer;
     private PlayerBaseState transientState;
+    private bool deathAnimationStarted;
+
+    private void Awake()
+    {
+        if (animator == null)
+            animator = GetComponent<Animator>();
+
+        if (health == null)
+            health = GetComponentInParent<Health>();
+    }
 
     private void Update()
     {
+        if(health != null && health.IsDead)
+        {
+            HandleDeathAnimation();
+            return;
+        }
+
         UpdateBaseState();
+    }
+
+    private void HandleDeathAnimation()
+    {
+        if (deathAnimationStarted)
+            return;
+
+        deathAnimationStarted = true;
+
+        animator.SetBool(IsDeadHash, true);
     }
 
     private bool ShouldInterruptLandingWithJump()
@@ -94,8 +122,7 @@ public class PlayerAnimationController : MonoBehaviour
 
             return PlayerBaseState.JumpAir;
         }
-            
-
+          
         if (playerMovement.IsCrouching)
             return PlayerBaseState.Crouch;
 
@@ -153,6 +180,12 @@ public class PlayerAnimationController : MonoBehaviour
             return;
 
         animator.SetTrigger(AirAttackHash);
+    }
+
+    public void ResetDeathAnimation()
+    {
+        deathAnimationStarted = false;
+        animator.SetBool(IsDeadHash, false);
     }
 
 }

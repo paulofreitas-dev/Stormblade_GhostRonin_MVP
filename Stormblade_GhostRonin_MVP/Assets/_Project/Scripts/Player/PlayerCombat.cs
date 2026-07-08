@@ -6,6 +6,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private PlayerInputReader playerInputReader;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerAnimationController playerAnimationController;
+    [SerializeField] private Health health;
 
     [Header("Attack References")]
     [SerializeField] private Hitbox attackHitbox;
@@ -33,6 +34,10 @@ public class PlayerCombat : MonoBehaviour
     public bool IsAirAttackActive => isAttacking && currentAttackType == AttackType.Air;
     public AttackType CurrentAttackType => currentAttackType;
 
+    public bool IsDead()
+    {
+        return health != null && health.IsDead;
+    }
 
     //belly e daniel estiveram aqui
     private void Awake()
@@ -70,8 +75,26 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
+    private void ForceStopCombatOnDeath()
+    {
+        if(attackHitbox != null)
+            attackHitbox.DisableHitbox();
+
+        if (!isAttacking)
+            return;
+
+        isAttacking = false;
+        Debug.Log("Player Combat: combate interrompido pela morte do protagonista.");
+    }
+
     private void Update()
     {
+        if (IsDead())
+        {
+            ForceStopCombatOnDeath();
+            return;
+        }
+
         HandleAttackRequest();
 
         if (playerMovement != null)
@@ -84,6 +107,12 @@ public class PlayerCombat : MonoBehaviour
     {
         if (playerInputReader == null)
             return;
+
+        if (IsDead())
+        {
+            playerInputReader.ConsumeAttackRequest();
+            return;
+        }
 
         if (!playerInputReader.AttackRequested)
             return;

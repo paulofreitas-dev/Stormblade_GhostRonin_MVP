@@ -767,6 +767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 1
   currentHealth: 0
+  isDead: 0
 --- !u!1 &412040169
 GameObject:
   m_ObjectHideFlags: 0
@@ -1830,6 +1831,7 @@ MonoBehaviour:
   groundCheck: {fileID: 1013081706}
   cameraTargetController: {fileID: 412040171}
   playerCombat: {fileID: 1230133748}
+  health: {fileID: 1230133747}
   bodyCollider: {fileID: 1566280959}
   standingColliderSize: {x: 0.8, y: 1.55}
   standingColliderOffset: {x: 0, y: 0}
@@ -1891,6 +1893,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 1
   currentHealth: 0
+  isDead: 0
 --- !u!114 &1230133748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1906,6 +1909,7 @@ MonoBehaviour:
   playerInputReader: {fileID: 1230133746}
   playerMovement: {fileID: 1230133745}
   playerAnimationController: {fileID: 2098060376}
+  health: {fileID: 1230133747}
   attackHitbox: {fileID: 1085913401}
   hitboxCollider: {fileID: 1085913402}
   basicAttackHitboxRadius: 0.2
