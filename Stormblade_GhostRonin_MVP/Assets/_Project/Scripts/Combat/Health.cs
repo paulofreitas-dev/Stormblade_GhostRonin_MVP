@@ -6,7 +6,6 @@ public class Health : MonoBehaviour, IDamageable
     [SerializeField] private int currentHealth;
     [SerializeField] private bool isDead;
 
-
     public int CurrentHealth => currentHealth;
     public int MaxHealth => maxHealth;
     public bool IsDead => isDead;
@@ -34,10 +33,27 @@ public class Health : MonoBehaviour, IDamageable
             isDead = true;
             Debug.Log("morreu.");
         }
-            
-            
-
 
         Debug.Log($"{gameObject.name} recebeu {damageData.damageAmount} de dano. Vida atual: {currentHealth}");
+    }
+
+    public void Heal(int healAmount)
+    {
+        if (isDead)
+            return;
+
+        if (healAmount <= 0)
+            return;
+
+        int previousHealth = currentHealth;
+
+        currentHealth += healAmount;
+
+        if (currentHealth > maxHealth)
+            currentHealth = maxHealth;
+
+        int healedAmount = currentHealth - previousHealth;
+
+        Debug.Log($"{gameObject.name} recuperou {healedAmount} de vida. Vida atual: {currentHealth}");
     }
 }

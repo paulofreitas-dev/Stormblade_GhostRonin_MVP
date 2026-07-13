@@ -10,6 +10,7 @@ public class PlayerLifePoints : MonoBehaviour
 
     [Header("Life Points State")]
     [SerializeField] private int currentLifePoints;
+    [SerializeField] private bool deathAlreadyProcessed;
     [SerializeField] private bool isGameOver;
 
     public int InitialLifePoints => initialLifePoints;
@@ -19,9 +20,53 @@ public class PlayerLifePoints : MonoBehaviour
     
     private void Awake()
     {
+        if (health == null)
+            health = GetComponent<Health>();
+
         initialLifePoints = Mathf.Max(1, initialLifePoints);
         currentLifePoints = initialLifePoints;
+
+        deathAlreadyProcessed = false;
         isGameOver = false;
+    }
+
+    private void Update()
+    {
+        CheckHealthDeath();
+    }
+
+    private void LateUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            AddLifePoint(1);
+        }
+    }
+
+    private void CheckHealthDeath()
+    {
+        if (health == null)
+            return;
+
+        if (!health.IsDead)
+            return;
+
+        if (deathAlreadyProcessed)
+            return;
+
+        ProcessesDeathLifePointLoss();
+    }
+
+    private void ProcessesDeathLifePointLoss()
+    {
+        deathAlreadyProcessed = true;
+
+        LoseLifePoint(1);
+
+        if(currentLifePoints >= 0)
+        {
+            Debug.Log($"Player ainda possui {currentLifePoints} de LifePoints. Respawn/checkpoint");
+        }
     }
 
     public void AddLifePoint(int amount)
@@ -73,5 +118,10 @@ public class PlayerLifePoints : MonoBehaviour
         isGameOver = false;
 
         Debug.Log($"LifePoints resetados. Total atual: {currentLifePoints}");
+    }
+
+    public void PrepareForNextLife()
+    {
+        deathAlreadyProcessed = false;
     }
 }
