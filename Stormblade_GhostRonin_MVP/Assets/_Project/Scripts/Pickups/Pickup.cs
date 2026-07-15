@@ -5,6 +5,7 @@ public interface IPickupCollector
     bool CanCollectPickups { get; }
     Health Health { get; }
     PlayerLifePoints LifePoints { get; }
+    PlayerEnergy Energy { get; }
 }
 
 public class Pickup : MonoBehaviour

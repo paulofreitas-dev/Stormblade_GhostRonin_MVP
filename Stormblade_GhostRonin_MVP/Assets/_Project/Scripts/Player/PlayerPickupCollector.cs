@@ -5,9 +5,12 @@ public class PlayerPickupCollector : MonoBehaviour, IPickupCollector
     [Header("References")]
     [SerializeField] private Health health;
     [SerializeField] private PlayerLifePoints lifePoints;
+    [SerializeField] private PlayerEnergy energy;
 
     public Health Health => health;
     public PlayerLifePoints LifePoints => lifePoints;
+    public PlayerEnergy Energy => energy;
+
     public bool CanCollectPickups
     {
         get
@@ -29,5 +32,8 @@ public class PlayerPickupCollector : MonoBehaviour, IPickupCollector
 
         if (lifePoints == null)
             lifePoints = GetComponent<PlayerLifePoints>();
+
+        if (energy == null)
+            energy = GetComponent<PlayerEnergy>();
     }
 }
