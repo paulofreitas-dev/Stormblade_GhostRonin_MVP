@@ -6,8 +6,12 @@ public class PlayerEnergy : MonoBehaviour
     [SerializeField] private int maxEnergy = 10;
     [SerializeField] private int startEnergy = 0;
 
+    [Header("Energized Mode Settings")]
+    [SerializeField] private float energyDrainPerSecond = 1f;
+
     [Header("Energy State")]
     [SerializeField] private int currentEnergy;
+    [SerializeField] private bool isEnergized;
 
     public int CurrentEnergy => currentEnergy;
     public int MaxEnergy => maxEnergy;
