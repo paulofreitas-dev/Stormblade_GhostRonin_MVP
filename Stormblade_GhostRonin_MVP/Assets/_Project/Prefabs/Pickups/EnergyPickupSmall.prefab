@@ -174,9 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e562cfd2403a648bfd4e1e45b529f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnergyPickup
-  lifeTime: 8
-  animator: {fileID: 7973145489899782883}
-  pickupCollider: {fileID: 7093473653305288038}
+  lifeTime: 10
+  animator: {fileID: 0}
+  pickupCollider: {fileID: 0}
   wasCollected: 0
   isDestroying: 0
   energyAmount: 1

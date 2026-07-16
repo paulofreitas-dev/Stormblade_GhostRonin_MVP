@@ -1969,7 +1969,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEnergy
   maxEnergy: 10
-  startEnergy: 0
+  startEnergy: 9
   currentEnergy: 0
 --- !u!1 &1299100919
 GameObject:
@@ -3305,7 +3305,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6220772665956253252, guid: 2624a7b9bd2ef9e4db93f57f19ab7c24, type: 3}
       propertyPath: m_Name
-      value: EnergyPickupLarge
+      value: PF_EnergyPickup_Large
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3322,7 +3322,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8016484440740097996, guid: a26d06f19afa027478478d7a8c7598e8, type: 3}
       propertyPath: m_Name
-      value: EnergyPickupSmall
+      value: PF_EnergyPickup_Small
       objectReference: {fileID: 0}
     - target: {fileID: 8963917228564923544, guid: a26d06f19afa027478478d7a8c7598e8, type: 3}
       propertyPath: m_LocalPosition.x

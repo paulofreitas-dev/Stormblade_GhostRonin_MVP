@@ -78,7 +78,7 @@ public class Pickup : MonoBehaviour
 
         ApplyPickupEffect(collector);
 
-        StartDestroySequence();
+        Destroy(gameObject);
     }
 
     protected virtual void ApplyPickupEffect(IPickupCollector collector)
@@ -109,7 +109,7 @@ public class Pickup : MonoBehaviour
         if (pickupCollider != null)
             pickupCollider.enabled = false;
 
-        if(animator != null)
+        if (animator != null)
         {
             animator.SetTrigger(DestroyHash);
             return;
