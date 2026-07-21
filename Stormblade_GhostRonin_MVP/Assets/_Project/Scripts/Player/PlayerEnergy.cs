@@ -54,6 +54,14 @@ public class PlayerEnergy : MonoBehaviour
         DrainEnergyOverTime();
     }
 
+    private void LateUpdate() 
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            EnterEnergizedMode();
+        }
+    }
+
     public int AddEnergy(int amount)
     {
         if (amount <= 0)

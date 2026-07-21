@@ -7,16 +7,19 @@ public class PlayerInputReader : MonoBehaviour
     [SerializeField] private InputActionReference jumpAction;
     [SerializeField] private InputActionReference attackAction;
     [SerializeField] private InputActionReference crouchAction;
+    [SerializeField] private InputActionReference specialAction;
 
     [Header("Debug")]
     [SerializeField] private float moveInputX;
     [SerializeField] private bool jumpRequested;
     [SerializeField] private bool attackRequested;
+    [SerializeField] private bool specialRequested;
     [SerializeField] private bool isCrouchHeld;
 
     public float MoveInputX => moveInputX;
     public bool JumpRequested => jumpRequested;
     public bool AttackRequested => attackRequested;
+    public bool SpecialRequested => specialRequested;
     public bool IsCrouchHeld => isCrouchHeld; 
 
     private void OnEnable()
@@ -39,6 +42,11 @@ public class PlayerInputReader : MonoBehaviour
         if (crouchAction != null)
         {
             crouchAction.action.Enable();
+        }
+
+        if (specialAction != null)
+        {
+            specialAction.action.Enable();
         }
     }
 
@@ -63,6 +71,11 @@ public class PlayerInputReader : MonoBehaviour
         {
             crouchAction.action.Disable();
         }
+
+        if (specialAction != null)
+        {
+            specialAction.action.Disable();
+        }
     }
 
     private void Update()
@@ -70,6 +83,7 @@ public class PlayerInputReader : MonoBehaviour
         ReadMoveInput();
         ReadJumpInput();
         ReadAttackInput();
+        ReadSpecialInput();
         ReadCrouchInput();
     }
 
@@ -115,6 +129,21 @@ public class PlayerInputReader : MonoBehaviour
         }
     }
 
+    private void ReadSpecialInput()
+    {
+        if(specialAction == null)
+        {
+            specialRequested = false;
+            return;
+        }
+
+        if (specialAction.action.WasPressedThisFrame())
+        {
+            specialRequested = true;
+            Debug.Log("Pedido de modo energizado/especial registrado.");
+        }
+    }
+
     private void ReadCrouchInput()
     {
         if (crouchAction == null)
@@ -140,6 +169,11 @@ public class PlayerInputReader : MonoBehaviour
     public void ConsumeAttackRequest()
     {
         attackRequested = false;
+    }
+
+    public void ConsumeSpecialRequest()
+    {
+        specialRequested = false;
     }
 
 }
