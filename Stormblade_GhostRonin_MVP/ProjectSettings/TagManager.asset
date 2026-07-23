@@ -30,8 +30,8 @@ TagManager:
   - Projectile
   - CameraBoundary
   - Trigger
-  - 
-  - 
+  - Wall
+  - Breakable
   - 
   - 
   - 

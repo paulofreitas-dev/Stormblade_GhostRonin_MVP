@@ -52,6 +52,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private int airAttackLockedDirection;
     [SerializeField] private float airAttackLockedSpeedX;
 
+    [Header("Ceiling Check")]
+    [SerializeField] private Transform ceilingCheck;
+    [SerializeField] private float ceilingCheckRadius = 0.1f;
+    [SerializeField] private LayerMask ceilingLayer;
+
+    [Header("Ceiling State Debug")]
+    [SerializeField] private bool isTouchingCeiling;
+    [SerializeField] private bool hitCeilingThisFrame;
+
     private bool airborneStartedByJump;
     public bool AirborneStartedByJump => airborneStartedByJump;
 
@@ -61,13 +70,16 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded => isGrounded;
     public float VerticalVelocity => rb != null ? rb.linearVelocity.y : 0f;
     public bool IsRising => VerticalVelocity > 0.01f;
-    public bool IsFalling => VerticalVelocity < 0.01f;
+    public bool IsFalling => VerticalVelocity < -0.01f;
+    public bool ShouldPlayFallAnimation => !isGrounded && !airborneStartedByJump;
     public bool JumpStartedThisFrame => jumpStartedThisFrame;
     public bool LandedThisFrame => landedThisFrame;
     public bool HasJumpRequest => inputReader != null && inputReader.JumpRequested;
     public bool LeftGroundThisFrame => leftGroundThisFrame;
     public bool IsAirborne => !isGrounded;
     public bool IsCrouching => isCrouching;
+    public bool IsTouchingCeiling => isTouchingCeiling;
+    public bool HitCeilingThisFrame => hitCeilingThisFrame;
 
     public bool IsDead()
     {
@@ -109,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
     {
         ResetFrameFlags();
         CheckGround();
+        CheckCeiling();
 
         if (rb == null)
             return;
@@ -240,6 +253,7 @@ public class PlayerMovement : MonoBehaviour
         landedThisFrame = false;
         leftGroundThisFrame = false;
         enteredCrouchThisFrame = false;
+        hitCeilingThisFrame = false;
     }
 
     private void CheckGround()
@@ -260,6 +274,34 @@ public class PlayerMovement : MonoBehaviour
 
         if (landedThisFrame)
             airborneStartedByJump = false;
+    }
+
+    private void CheckCeiling()
+    {
+        if(ceilingCheck == null)
+        {
+            isTouchingCeiling = false;
+            return;
+        }
+
+        isTouchingCeiling = Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, ceilingLayer);
+
+        if (!isTouchingCeiling)
+            return;
+
+        if (isGrounded)
+            return;
+
+        if (!airborneStartedByJump)
+            return;
+
+        hitCeilingThisFrame = true;
+        airborneStartedByJump = false;
+
+        if (rb != null && rb.linearVelocity.y > 0f)
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+
+        Debug.Log("Player bateu no teto. Estado aéreo alterado para queda.");
     }
 
     void HandleFacingDirection()
@@ -301,11 +343,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (groundCheck == null)
-            return;
+        if (groundCheck != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        }
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        if(ceilingCheck != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(ceilingCheck.position, ceilingCheckRadius);
+        }
     }
 
     private void HandleJump()
@@ -325,6 +373,13 @@ public class PlayerMovement : MonoBehaviour
         if (isCrouching)
         {
             inputReader.ConsumeJumpRequest();
+            return;
+        }
+
+        if(playerCombat != null && playerCombat.IsBasicAttackActive || playerCombat != null && playerCombat.IsCrouchAttackActive)
+        {
+            inputReader.ConsumeJumpRequest();
+            Debug.Log("Pulo bloqueado durante ataque básico.");
             return;
         }
             

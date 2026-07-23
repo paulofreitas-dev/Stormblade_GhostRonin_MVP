@@ -1,0 +1,297 @@
+fileFormatVersion: 2
+guid: b99e6c5f6b70e6b43a03d0e8b8a3d51f
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6213755670758574294
+    second: hazard-fogo-Photoroom_0
+  - first:
+      213: -243046059348673857
+    second: hazard-fogo-Photoroom_1
+  - first:
+      213: -493101010741788627
+    second: hazard-fogo-Photoroom_2
+  - first:
+      213: 2496585253810144109
+    second: hazard-fogo-Photoroom_3
+  - first:
+      213: -4596820213213599542
+    second: hazard-fogo-Photoroom_4
+  - first:
+      213: -5021709980739631617
+    second: hazard-fogo-Photoroom_5
+  - first:
+      213: -3145254403344336853
+    second: hazard-fogo-Photoroom_6
+  - first:
+      213: 7142830664814968342
+    second: hazard-fogo-Photoroom_7
+  - first:
+      213: 2807935608834749676
+    second: hazard-fogo-Photoroom_8
+  - first:
+      213: -496123857584869591
+    second: hazard-fogo-Photoroom_9
+  - first:
+      213: 2344255763619557037
+    second: hazard-fogo-Photoroom_10
+  - first:
+      213: -6309627420794745851
+    second: hazard-fogo-Photoroom_11
+  - first:
+      213: 354118771565610025
+    second: hazard-fogo-Photoroom_12
+  - first:
+      213: 6801705438158395569
+    second: hazard-fogo-Photoroom_13
+  - first:
+      213: -8545304689670776944
+    second: hazard-fogo-Photoroom_14
+  - first:
+      213: 6017860817001106795
+    second: hazard-fogo-Photoroom_15
+  - first:
+      213: -4503699114907516796
+    second: hazard-fogo-Photoroom_16
+  - first:
+      213: 7069326338216280904
+    second: hazard-fogo-Photoroom_17
+  - first:
+      213: -88918424251541851
+    second: hazard-fogo-Photoroom_18
+  - first:
+      213: -5116447859274428354
+    second: hazard-fogo-Photoroom_19
+  - first:
+      213: -5302062722194565013
+    second: hazard-fogo-Photoroom_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: hazard-fogo-Photoroom_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 325
+        height: 941
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d842a45cd1bb3650800000000000000
+      internalID: 6213755670758574294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hazard-fogo-Photoroom_1
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 0
+        width: 325
+        height: 941
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbab67095e680acf0800000000000000
+      internalID: -243046059348673857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hazard-fogo-Photoroom_2
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 0
+        width: 325
+        height: 941
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2089584e372829f0800000000000000
+      internalID: -493101010741788627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hazard-fogo-Photoroom_3
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 0
+        width: 325
+        height: 941
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6305d49f07a5a220800000000000000
+      internalID: 2496585253810144109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hazard-fogo-Photoroom_4
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 0
+        width: 325
+        height: 941
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ac8611ffe50d430c0800000000000000
+      internalID: -4596820213213599542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 0149362707ec1664db4da9043af27a45
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":325.0,"y":941.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      hazard-fogo-Photoroom_0: 6213755670758574294
+      hazard-fogo-Photoroom_1: -243046059348673857
+      hazard-fogo-Photoroom_2: -493101010741788627
+      hazard-fogo-Photoroom_3: 2496585253810144109
+      hazard-fogo-Photoroom_4: -4596820213213599542
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

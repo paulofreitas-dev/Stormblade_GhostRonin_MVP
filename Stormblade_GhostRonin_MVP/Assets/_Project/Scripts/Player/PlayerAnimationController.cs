@@ -115,21 +115,21 @@ public class PlayerAnimationController : MonoBehaviour
         if (isTransientStateActive)
             return transientState;
 
-        if (playerMovement.IsAirborne)
+        if (playerMovement.IsGrounded)
         {
-            if (playerMovement.IsFalling && !playerMovement.AirborneStartedByJump)
-                return PlayerBaseState.Fall;
+            if (playerMovement.IsCrouching)
+                return PlayerBaseState.Crouch;
 
-            return PlayerBaseState.JumpAir;
+            if (playerMovement.IsMovingHorizontally)
+                return PlayerBaseState.Run;
+
+            return PlayerBaseState.Idle;
         }
-          
-        if (playerMovement.IsCrouching)
-            return PlayerBaseState.Crouch;
 
-        if (playerMovement.IsMovingHorizontally)
-            return PlayerBaseState.Run;
+        if (playerMovement.ShouldPlayFallAnimation)
+            return PlayerBaseState.Fall;
 
-        return PlayerBaseState.Idle;
+        return PlayerBaseState.JumpAir;
     }
 
     public void PlayAttack()

@@ -32,6 +32,8 @@ public class PlayerCombat : MonoBehaviour
     public Hitbox AttackHitbox => attackHitbox;
     public bool IsAttacking => isAttacking;
     public bool IsAirAttackActive => isAttacking && currentAttackType == AttackType.Air;
+    public bool IsBasicAttackActive => isAttacking && currentAttackType == AttackType.Basic;
+    public bool IsCrouchAttackActive => isAttacking && currentAttackType == AttackType.Crouch;
     public AttackType CurrentAttackType => currentAttackType;
 
     public bool IsDead()
