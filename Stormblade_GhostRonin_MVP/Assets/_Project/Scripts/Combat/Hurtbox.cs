@@ -21,12 +21,12 @@ public class Hurtbox : MonoBehaviour
 
         if (damageReceiver == null)
         {
-            Debug.LogWarning("{gameObject.name}: nenhum receptor válido foi encontrado.");
+            Debug.LogWarning($"{gameObject.name}: nenhum receptor válido foi encontrado.");
         }
 
         else
         {
-            Debug.Log("{gameObject.name}: receptor de dano configurado com sucesso.");
+            Debug.Log($"{gameObject.name}: receptor de dano configurado com sucesso.");
         }
 
     }
@@ -43,12 +43,4 @@ public class Hurtbox : MonoBehaviour
         damageReceiver.ReceiveDamage(damageData);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            Debug.Log($"{gameObject.name}: tecla T detectada.");
-            ReceiveHit(new DamageData(1, transform));
-        }
-    }
 }

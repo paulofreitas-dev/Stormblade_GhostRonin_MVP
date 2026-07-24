@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 60b65f2008a79414491b9d4d292e8680
+guid: f8826bca646f94e4d80e5d688c1cd3b8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2191176516162613090
-    second: hazard-fire-attack_0
+      213: -8173444818825722447
+    second: box-breakable-shine-white_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 22
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: hazard-fire-attack_0
+      name: box-breakable-shine-white_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 40
-        height: 100
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,20 +115,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 26fec0e9e6f986e10800000000000000
-      internalID: 2191176516162613090
+      spriteID: 1b5c2a6fd37129e80800000000000000
+      internalID: -8173444818825722447
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hazard-fire-attack_1
+      name: box-breakable-shine-white_1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 0
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba8542d3e3b28b143a9b8b1039906942
+      internalID: -1261485195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: box-breakable-shine-white_2
       rect:
         serializedVersion: 2
         x: 40
         y: 0
-        width: 40
-        height: 100
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,20 +159,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1de6800054cbc4a4891d35c305dab38a
-      internalID: -840910032
+      spriteID: 8c4f751a998d7cb4e9a184177f026158
+      internalID: 1769111280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hazard-fire-attack_2
+      name: box-breakable-shine-white_3
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 0
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a31139beda1223644901d3e4336d91c9
+      internalID: 2108873896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: box-breakable-shine-white_4
       rect:
         serializedVersion: 2
         x: 80
         y: 0
-        width: 40
-        height: 100
+        width: 20
+        height: 20
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,74 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c765988ccac933c458080f802a72ff84
-      internalID: 288355203
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hazard-fire-attack_3
-      rect:
-        serializedVersion: 2
-        x: 120
-        y: 0
-        width: 40
-        height: 100
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6bd788913f9f97049afc3580bf03f51e
-      internalID: -1947393093
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hazard-fire-attack_4
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 40
-        height: 100
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 55bf825a34ce4a349a836d00993e0ebd
-      internalID: -990851586
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: hazard-fire-attack_5
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 0
-        width: 40
-        height: 100
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8b9befdfaafbc3348a826016b677b874
-      internalID: 1026539793
+      spriteID: 56e0456c3fff7a64eb2cbef84c33adf1
+      internalID: -1147382720
       vertices: []
       indices: 
       edges: []
@@ -235,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: de67a9776d7bc7c408a276e6b92084e9
+    spriteID: 9b07a3c9e1c26f649a6892edfadb53f0
     internalID: 0
     vertices: []
     indices: 
@@ -245,14 +223,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":40.0,"y":100.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":20.0,"y":20.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      hazard-fire-attack_0: 2191176516162613090
-      hazard-fire-attack_1: -840910032
-      hazard-fire-attack_2: 288355203
-      hazard-fire-attack_3: -1947393093
-      hazard-fire-attack_4: -990851586
-      hazard-fire-attack_5: 1026539793
+      box-breakable-shine-white_0: -8173444818825722447
+      box-breakable-shine-white_1: -1261485195
+      box-breakable-shine-white_2: 1769111280
+      box-breakable-shine-white_3: 2108873896
+      box-breakable-shine-white_4: -1147382720
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
