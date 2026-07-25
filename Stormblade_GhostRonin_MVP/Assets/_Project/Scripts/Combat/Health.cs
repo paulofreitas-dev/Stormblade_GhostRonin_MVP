@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
@@ -10,6 +11,8 @@ public class Health : MonoBehaviour, IDamageable
     public int MaxHealth => maxHealth;
     public bool IsDead => isDead;
     public bool IsAlive => !isDead;
+
+    public event Action OnDied;
 
     private void Awake()
     {
@@ -31,7 +34,9 @@ public class Health : MonoBehaviour, IDamageable
         if (currentHealth <= 0 && !isDead)
         {
             isDead = true;
-            Debug.Log("morreu.");
+            Debug.Log($"{gameObject.name} morreu.");
+
+            OnDied?.Invoke();
         }
 
         Debug.Log($"{gameObject.name} recebeu {damageData.damageAmount} de dano. Vida atual: {currentHealth}");
