@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1031151519322900276}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.583, y: 1.391, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -34,6 +34,7 @@ Transform:
   - {fileID: 6286950863739126140}
   - {fileID: 8866641470946902117}
   - {fileID: 2955055217056606765}
+  - {fileID: 640351434361000132}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3283486076442155665
@@ -67,6 +68,10 @@ MonoBehaviour:
   physicalCollider: {fileID: 2202889382418704724}
   hurtboxObject: {fileID: 5801415694062910475}
   visualObject: {fileID: 3535348628085117561}
+  rewardPrefab: {fileID: 2525047693378934742, guid: c94330ec441e98b428a0967a0396dc5b, type: 3}
+  rewardSpawnPoint: {fileID: 640351434361000132}
+  animator: {fileID: 5817376482917648412}
+  destroyTriggerName: Destroy
 --- !u!1 &3535348628085117561
 GameObject:
   m_ObjectHideFlags: 0
@@ -78,6 +83,7 @@ GameObject:
   - component: {fileID: 6286950863739126140}
   - component: {fileID: 614429364771754355}
   - component: {fileID: 5817376482917648412}
+  - component: {fileID: 6898830082747852908}
   m_Layer: 18
   m_Name: Visual
   m_TagString: Untagged
@@ -181,6 +187,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6898830082747852908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3535348628085117561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccda9858b21d38344879861d082057e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BreakableAnimationEvents
+  breakableRewardSource: {fileID: 2336584091990689788}
 --- !u!1 &5801415694062910475
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,3 +370,34 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.91072845, y: 0.89225864}
   m_EdgeRadius: 0
+--- !u!1 &7292964914688629993
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 640351434361000132}
+  m_Layer: 18
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &640351434361000132
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7292964914688629993}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.007, y: -0.22, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6731983744694862138}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
