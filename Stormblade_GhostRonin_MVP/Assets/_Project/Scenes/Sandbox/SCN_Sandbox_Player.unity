@@ -8417,7 +8417,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hitbox
   damageAmount: 1
-  damageSource: {fileID: 0}
+  damageSource: {fileID: 662132100}
   hitboxCollider: {fileID: 855284681}
 --- !u!1 &1009736852
 GameObject:
@@ -25934,6 +25934,7 @@ GameObject:
   - component: {fileID: 1230133749}
   - component: {fileID: 1230133750}
   - component: {fileID: 1230133751}
+  - component: {fileID: 1230133752}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -26043,6 +26044,7 @@ MonoBehaviour:
     m_Bits: 1536
   isTouchingCeiling: 0
   hitCeilingThisFrame: 0
+  isDamagePushbackActive: 0
 --- !u!114 &1230133746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26156,6 +26158,22 @@ MonoBehaviour:
   energyDrainPerSecond: 1
   currentEnergy: 0
   isEnergized: 0
+--- !u!114 &1230133752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230133741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88e1a83cec916ca4996e772537176eda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHitReaction
+  health: {fileID: 0}
+  playerMovement: {fileID: 0}
+  pushbackSpeed: 2.5
+  pushbackDuration: 0.12
 --- !u!1 &1260448485
 GameObject:
   m_ObjectHideFlags: 0
@@ -48999,7 +49017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4515889902563587279, guid: df471c7ddd9e67942b5c3815883d3d58, type: 3}
       propertyPath: m_Size.y
-      value: 0.53813076
+      value: 0.6000371
       objectReference: {fileID: 0}
     - target: {fileID: 4515889902563587279, guid: df471c7ddd9e67942b5c3815883d3d58, type: 3}
       propertyPath: m_Offset.x
@@ -49007,7 +49025,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4515889902563587279, guid: df471c7ddd9e67942b5c3815883d3d58, type: 3}
       propertyPath: m_Offset.y
-      value: -3.0013309
+      value: -2.9703777
       objectReference: {fileID: 0}
     - target: {fileID: 6932075191739611607, guid: df471c7ddd9e67942b5c3815883d3d58, type: 3}
       propertyPath: m_Name

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -61,10 +62,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isTouchingCeiling;
     [SerializeField] private bool hitCeilingThisFrame;
 
+    [Header("Damage Pushback State")]
+    [SerializeField] private bool isDamagePushbackActive;
+
+    private float damagePushbackVelocityX;
+    private float damagePushbackTimer;
+
+    public bool IsDamagePushbackActive => isDamagePushbackActive;
     private bool airborneStartedByJump;
     public bool AirborneStartedByJump => airborneStartedByJump;
-
-
     public bool IsMovingHorizontally => Mathf.Abs(moveInputX) > 0.01f;
     public bool IsFacingRight => isFacingRight;
     public bool IsGrounded => isGrounded;
@@ -131,6 +137,9 @@ public class PlayerMovement : MonoBehaviour
             StopMovementOnDeath();
             return;
         }
+
+        if(HandleDamagePushback())
+            return;
 
         if (enteredCrouchThisFrame)
         {
@@ -242,6 +251,10 @@ public class PlayerMovement : MonoBehaviour
         moveInputX = 0f;
         isCrouching = false;
         enteredCrouchThisFrame = false;
+
+        isDamagePushbackActive = false;
+        damagePushbackTimer = 0f;
+        damagePushbackVelocityX = 0f;
 
         if (rb != null)
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
@@ -490,5 +503,49 @@ public class PlayerMovement : MonoBehaviour
             ApplyStandingHurtbox();
 
         wasCrouchingLastFrame = isCrouching;
+    }
+
+    public void StartDamagePushback(float directionX, float speed, float duration)
+    {
+        if(rb == null)
+            return;
+
+        if(IsDead())
+            return;
+
+        if(Mathf.Abs(directionX) < 0.01f)
+            return;
+
+        speed = Mathf.Max(0f, speed);
+        duration = Mathf.Max(0f, duration);
+
+        if(speed <= 0f || duration <= 0f)
+            return;
+
+        damagePushbackVelocityX = Mathf.Sign(directionX) * speed;
+
+        damagePushbackTimer = duration;
+        isDamagePushbackActive = true;
+
+        rb.linearVelocity = new Vector2(damagePushbackVelocityX, rb.linearVelocity.y);
+    }
+
+    private bool HandleDamagePushback()
+    {
+        if(!isDamagePushbackActive)
+            return false;
+        
+        rb.linearVelocity = new Vector2(damagePushbackVelocityX, rb.linearVelocity.y);
+
+        damagePushbackTimer -= Time.fixedDeltaTime;
+
+        if(damagePushbackTimer <= 0f)
+        {
+            isDamagePushbackActive = false;
+            damagePushbackTimer = 0f;
+            damagePushbackVelocityX = 0f;
+        }
+
+        return true;
     }
 }

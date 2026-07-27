@@ -16,7 +16,8 @@ public class PlayerAnimationController : MonoBehaviour
     private static readonly int AttackHash = Animator.StringToHash("attackBasic");
     private static readonly int CrouchAttackHash = Animator.StringToHash("attackCrouch");
     private static readonly int AirAttackHash = Animator.StringToHash("attackAir");
-    private static readonly int IsDeadHash = Animator.StringToHash("IsDead");
+    private static readonly int IsDeadHash = Animator.StringToHash("isDead");
+    private static readonly int HitHash = Animator.StringToHash("hit");
 
     private PlayerBaseState currentBaseState = PlayerBaseState.Idle;
 
@@ -37,12 +38,22 @@ public class PlayerAnimationController : MonoBehaviour
     private void Update()
     {
         if(health != null && health.IsDead)
-        {
-            HandleDeathAnimation();
             return;
-        }
-
+        
         UpdateBaseState();
+    }
+
+    private void HandleDamageAnimation(DamageData damageData)
+    {
+        if(animator == null)
+            return;
+
+        if(health == null || health.IsDead)
+            return;
+
+        EndCurrentAttack();
+
+        animator.SetTrigger(HitHash);
     }
 
     private void HandleDeathAnimation()
@@ -50,8 +61,12 @@ public class PlayerAnimationController : MonoBehaviour
         if (deathAnimationStarted)
             return;
 
+        if(animator == null)
+            return;
+
         deathAnimationStarted = true;
 
+        animator.ResetTrigger(HitHash);
         animator.SetBool(IsDeadHash, true);
     }
 
@@ -74,8 +89,8 @@ public class PlayerAnimationController : MonoBehaviour
         else if (playerMovement.JumpStartedThisFrame)
             SetTransientState(PlayerBaseState.JumpStart, jumpStartHoldTime);
 
-        // prioridade: se durante o landing o jogador já pediu novo pulo, 
-        // o landing é cancelado imediatamente
+        // prioridade: se durante o landing o jogador jï¿½ pediu novo pulo, 
+        // o landing ï¿½ cancelado imediatamente
         if (ShouldInterruptLandingWithJump())
         {
             SetTransientState(PlayerBaseState.JumpStart, jumpStartHoldTime);
@@ -186,6 +201,24 @@ public class PlayerAnimationController : MonoBehaviour
     {
         deathAnimationStarted = false;
         animator.SetBool(IsDeadHash, false);
+    }
+
+    private void OnEnable()
+    {
+        if(health == null)
+            return;
+
+        health.OnDamaged += HandleDamageAnimation;
+        health.OnDied += HandleDeathAnimation;
+    } 
+
+    private void OnDisable()
+    {
+        if(health == null)
+            return;
+
+        health.OnDamaged -= HandleDamageAnimation;
+        health.OnDied -= HandleDeathAnimation;
     }
 
 }
