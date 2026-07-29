@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c0f5d57716b78f242b149654334d7379
+guid: 6b787946b4e8ddc498d982a00045d1dc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1024589979612868251
-    second: tile-red-rock2_0
+      213: -5568960499007803235
+    second: tile-red-rock7_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tile-red-rock2_0
+      name: tile-red-rock7_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 56110c097dce7c1f0800000000000000
-      internalID: -1024589979612868251
+      spriteID: d9035788ee317b2b0800000000000000
+      internalID: -5568960499007803235
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tile-red-rock2_0: -1024589979612868251
+      tile-red-rock7_0: -5568960499007803235
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

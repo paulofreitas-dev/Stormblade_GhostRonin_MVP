@@ -8,19 +8,17 @@ public class CameraTargetController : MonoBehaviour
 
     [Header("Horizontal Progression")]
     [SerializeField] float forwardActivationViewportX = 0.8f;
-    [SerializeField] float horizontalFollowSmooth = 6f;
     [SerializeField] float backwardLimitViewportX = 0.10f;
 
-    private float maxReachedX;
     private float targetX;
     private float fixedY;
     private float fixedZ;
+    private float previousPlayerX;
 
     public bool IsBlockingBackwardMovement { get; private set; }
 
     private void Awake()
     {
-        maxReachedX = transform.position.x;
         targetX = transform.position.x;
         fixedY = transform.position.y;
         fixedZ = transform.position.z;
@@ -28,13 +26,13 @@ public class CameraTargetController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if(player != null)
+            previousPlayerX = player.position.x;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-
         if (player == null || mainCamera == null)
             return;
 
@@ -42,16 +40,17 @@ public class CameraTargetController : MonoBehaviour
 
         IsBlockingBackwardMovement = playerViewportPosition.x <= backwardLimitViewportX;
 
-        if (playerViewportPosition.x >= forwardActivationViewportX && player.position.x > maxReachedX)
-        {
-            maxReachedX = player.position.x;
-            targetX = maxReachedX;
-        }
+        float playerDeltaX = player.position.x - previousPlayerX;
 
-        float smoothedX = Mathf.Lerp(transform.position.x, targetX, horizontalFollowSmooth * Time.deltaTime);
+        bool reachedForwardLimit = playerViewportPosition.x >= forwardActivationViewportX;
+        bool playerMovedForward = playerDeltaX > 0f;
 
-        transform.position = new Vector3(smoothedX, fixedY, fixedZ);
+        if(reachedForwardLimit && playerMovedForward)
+            targetX += playerDeltaX;
 
-        
+        transform.position = new Vector3(targetX, fixedY, fixedZ);
+
+        previousPlayerX = player.position.x;
+
     }
 }
