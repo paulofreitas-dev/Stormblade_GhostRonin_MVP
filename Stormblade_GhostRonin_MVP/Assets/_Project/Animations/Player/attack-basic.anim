@@ -21,27 +21,25 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 4374731430828978882, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - time: 0.05263158
-      value: {fileID: 9098247645636005251, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - time: 0.10526316
-      value: {fileID: -1233940584697277279, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - time: 0.15789473
-      value: {fileID: 8727116546968613958, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - time: 0.21052632
-      value: {fileID: -4594744001411797763, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - time: 0.2631579
-      value: {fileID: 5273959791440769096, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - time: 0.42105263
-      value: {fileID: 2494834705755259691, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - time: 0.57894737
-      value: {fileID: 2494834705755259691, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
+      value: {fileID: 2906001313970384239, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - time: 0.055555556
+      value: {fileID: 8681289766090988398, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - time: 0.11111111
+      value: {fileID: -2037816633434805424, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - time: 0.16666667
+      value: {fileID: -7072998053809113322, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - time: 0.22222222
+      value: {fileID: 7015944127454309063, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - time: 0.2777778
+      value: {fileID: -7909228652826898434, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - time: 0.44444445
+      value: {fileID: -3932974502026073572, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 19
+  m_SampleRate: 18
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -58,20 +56,19 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 4374731430828978882, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - {fileID: 9098247645636005251, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - {fileID: -1233940584697277279, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - {fileID: 8727116546968613958, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - {fileID: -4594744001411797763, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - {fileID: 5273959791440769096, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - {fileID: 2494834705755259691, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
-    - {fileID: 2494834705755259691, guid: 984d693257ed2e447a3542d48d246cbc, type: 3}
+    - {fileID: 2906001313970384239, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - {fileID: 8681289766090988398, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - {fileID: -2037816633434805424, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - {fileID: -7072998053809113322, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - {fileID: 7015944127454309063, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - {fileID: -7909228652826898434, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
+    - {fileID: -3932974502026073572, guid: 572210a94ec2d3949877af17f45e993c, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.6315789
+    m_StopTime: 0.5
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -98,14 +95,14 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.2631579
+  - time: 0.2777778
     functionName: DisableAttackHitbox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.57894737
+  - time: 0.44444445
     functionName: EndCurrentAttack
     data: 
     objectReferenceParameter: {fileID: 0}
