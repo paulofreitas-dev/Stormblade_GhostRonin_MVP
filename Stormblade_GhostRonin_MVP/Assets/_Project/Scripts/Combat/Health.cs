@@ -13,7 +13,9 @@ public class Health : MonoBehaviour, IDamageable
     public bool IsAlive => !isDead;
 
     public event Action<DamageData> OnDamaged;
+    public event Action<int, int> OnHealthChanged;
     public event Action OnDied;
+
 
     private void Awake()
     {
@@ -44,6 +46,8 @@ public class Health : MonoBehaviour, IDamageable
         if(diedFromThisDamage)
             isDead = true;
 
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+
         OnDamaged?.Invoke(damageData);
 
         if (diedFromThisDamage)
@@ -71,6 +75,11 @@ public class Health : MonoBehaviour, IDamageable
             currentHealth = maxHealth;
 
         int healedAmount = currentHealth - previousHealth;
+
+        if(healedAmount <= 0)
+            return;
+        
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
 
         Debug.Log($"{gameObject.name} recuperou {healedAmount} de vida. Vida atual: {currentHealth}");
     }

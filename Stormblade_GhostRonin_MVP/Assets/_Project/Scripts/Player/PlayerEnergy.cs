@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerEnergy : MonoBehaviour
@@ -14,6 +15,8 @@ public class PlayerEnergy : MonoBehaviour
     [SerializeField] private bool isEnergized;
 
     private float drainAccumulator;
+
+    public event Action<int, int> OnEnergyChanged;
 
     public int CurrentEnergy => currentEnergy;
     public int MaxEnergy => maxEnergy;
@@ -82,6 +85,11 @@ public class PlayerEnergy : MonoBehaviour
 
         int addedEnergy = currentEnergy - previousEnergy;
 
+        if(addedEnergy <= 0)
+            return 0;
+
+        OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
+
         Debug.Log($"Player recebeu {addedEnergy} de energia. Energia atual: {currentEnergy}/{maxEnergy}");
 
         return addedEnergy;
@@ -130,6 +138,11 @@ public class PlayerEnergy : MonoBehaviour
             currentEnergy = 0;
 
         int consumedEnergy = previousEnergy - currentEnergy;
+
+        if(consumedEnergy <= 0)
+            return 0;
+
+        OnEnergyChanged?.Invoke(currentEnergy, maxEnergy);
 
         Debug.Log($"Player consumiu {consumedEnergy} de energia. Energia atual: {currentEnergy}/{maxEnergy}");
 

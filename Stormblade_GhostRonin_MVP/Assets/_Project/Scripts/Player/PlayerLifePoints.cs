@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerLifePoints : MonoBehaviour
@@ -12,6 +13,8 @@ public class PlayerLifePoints : MonoBehaviour
     [SerializeField] private int currentLifePoints;
     [SerializeField] private bool deathAlreadyProcessed;
     [SerializeField] private bool isGameOver;
+
+    public event Action<int> OnLifePointsChanged;
 
     public int InitialLifePoints => initialLifePoints;
     public int CurrentLifePoints => currentLifePoints;
@@ -79,6 +82,8 @@ public class PlayerLifePoints : MonoBehaviour
 
         currentLifePoints += amount;
 
+        OnLifePointsChanged?.Invoke(currentLifePoints);
+
         Debug.Log($"Player recebeu {amount} LifePoint(s). Total atual: {currentLifePoints}");
     }
 
@@ -94,6 +99,8 @@ public class PlayerLifePoints : MonoBehaviour
 
         if (currentLifePoints < 0)
             currentLifePoints = 0;
+
+        OnLifePointsChanged?.Invoke(currentLifePoints);
 
         Debug.Log($"Player perdeu {amount} LifePoint(s). Total atual: {currentLifePoints}");
 
@@ -116,6 +123,8 @@ public class PlayerLifePoints : MonoBehaviour
     {
         currentLifePoints = initialLifePoints;
         isGameOver = false;
+
+        OnLifePointsChanged?.Invoke(currentLifePoints);
 
         Debug.Log($"LifePoints resetados. Total atual: {currentLifePoints}");
     }
