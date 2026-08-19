@@ -11,7 +11,7 @@ public class PlayerEnergy : MonoBehaviour
     [SerializeField] private float energyDrainPerSecond = 1f;
 
     [Header("Energy State")]
-    [SerializeField] private int currentEnergy;
+    private int currentEnergy;
     [SerializeField] private bool isEnergized;
 
     private float drainAccumulator;

@@ -119,6 +119,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &21119339
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8016484440740097996, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_Name
+      value: PF_EnergyPickup_Small
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.194858
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.71782494
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
 --- !u!1001 &40503546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -372,7 +429,7 @@ Transform:
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.305454, y: 7.936, z: -10}
+  m_LocalPosition: {x: -42.295776, y: 7.936, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5921,6 +5978,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 500322099}
+  - component: {fileID: 500322100}
   m_Layer: 0
   m_Name: HealthBar
   m_TagString: Untagged
@@ -5949,6 +6007,20 @@ RectTransform:
   m_AnchoredPosition: {x: -8.9, y: 2.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &500322100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500322098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79777cc48a2196646abf16f4e573ac0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthBarUI
+  health: {fileID: 1230133747}
+  fillImage: {fileID: 1650437981}
 --- !u!1 &510076110
 GameObject:
   m_ObjectHideFlags: 0
@@ -7022,6 +7094,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 878686570}
+  - component: {fileID: 878686571}
   m_Layer: 0
   m_Name: EnergyBar
   m_TagString: Untagged
@@ -7049,6 +7122,20 @@ RectTransform:
   m_AnchoredPosition: {x: -13.762756, y: -0.5517273}
   m_SizeDelta: {x: 100, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &878686571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878686569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdfcb5bab34a2164f92335c840de67fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnergyBarUI
+  playerEnergy: {fileID: 1230133751}
+  fillImage: {fileID: 2006558266}
 --- !u!1 &931083387
 GameObject:
   m_ObjectHideFlags: 0
@@ -7749,10 +7836,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 042aa7bb9e9c4244fb2fadc2011c37c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerEnergy
-  maxEnergy: 10
-  startEnergy: 10
+  maxEnergy: 25
+  startEnergy: 0
   energyDrainPerSecond: 1
-  currentEnergy: 0
   isEnergized: 0
 --- !u!114 &1230133752
 MonoBehaviour:
@@ -15494,6 +15580,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 705189787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1419299284
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.2686024
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.48264503
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6220772665956253252, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
+      propertyPath: m_Name
+      value: PF_EnergyPickup_Large
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
 --- !u!1 &1439567258
 GameObject:
   m_ObjectHideFlags: 0
@@ -21565,7 +21708,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.305454
+      value: -42.295776
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22500,3 +22643,5 @@ SceneRoots:
   - {fileID: 931083389}
   - {fileID: 1439567262}
   - {fileID: 1257329530}
+  - {fileID: 21119339}
+  - {fileID: 1419299284}
