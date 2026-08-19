@@ -1,13 +1,19 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerRespawnController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Health health;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private PlayerLifePoints lifePoints;
 
     [Header("Respawn Points")]
     [SerializeField] private Transform initialRespawnPoint;
     [SerializeField] private Transform currentRespawnPoint;
+
+    [Header("Respawn Settings")]
+    [SerializeField] private float respawnDelay = 1f;
 
     [Header("Respawn State")]
     [SerializeField] private bool respawnPending;
@@ -20,9 +26,16 @@ public class PlayerRespawnController : MonoBehaviour
         if(health == null)
             health = GetComponent<Health>();
 
+        if(rb == null)
+            rb = GetComponent<Rigidbody2D>();
+
+        if(lifePoints == null)
+            lifePoints = GetComponent<PlayerLifePoints>();
+
         if(initialRespawnPoint == null)
         {
             Debug.LogWarning("PlayerRespawnController: Initial Respawn Point não configurado.");
+
             return;
         }
 
@@ -49,7 +62,7 @@ public class PlayerRespawnController : MonoBehaviour
 
         currentRespawnPoint = newRespawnPoint;
 
-        Debug.Log($"Checkpoint atualizado: {newRespawnPoint.name}");
+        Debug.Log($"Checkpoint atualizado: {newRespawnPoint.name} | " + $"RespawnPoint: {newRespawnPoint.name}");
     }
 
     private void HandlePlayerDeath()
@@ -62,8 +75,52 @@ public class PlayerRespawnController : MonoBehaviour
         if(currentRespawnPoint == null)
         {
             Debug.LogWarning("PlayerRespawnController: morte detectada, mas não existe Respawn Point.");
+
+            return;
         }
 
-        Debug.Log($"PlayerRespawnController: morte detectada. " + $"Respawn pendente em: {currentRespawnPoint.name}");
+        StartCoroutine(RespawnRoutine());
     }
+
+    private IEnumerator RespawnRoutine()
+    {
+        yield return new WaitForSeconds(respawnDelay);
+
+        if(lifePoints == null)
+        {
+            Debug.LogWarning("PlayerRespawnController: PlayerLifePoints não encontrado.");
+
+            yield break;
+        }
+
+        if(!lifePoints.HasLifePoints)
+        {
+            Debug.Log("PlayerRespawnController: sem Lifepoints. Respawn cancelado.");
+
+            yield break;
+        }
+
+        MoveToCurrentRespawnPoint();
+    }
+
+    private void MoveToCurrentRespawnPoint()
+    {
+        if(currentRespawnPoint == null)
+            return;
+
+        if(rb == null)
+            return;
+
+        rb.linearVelocity = Vector2.zero;
+        rb.position = currentRespawnPoint.position;
+
+        health.ResetHealth();
+
+        lifePoints.PrepareForNextLife();
+
+        respawnPending = false;
+
+        Debug.Log($"Player respawnado em: {currentRespawnPoint.name} | " + $"Vida restaurada: {health.CurrentHealth}");
+    }
+
 }

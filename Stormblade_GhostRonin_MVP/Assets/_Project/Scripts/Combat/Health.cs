@@ -83,4 +83,14 @@ public class Health : MonoBehaviour, IDamageable
 
         Debug.Log($"{gameObject.name} recuperou {healedAmount} de vida. Vida atual: {currentHealth}");
     }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth;
+        isDead = false;
+
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        Debug.Log($"{gameObject.name} teve a vida restaurada. Vida atual: {currentHealth}");
+    }
 }

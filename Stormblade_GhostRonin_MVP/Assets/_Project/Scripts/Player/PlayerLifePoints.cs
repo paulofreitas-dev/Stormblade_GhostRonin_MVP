@@ -66,7 +66,7 @@ public class PlayerLifePoints : MonoBehaviour
 
         LoseLifePoint(1);
 
-        if(currentLifePoints >= 0)
+        if(currentLifePoints > 0)
         {
             Debug.Log($"Player ainda possui {currentLifePoints} de LifePoints. Respawn/checkpoint");
         }

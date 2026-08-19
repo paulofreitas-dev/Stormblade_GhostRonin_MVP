@@ -429,7 +429,7 @@ Transform:
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.306087, y: 7.936, z: -10}
+  m_LocalPosition: {x: -42.301384, y: 7.936, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7298,8 +7298,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRespawnController
   health: {fileID: 1230133747}
+  rb: {fileID: 1230133744}
+  lifePoints: {fileID: 1230133749}
   initialRespawnPoint: {fileID: 6943760725567991195}
   currentRespawnPoint: {fileID: 0}
+  respawnDelay: 1
   respawnPending: 0
 --- !u!1 &1253099497
 GameObject:
@@ -20694,7 +20697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.306087
+      value: -42.301384
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y
