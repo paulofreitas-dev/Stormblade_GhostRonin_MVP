@@ -46,22 +46,22 @@ public class PlayerCombat : MonoBehaviour
     {
         if (attackHitbox == null)
         {
-            Debug.LogWarning($"{gameObject.name}: attackHitbox não foi atribuído no PlayerCombat.");
+            Debug.LogWarning($"{gameObject.name}: attackHitbox nï¿½o foi atribuï¿½do no PlayerCombat.");
         }
 
         if (playerInputReader == null)
         {
-            Debug.LogWarning($"{gameObject.name}: playerInputReader não foi atribuído no PlayerCombat.");
+            Debug.LogWarning($"{gameObject.name}: playerInputReader nï¿½o foi atribuï¿½do no PlayerCombat.");
         }
 
         if (playerMovement == null)
         {
-            Debug.LogWarning($"{gameObject.name}: playerMovement não foi atribuído no PlayerCombat");
+            Debug.LogWarning($"{gameObject.name}: playerMovement nï¿½o foi atribuï¿½do no PlayerCombat");
         }
 
         if (playerAnimationController == null)
         {
-            Debug.LogWarning($"{gameObject.name}: playerAnimationController não foi atribuído no PlayerCombat");
+            Debug.LogWarning($"{gameObject.name}: playerAnimationController nï¿½o foi atribuï¿½do no PlayerCombat");
         }
 
         DisableAttackHitbox();
@@ -82,11 +82,14 @@ public class PlayerCombat : MonoBehaviour
         if(attackHitbox != null)
             attackHitbox.DisableHitbox();
 
-        if (!isAttacking)
-            return;
+        bool combatWasActive = isAttacking;
 
         isAttacking = false;
-        Debug.Log("Player Combat: combate interrompido pela morte do protagonista.");
+        currentAttackType = AttackType.None;
+        airAttackLockedDirection = 0;
+
+        if(combatWasActive)
+            Debug.Log("Player Combat: combate interrompido pela morte do protagonista.");
     }
 
     private void Update()
@@ -128,7 +131,7 @@ public class PlayerCombat : MonoBehaviour
 
         //if (!CanStartBasicAttack())
         //{
-        //    Debug.Log("PlayerCombat: pedido de ataque ignorado por regra de execução.");
+        //    Debug.Log("PlayerCombat: pedido de ataque ignorado por regra de execuï¿½ï¿½o.");
         //    return;
         //}
 

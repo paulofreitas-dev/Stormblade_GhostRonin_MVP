@@ -7,6 +7,8 @@ public class PlayerRespawnController : MonoBehaviour
     [SerializeField] private Health health;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private PlayerLifePoints lifePoints;
+    [SerializeField] private PlayerAnimationController animationController;
+    [SerializeField] private PlayerInputReader inputReader;
 
     [Header("Respawn Points")]
     [SerializeField] private Transform initialRespawnPoint;
@@ -23,6 +25,12 @@ public class PlayerRespawnController : MonoBehaviour
 
     private void Awake()
     {
+        if(inputReader == null)
+            inputReader = GetComponent<PlayerInputReader>();
+
+        if(animationController == null)
+            animationController = GetComponentInChildren<PlayerAnimationController>();
+
         if(health == null)
             health = GetComponent<Health>();
 
@@ -74,6 +82,8 @@ public class PlayerRespawnController : MonoBehaviour
 
         if(currentRespawnPoint == null)
         {
+            respawnPending = false;
+            
             Debug.LogWarning("PlayerRespawnController: morte detectada, mas não existe Respawn Point.");
 
             return;
@@ -93,8 +103,10 @@ public class PlayerRespawnController : MonoBehaviour
             yield break;
         }
 
-        if(!lifePoints.HasLifePoints)
+        if(lifePoints.IsGameOver)
         {
+            respawnPending = false;
+
             Debug.Log("PlayerRespawnController: sem Lifepoints. Respawn cancelado.");
 
             yield break;
@@ -115,6 +127,12 @@ public class PlayerRespawnController : MonoBehaviour
         rb.position = currentRespawnPoint.position;
 
         health.ResetHealth();
+
+        if(animationController != null)
+            animationController.ResetDeathAnimation();
+
+        if(inputReader != null)
+            inputReader.ClearActionRequests();
 
         lifePoints.PrepareForNextLife();
 

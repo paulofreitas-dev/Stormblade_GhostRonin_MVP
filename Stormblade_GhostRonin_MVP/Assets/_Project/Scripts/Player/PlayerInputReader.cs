@@ -176,4 +176,10 @@ public class PlayerInputReader : MonoBehaviour
         specialRequested = false;
     }
 
+    public void ClearActionRequests()
+    {
+        jumpRequested = false;
+        attackRequested = false;
+    }
+
 }

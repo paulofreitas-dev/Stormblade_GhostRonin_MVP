@@ -15,6 +15,7 @@ public class PlayerLifePoints : MonoBehaviour
     [SerializeField] private bool isGameOver;
 
     public event Action<int> OnLifePointsChanged;
+    public event Action OnGameOver;
 
     public int InitialLifePoints => initialLifePoints;
     public int CurrentLifePoints => currentLifePoints;
@@ -106,7 +107,7 @@ public class PlayerLifePoints : MonoBehaviour
 
         if (currentLifePoints <= 0)
             TriggerGameOver();
-
+            return;
     }
 
     private void TriggerGameOver()
@@ -117,6 +118,8 @@ public class PlayerLifePoints : MonoBehaviour
         isGameOver = true;
 
         Debug.Log("Game Over futuro: player ficou sem LifePoints");
+
+        OnGameOver?.Invoke();
     }
 
     public void ResetLifePoints()
