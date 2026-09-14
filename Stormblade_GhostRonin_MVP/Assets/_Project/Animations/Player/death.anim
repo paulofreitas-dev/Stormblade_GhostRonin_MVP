@@ -46,36 +46,6 @@ AnimationClip:
       value: {fileID: 3277102719606191596, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
     - time: 1.5454545
       value: {fileID: 293228653622323841, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 1.6363636
-      value: {fileID: -8804333521747192896, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 1.7272727
-      value: {fileID: 4525814706495993735, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 1.8181819
-      value: {fileID: 3532441185963593141, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 1.9090909
-      value: {fileID: 4005878921497669045, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2
-      value: {fileID: -7416256535873313109, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2.090909
-      value: {fileID: 7306393616898555687, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2.1818182
-      value: {fileID: 5679736664213708065, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2.2727273
-      value: {fileID: -7775553044425746846, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2.3636363
-      value: {fileID: 7486404041549179660, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2.4545455
-      value: {fileID: 3277102719606191596, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2.5454545
-      value: {fileID: 293228653622323841, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2.6363637
-      value: {fileID: -8804333521747192896, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2.7272727
-      value: {fileID: 4525814706495993735, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2.8181818
-      value: {fileID: 3532441185963593141, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - time: 2.909091
-      value: {fileID: 4005878921497669045, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -111,27 +81,12 @@ AnimationClip:
     - {fileID: 7486404041549179660, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
     - {fileID: 3277102719606191596, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
     - {fileID: 293228653622323841, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: -8804333521747192896, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 4525814706495993735, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 3532441185963593141, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 4005878921497669045, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: -7416256535873313109, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 7306393616898555687, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 5679736664213708065, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: -7775553044425746846, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 7486404041549179660, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 3277102719606191596, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 293228653622323841, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: -8804333521747192896, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 4525814706495993735, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 3532441185963593141, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
-    - {fileID: 4005878921497669045, guid: df4f92b38a388d24a8db24cf22e0391b, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 3
+    m_StopTime: 1.6363636
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -153,6 +108,13 @@ AnimationClip:
   m_Events:
   - time: 1.4545455
     functionName: AnimationEvent_DeathTransitionPoint
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.6363636
+    functionName: AnimationEvent_DeathFinished
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

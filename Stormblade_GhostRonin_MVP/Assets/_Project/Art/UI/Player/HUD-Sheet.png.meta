@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bd2166baf3e0a41439313f338e06342a
+guid: 36d9cc58ee167e74483ad6dd50f3bf2e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6001051033484905208
-    second: player-portrait 1_0
+      213: -7178459835070463936
+    second: HUD-Sheet_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player-portrait 1_0
+      name: HUD-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 40
-        height: 40
+        width: 87
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 805342641ebf7bca0800000000000000
-      internalID: -6001051033484905208
+      spriteID: 040473820dcf06c90800000000000000
+      internalID: -7178459835070463936
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      player-portrait 1_0: -6001051033484905208
+      HUD-Sheet_0: -7178459835070463936
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

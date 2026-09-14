@@ -37,6 +37,6 @@ public class LifePointsUI : MonoBehaviour
         if(lifePointsText == null)
             return;
 
-        lifePointsText.text = $"x{currentLifePoints}";
+        lifePointsText.text = $"{currentLifePoints}";
     }
 }

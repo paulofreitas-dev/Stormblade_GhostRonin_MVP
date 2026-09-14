@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class PlayerRespawnController : MonoBehaviour
 {
@@ -14,9 +13,6 @@ public class PlayerRespawnController : MonoBehaviour
     [Header("Respawn Points")]
     [SerializeField] private Transform initialRespawnPoint;
     [SerializeField] private Transform currentRespawnPoint;
-
-    [Header("Respawn Settings")]
-    [SerializeField] private float respawnDelay = 1f;
 
     [Header("Respawn State")]
     [SerializeField] private bool respawnPending;
@@ -60,12 +56,46 @@ public class PlayerRespawnController : MonoBehaviour
         if(health != null)
             health.OnDied += HandlePlayerDeath;
 
+        if(animationController != null)
+            animationController.OnDeathAnimationFinished += HandleDeathAnimationFinished;
+
     }
 
     private void OnDisable()
     {
         if(health != null)
             health.OnDied -= HandlePlayerDeath;
+
+        if(animationController != null)
+            animationController.OnDeathAnimationFinished -= HandleDeathAnimationFinished;
+    }
+
+    private void HandleDeathAnimationFinished()
+    {
+        if(!respawnPending)
+            return;
+
+        if(lifePoints == null)
+        {
+            respawnPending = false;
+
+            Debug.Log("PlayerRespawnController: PlayerLifePoints não encontrado.");
+
+            return;
+        }
+
+        if (lifePoints.IsGameOver)
+        {
+            respawnPending = false;
+
+            Debug.Log("PlayerRespawnController: Death terminou, " + "mas é Game Over. Respawn cancelado.");
+
+            return;
+        }
+
+        Debug.Log("PlayerRespawnController: Death concluída. " + "Iniciando Respawn.");
+
+        MoveToCurrentRespawnPoint();
 
     }
 
@@ -94,31 +124,6 @@ public class PlayerRespawnController : MonoBehaviour
 
             return;
         }
-
-        StartCoroutine(RespawnRoutine());
-    }
-
-    private IEnumerator RespawnRoutine()
-    {
-        yield return new WaitForSeconds(respawnDelay);
-
-        if(lifePoints == null)
-        {
-            Debug.LogWarning("PlayerRespawnController: PlayerLifePoints não encontrado.");
-
-            yield break;
-        }
-
-        if(lifePoints.IsGameOver)
-        {
-            respawnPending = false;
-
-            Debug.Log("PlayerRespawnController: sem Lifepoints. Respawn cancelado.");
-
-            yield break;
-        }
-
-        MoveToCurrentRespawnPoint();
     }
 
     private void MoveToCurrentRespawnPoint()
@@ -176,7 +181,5 @@ public class PlayerRespawnController : MonoBehaviour
 
         Debug.Log($"[RESPAWN LOCK] Desativado | frame {Time.frameCount}");
     }
-
-
 
 }

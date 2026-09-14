@@ -39,14 +39,6 @@ public class PlayerLifePoints : MonoBehaviour
         CheckHealthDeath();
     }
 
-    private void LateUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            AddLifePoint(1);
-        }
-    }
-
     private void CheckHealthDeath()
     {
         if (health == null)

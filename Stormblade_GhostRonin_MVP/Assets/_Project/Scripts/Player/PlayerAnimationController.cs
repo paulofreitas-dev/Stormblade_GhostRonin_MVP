@@ -15,6 +15,7 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private float jumpLandingHoldTime = 0.8f;
 
     public event Action OnDeathTransitionPoint;
+    public event Action OnDeathAnimationFinished;
     
     private static readonly int BaseStateHash = Animator.StringToHash("baseState");
     private static readonly int AttackHash = Animator.StringToHash("attackBasic");
@@ -243,6 +244,13 @@ public class PlayerAnimationController : MonoBehaviour
     public void AnimationEvent_DeathTransitionPoint()
     {
         OnDeathTransitionPoint?.Invoke();
+    }
+
+    public void AnimationEvent_DeathFinished()
+    {
+        Debug.Log($"[ANIMATION EVENT] Death terminou | frame {Time.frameCount}");
+
+        OnDeathAnimationFinished?.Invoke();
     }
 
     public void PlayRespawn()
