@@ -10,9 +10,6 @@ public class GameOverMenuController : MonoBehaviour
     [SerializeField] private Button exitButton;
     [SerializeField] private RectTransform selectorIcon;
 
-    [Header("Selector Settings")]
-    [SerializeField] private Vector2 selectorOffset = new Vector2(-40f, 0f);
-
     private void OnEnable()
     {
         StartCoroutine(SelectDefaultOption());
@@ -22,13 +19,11 @@ public class GameOverMenuController : MonoBehaviour
     {
         yield return null;
 
-        if(continueButton == null)
+        if(continueButton == null || EventSystem.current == null)
             yield break;
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(continueButton.gameObject);
-
-        UpdateSelector(continueButton.transform as RectTransform);
     }
 
     public void SelectContinue()
@@ -56,6 +51,6 @@ public class GameOverMenuController : MonoBehaviour
         if(selectorIcon == null || target == null)
             return;
 
-        selectorIcon.position = (Vector2)target.position + selectorOffset;
+        selectorIcon.position = target.position;
     }
 }

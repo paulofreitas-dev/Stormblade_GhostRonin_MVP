@@ -208,6 +208,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 69421839}
   - {fileID: 1095519433}
   m_Father: {fileID: 2065100148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -322,7 +323,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4b666916bfaed42a42a972cc472c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverMenuOption
-  menuController: {fileID: 1425902907}
+  menuController: {fileID: 2065100149}
+  optionText: {fileID: 1095519434}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 0.6745098, g: 0.19607843, b: 0.19607843, a: 1}
+  selectorAnchor: {fileID: 69421839}
 --- !u!1 &27731014
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,6 +583,41 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a117a5c64a504445a5fefb131429ded, type: 3}
+--- !u!1 &69421838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 69421839}
+  m_Layer: 5
+  m_Name: SelectorAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &69421839
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69421838}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 21323824}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -133.7, y: 0}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &78552543
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +753,7 @@ Transform:
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -42.30606, y: 7.936, z: -10}
+  m_LocalPosition: {x: -42.301796, y: 7.936, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6304,7 +6344,7 @@ MonoBehaviour:
   backgroundTransition: {fileID: 2123620065}
   animationController: {fileID: 2098060376}
   screenFade: {fileID: 1027510000}
-  letterDelay: 0.15
+  letterDelay: 0.13
   fadeToBlackDuration: 0.5
   fadeFromBlackDuration: 0.35
 --- !u!4 &444387616 stripped
@@ -7613,6 +7653,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1878022442}
   - {fileID: 1512307940}
   m_Father: {fileID: 2065100148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7633,7 +7674,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4b666916bfaed42a42a972cc472c0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverMenuOption
-  menuController: {fileID: 1425902907}
+  menuController: {fileID: 2065100149}
+  optionText: {fileID: 1512307941}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 0.6745098, g: 0.19607843, b: 0.19607843, a: 1}
+  selectorAnchor: {fileID: 1878022442}
 --- !u!114 &1167389091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7937,7 +7982,7 @@ MonoBehaviour:
   standingHurtboxOffset: {x: 0.01543713, y: -0.04}
   crouchingHurtboxSize: {x: 0.3824902, y: 0.9}
   crouchingHurtboxOffset: {x: 0, y: -0.27}
-  moveSpeed: 6.7
+  moveSpeed: 6.5
   jumpImpulse: 13
   groundCheckRadius: 0.1
   groundLayer:
@@ -8042,7 +8087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerLifePoints
   health: {fileID: 1230133747}
-  initialLifePoints: 2
+  initialLifePoints: 1
   currentLifePoints: 0
   deathAlreadyProcessed: 0
   isGameOver: 0
@@ -8091,8 +8136,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHitReaction
   health: {fileID: 0}
   playerMovement: {fileID: 0}
-  pushbackSpeed: 5.6
-  pushbackDuration: 0.25
+  inputReader: {fileID: 0}
+  respawnController: {fileID: 0}
+  pushbackSpeed: 5.4
+  pushbackDuration: 0.38
+  isHitReacting: 0
 --- !u!114 &1230133753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15905,7 +15953,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1425902906}
-  - component: {fileID: 1425902907}
   m_Layer: 5
   m_Name: GameOverPanel
   m_TagString: Untagged
@@ -15935,22 +15982,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1820.2183, y: 979.8773}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1425902907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1425902905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 799e50089a603e545836e035a8175011, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameOverMenuController
-  continueButton: {fileID: 21323825}
-  exitButton: {fileID: 1167389091}
-  selectorIcon: {fileID: 748609034}
-  selectorOffset: {x: -100, y: 0}
 --- !u!4 &1495246545 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2371468806599181168, guid: 573af0f12364ef5458d2b108ad410458, type: 3}
@@ -21271,6 +21302,41 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 4521366998602920717, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
   m_PrefabInstance: {fileID: 742043337891457729}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1878022441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1878022442}
+  m_Layer: 5
+  m_Name: SelectorAnchor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1878022442
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878022441}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1167389089}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -133.5, y: -1.2}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1898138712
 GameObject:
   m_ObjectHideFlags: 3
@@ -21450,6 +21516,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2065100148}
+  - component: {fileID: 2065100149}
   m_Layer: 5
   m_Name: Actions
   m_TagString: Untagged
@@ -21479,6 +21546,21 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: -426}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2065100149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2065100147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 799e50089a603e545836e035a8175011, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameOverMenuController
+  continueButton: {fileID: 21323825}
+  exitButton: {fileID: 1167389091}
+  selectorIcon: {fileID: 748609034}
 --- !u!4 &2069457276 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6731983744694862138, guid: b0fa39b87d80fee4d84fb04cd0661dc9, type: 3}
@@ -22045,7 +22127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -42.30606
+      value: -42.301796
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y
@@ -24027,7 +24109,7 @@ MonoBehaviour:
   fillImage: {fileID: 7110381305876287627}
   normalColor: {r: 1, g: 0.9098039, b: 0.32941177, a: 1}
   flashColor: {r: 1, g: 1, b: 1, a: 1}
-  flashInterval: 0.1
+  flashInterval: 0.09
 --- !u!224 &9195993804001755976
 RectTransform:
   m_ObjectHideFlags: 0

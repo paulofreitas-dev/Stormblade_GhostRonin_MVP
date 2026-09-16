@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_Project/Scenes/SCN_Cutscene_Intro.unity
+    guid: 6aebb652c146a564cb9020ca919e30d1
+  - enabled: 1
     path: Assets/_Project/Scenes/Sandbox/SCN_Sandbox_Player.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects:
