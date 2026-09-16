@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bb64257fb1824734bb9927b516c993b1
+guid: 7e3018b68f89a7a47bcb949ebadb8ff5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4261301405767819713
-    second: stormblade-quadro-1_0
+      213: 5557063351821223418
+    second: stormblade-quadro-1-Sheet_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 16384
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -100,23 +100,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: stormblade-quadro-1_0
+      name: stormblade-quadro-1-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 9600
-        height: 1800
+        width: 320
+        height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1c1e9ab1d0f232b30800000000000000
-      internalID: 4261301405767819713
+      spriteID: af545a70da7ae1d40800000000000000
+      internalID: 5557063351821223418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stormblade-quadro-1-Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3df3e1449dc52d7498221cb181a55a0b
+      internalID: -2095114869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: stormblade-quadro-1-Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 320
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f72ba628b1039c2428c6e9e956c2966f
+      internalID: -340085849
       vertices: []
       indices: 
       edges: []
@@ -125,7 +169,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 49b4989cfcb40df479867addf02dd9d7
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +177,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":320.0,"y":180.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      stormblade-quadro-1_0: 4261301405767819713
+      stormblade-quadro-1-Sheet_0: 5557063351821223418
+      stormblade-quadro-1-Sheet_1: -2095114869
+      stormblade-quadro-1-Sheet_2: -340085849
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
