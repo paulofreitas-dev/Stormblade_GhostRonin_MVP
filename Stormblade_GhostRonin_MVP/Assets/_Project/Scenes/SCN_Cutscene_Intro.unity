@@ -332,8 +332,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 722, y: -429}
+  m_SizeDelta: {x: 330, y: 96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &314053813
 MonoBehaviour:
@@ -378,7 +378,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 314053814}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1562927902}
+        m_TargetAssemblyTypeName: CustceneController, Assembly-CSharp
+        m_MethodName: RequestAdvance
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &314053814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,9 +411,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 165950054886204872, guid: a13a3d145c0b9b44cb031046261d6641, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -573,12 +585,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "O c\xE9u profetizou a destrui\xE7\xE3o,\ne os homens chamaram isso de
-    destino.\n\nMas o medo n\xE3o \xE9 previs\xE3o,\ne o amanh\xE3 n\xE3o conhece
-    caminho."
+  m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9ac4724b6e2de7e408bedbead72b2d70, type: 2}
+  m_sharedMaterial: {fileID: -2960165505775545980, guid: 9ac4724b6e2de7e408bedbead72b2d70, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -669,7 +679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TypewriterTextUI
   targetText: {fileID: 405331952}
   letterDelay: 0.07
-  playOnStart: 1
+  playOnStart: 0
 --- !u!1 &544401828
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,15 +837,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'CONTINUAR '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 9ac4724b6e2de7e408bedbead72b2d70, type: 2}
+  m_sharedMaterial: {fileID: -2960165505775545980, guid: 9ac4724b6e2de7e408bedbead72b2d70, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -852,8 +862,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1482,6 +1492,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94c168f89aea40f4d944eb9e22a7a97a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CustceneController
+  steps:
+  - screen: {fileID: 67517620}
+    text: "Quando o c\xE9u rasgou a escurid\xE3o,\r\nos homens chamaram o trov\xE3o
+      de condena\xE7\xE3o."
+  - screen: {fileID: 544401828}
+    text: "Mas o velho ouviu, sob o trov\xE3o, outra convoca\xE7\xE3o,\r\ne respondeu
+      ao press\xE1gio com sil\xEAncio e ora\xE7\xE3o."
+  - screen: {fileID: 1189215173}
+    text: "De sua voz veio a senten\xE7a, pesada como maldi\xE7\xE3o:\r\n\u201CDesperte.
+      O fim retornou para cumprir a previs\xE3o.\u201D"
+  - screen: {fileID: 1477867067}
+    text: "Abri os olhos sem espanto ou hesita\xE7\xE3o;\r\nn\xE3o me lembrei de
+      um destino \u2014 lembrei-me de uma decis\xE3o."
+  - screen: {fileID: 1662581023}
+    text: "Se o mundo espera de mim sil\xEAncio e submiss\xE3o,\r\nque escute ent\xE3o
+      minha resposta: l\xE2mina e trov\xE3o."
+  - screen: {fileID: 1024159682}
+    text: "Nas entranhas da terra, a profecia ganhou respira\xE7\xE3o,\r\ne o fogo
+      subiu aos c\xE9us como uma coroa\xE7\xE3o.\r\n"
+  - screen: {fileID: 366049043}
+    text: "No trono, o Profano aguardava sua ascens\xE3o,\r\nsem saber que profecia
+      alguma sobrevive \xE0 decis\xE3o."
+  typewriter: {fileID: 405331954}
 --- !u!4 &1562927903
 Transform:
   m_ObjectHideFlags: 0
