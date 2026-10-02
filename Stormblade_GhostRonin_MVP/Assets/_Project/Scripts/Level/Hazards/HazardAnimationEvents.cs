@@ -20,4 +20,12 @@ public class HazardAnimationEvents : MonoBehaviour
         hazardDamage.ActivateHitbox();
     }
 
+    public void DeactivateHitbox()
+    {
+        if(hazardDamage == null)
+            return;
+
+        hazardDamage.DeactivateHitbox();
+    }
+
 }
