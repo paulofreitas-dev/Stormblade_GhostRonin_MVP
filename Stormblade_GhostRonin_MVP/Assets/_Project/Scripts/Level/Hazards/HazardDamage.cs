@@ -16,18 +16,23 @@ public class HazardDamage : MonoBehaviour
 
     private void Awake()
     {
-        if(hitbox == null)
+        if (hitbox == null)
         {
             Debug.LogWarning($"{gameObject.name}: a hitbox do hazard não foi configurada.");
             return;
         }
+
+        Debug.Log(
+         $"{gameObject.name} | Mode = {activationMode} | Hitbox path = {hitbox.transform.parent.name}/{hitbox.gameObject.name}",
+         this
+        );
 
         ApplyInitialState();
     }
 
     private void ApplyInitialState()
     {
-        if(activationMode == HazardActivationMode.Persistent)
+        if (activationMode == HazardActivationMode.Persistent)
         {
             hitbox.EnableHitbox();
             return;
@@ -38,7 +43,7 @@ public class HazardDamage : MonoBehaviour
 
     public void BeginLoop()
     {
-        if(activationMode != HazardActivationMode.AnimationDriven)
+        if (activationMode != HazardActivationMode.AnimationDriven)
             return;
 
         DeactivateHitbox();
@@ -46,7 +51,7 @@ public class HazardDamage : MonoBehaviour
 
     public void ActivateHitbox()
     {
-        if(hitbox == null)
+        if (hitbox == null)
             return;
 
         hitbox.EnableHitbox();
@@ -54,10 +59,10 @@ public class HazardDamage : MonoBehaviour
 
     public void DeactivateHitbox()
     {
-        if(hitbox == null)
+        if (hitbox == null)
             return;
 
-        if(activationMode == HazardActivationMode.Persistent)
+        if (activationMode == HazardActivationMode.Persistent)
             return;
 
         hitbox.DisableHitbox();

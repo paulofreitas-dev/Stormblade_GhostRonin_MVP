@@ -23,11 +23,6 @@ public class Hitbox : MonoBehaviour
         {
             hitboxCollider = GetComponent<Collider2D>();
         }
-
-        if (hitboxCollider != null)
-        {
-            hitboxCollider.enabled = false;
-        }
     }
 
     public void EnableHitbox()
@@ -66,7 +61,7 @@ public class Hitbox : MonoBehaviour
 
         if (hitHurtboxes.Contains(hurtbox))
         {
-            Debug.Log($"{gameObject.name}: hurtbox já atingida nesta ativação");
+            Debug.Log($"{gameObject.name}: hurtbox jï¿½ atingida nesta ativaï¿½ï¿½o");
             return;
         }
 
@@ -75,6 +70,6 @@ public class Hitbox : MonoBehaviour
         DamageData damageData = new DamageData(damageAmount, damageSource);
         hurtbox.ReceiveHit(damageData);
 
-        Debug.Log($"{gameObject.name}: hitbox atingiu uma hurtbox válida.");
+        Debug.Log($"{gameObject.name}: hitbox atingiu uma hurtbox vï¿½lida.");
     }
 }
