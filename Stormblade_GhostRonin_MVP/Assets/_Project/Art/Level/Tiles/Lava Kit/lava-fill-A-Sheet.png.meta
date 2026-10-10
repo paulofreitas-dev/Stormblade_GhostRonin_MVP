@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 29ec96435ee357841ab79e9d53eac806
+guid: ce42bf684a721a140978eadd58804196
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6402504794899239450
-    second: lava-top-A-Sheet_0
+      213: -1882410197664292946
+    second: lava-fill-A-Sheet_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lava-top-A-Sheet_0
+      name: lava-fill-A-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,14 +115,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a1254b460344ad850800000000000000
-      internalID: 6402504794899239450
+      spriteID: eaf95ae06e550e5e0800000000000000
+      internalID: -1882410197664292946
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lava-top-A-Sheet_1
+      name: lava-fill-A-Sheet_1
       rect:
         serializedVersion: 2
         x: 96
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b73e0aaaa4966d344bbf5efeceea00be
-      internalID: 1358916077
+      spriteID: 1f2c7b3fc80bfe94eb839f28afb5b69b
+      internalID: -1635029475
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lava-top-A-Sheet_2
+      name: lava-fill-A-Sheet_2
       rect:
         serializedVersion: 2
         x: 192
@@ -159,14 +159,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39c6e933bc814d54689094e5638e8934
-      internalID: 1704852276
+      spriteID: 5429f960e51f0db499b760597380f0d2
+      internalID: 1513139573
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lava-top-A-Sheet_3
+      name: lava-fill-A-Sheet_3
       rect:
         serializedVersion: 2
         x: 288
@@ -181,8 +181,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9b67e073ba12f145827ad300125104a
-      internalID: -515553935
+      spriteID: 1499d1b7074ede04b9f2ccec558f9562
+      internalID: 974163663
       vertices: []
       indices: 
       edges: []
@@ -191,7 +191,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 962e3226d0d3db540ba2e13f79b82a74
+    spriteID: 6e5d3f1c93d47714fa7d090799e581c0
     internalID: 0
     vertices: []
     indices: 
@@ -203,10 +203,10 @@ TextureImporter:
       - key: SpriteEditor.SliceSettings
         value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":96.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      lava-top-A-Sheet_0: 6402504794899239450
-      lava-top-A-Sheet_1: 1358916077
-      lava-top-A-Sheet_2: 1704852276
-      lava-top-A-Sheet_3: -515553935
+      lava-fill-A-Sheet_0: -1882410197664292946
+      lava-fill-A-Sheet_1: -1635029475
+      lava-fill-A-Sheet_2: 1513139573
+      lava-fill-A-Sheet_3: 974163663
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

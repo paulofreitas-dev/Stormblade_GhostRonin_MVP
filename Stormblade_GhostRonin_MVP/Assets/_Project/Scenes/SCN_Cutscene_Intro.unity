@@ -928,7 +928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TypewriterTextUI
   targetText: {fileID: 405331952}
-  letterDelay: 0.038
+  letterDelay: 0.025
   playOnStart: 0
 --- !u!1 &544401828
 GameObject:
