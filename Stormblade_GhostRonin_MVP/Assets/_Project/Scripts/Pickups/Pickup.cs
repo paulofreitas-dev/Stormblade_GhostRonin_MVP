@@ -3,9 +3,12 @@ using UnityEngine;
 public interface IPickupCollector
 {
     bool CanCollectPickups { get; }
+
     Health Health { get; }
     PlayerLifePoints LifePoints { get; }
     PlayerEnergy Energy { get; }
+
+    bool IsValidCollectorCollider(Collider2D collider);
 }
 
 public class Pickup : MonoBehaviour
@@ -64,6 +67,9 @@ public class Pickup : MonoBehaviour
         if (collector == null)
             return;
 
+        if(!collector.IsValidCollectorCollider(collision))
+            return;
+
         if (!collector.CanCollectPickups)
             return;
 
@@ -83,7 +89,7 @@ public class Pickup : MonoBehaviour
 
     protected virtual void ApplyPickupEffect(IPickupCollector collector)
     {
-        Debug.Log($"{gameObject.name}: pickup coletado, mas nenhum efeito específico foi definido.");
+        Debug.Log($"{gameObject.name}: pickup coletado, mas nenhum efeito especï¿½fico foi definido.");
     }
 
     private void Expire()

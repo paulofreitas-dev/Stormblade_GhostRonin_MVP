@@ -66,9 +66,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Damage Pushback State")]
     [SerializeField] private bool isDamagePushbackActive;
 
+    [Header("Lane Transition State")]
+    [SerializeField] private bool isLaneTransitionActive;
+
     private float damagePushbackVelocityX;
     private float damagePushbackTimer;
 
+    public bool IsLaneTransitionActive => isLaneTransitionActive;
     public bool IsDamagePushbackActive => isDamagePushbackActive;
     private bool airborneStartedByJump;
     public bool AirborneStartedByJump => airborneStartedByJump;
@@ -130,6 +134,18 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
+        if (isLaneTransitionActive)
+        {
+            moveInputX = 0f;
+            isCrouching = false;
+            enteredCrouchThisFrame = false;
+
+            UpdateBodyColliderForCrouch();
+            UpdateHurtboxForCrouch();
+
+            return;
+        }
+
         moveInputX = inputReader.MoveInputX;
  
         UpdateCrouchState();
@@ -158,6 +174,9 @@ public class PlayerMovement : MonoBehaviour
             StopMovementDuringRespawn();
             return;
         }
+
+        if(isLaneTransitionActive)
+            return;
 
         if(HandleDamagePushback())
             return;
@@ -587,5 +606,22 @@ public class PlayerMovement : MonoBehaviour
 
         if(rb != null)
             rb.linearVelocity = Vector2.zero;
+    }
+
+    public void SetLaneTransitionActive(bool active)
+    {
+        isLaneTransitionActive = active;
+
+        if(!active)
+            return;
+
+        moveInputX = 0f;
+        isCrouching = false;
+        enteredCrouchThisFrame = false;
+    }
+
+    public void SetGroundLayerMask(LayerMask newGroundLayer)
+    {
+        groundLayer = newGroundLayer;
     }
 }

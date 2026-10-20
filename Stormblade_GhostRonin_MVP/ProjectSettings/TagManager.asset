@@ -32,11 +32,11 @@ TagManager:
   - Trigger
   - Wall
   - Breakable
-  - 
-  - 
-  - 
-  - 
-  - 
+  - FrontLineGround
+  - BackLineGround
+  - FrontLaneBody
+  - BackLaneBody
+  - LaneTransitionBody
   - 
   - 
   - 

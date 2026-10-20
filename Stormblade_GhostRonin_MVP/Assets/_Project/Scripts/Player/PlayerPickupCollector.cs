@@ -7,6 +7,9 @@ public class PlayerPickupCollector : MonoBehaviour, IPickupCollector
     [SerializeField] private PlayerLifePoints lifePoints;
     [SerializeField] private PlayerEnergy energy;
 
+    [Header("Pickup Collision")]
+    [SerializeField] private Collider2D collectorCollider;
+
     public Health Health => health;
     public PlayerLifePoints LifePoints => lifePoints;
     public PlayerEnergy Energy => energy;
@@ -35,5 +38,10 @@ public class PlayerPickupCollector : MonoBehaviour, IPickupCollector
 
         if (energy == null)
             energy = GetComponent<PlayerEnergy>();
+    }
+
+    public bool IsValidCollectorCollider(Collider2D collider)
+    {
+        return collider != null && collider == collectorCollider;
     }
 }

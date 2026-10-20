@@ -8,6 +8,7 @@ public class PlayerInputReader : MonoBehaviour
     [SerializeField] private InputActionReference attackAction;
     [SerializeField] private InputActionReference crouchAction;
     [SerializeField] private InputActionReference specialAction;
+    [SerializeField] private InputActionReference laneModifierAction;
 
     [Header("Debug")]
     [SerializeField] private float moveInputX;
@@ -15,6 +16,7 @@ public class PlayerInputReader : MonoBehaviour
     [SerializeField] private bool attackRequested;
     [SerializeField] private bool specialRequested;
     [SerializeField] private bool isCrouchHeld;
+    [SerializeField] private bool laneSwitchRequested;
 
     [Header("Input State")]
     [SerializeField] private bool gameplayInputBlocked;
@@ -25,6 +27,7 @@ public class PlayerInputReader : MonoBehaviour
     public bool AttackRequested => attackRequested;
     public bool SpecialRequested => specialRequested;
     public bool IsCrouchHeld => isCrouchHeld; 
+    public bool LaneSwitchRequested => laneSwitchRequested;
 
     private void OnEnable()
     {
@@ -51,6 +54,11 @@ public class PlayerInputReader : MonoBehaviour
         if (specialAction != null)
         {
             specialAction.action.Enable();
+        }
+
+        if (laneModifierAction != null)
+        {   
+            laneModifierAction.action.Enable();
         }
     }
 
@@ -79,6 +87,11 @@ public class PlayerInputReader : MonoBehaviour
         if (specialAction != null)
         {
             specialAction.action.Disable();
+        }
+
+        if (laneModifierAction != null)
+        {
+            laneModifierAction.action.Disable();
         }
     }
 
@@ -114,14 +127,25 @@ public class PlayerInputReader : MonoBehaviour
         if (jumpAction == null)
         {
             jumpRequested = false;
+            laneSwitchRequested = false;
             return;
         }
 
-        if (jumpAction.action.WasPressedThisFrame())
+        if (!jumpAction.action.WasPressedThisFrame())
+            return;
+
+        bool laneModifierHeld = laneModifierAction != null && laneModifierAction.action.IsPressed();
+
+        if (laneModifierHeld)
         {
-            jumpRequested = true;
+            laneSwitchRequested = true;
+            jumpRequested = false;
+
+            Debug.Log("[INPUT] Pedido de troca de plano registrado.");
+            return;
         }
 
+        jumpRequested = true;
     }
 
     private void ReadAttackInput()
@@ -186,10 +210,16 @@ public class PlayerInputReader : MonoBehaviour
         specialRequested = false;
     }
 
+    public void ConsumeLaneSwitchRequest()
+    {
+        laneSwitchRequested = false;
+    }
+
     public void ClearActionRequests()
     {
         jumpRequested = false;
         attackRequested = false;
+        laneSwitchRequested = false;
     }
 
     public void SetGamePlayInputBlocked(bool blocked)
@@ -206,6 +236,7 @@ public class PlayerInputReader : MonoBehaviour
         attackRequested = false;
         specialRequested = false;
         isCrouchHeld = false;
+        laneSwitchRequested = false;
     }
 
 }

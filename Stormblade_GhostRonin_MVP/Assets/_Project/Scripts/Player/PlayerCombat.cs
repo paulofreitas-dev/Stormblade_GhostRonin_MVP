@@ -151,17 +151,13 @@ public class PlayerCombat : MonoBehaviour
 
         playerInputReader.ConsumeAttackRequest();
 
+        if(IsLaneTransitioning())
+            return;
+
         if (isAttacking)
             return;
 
         TryStartContextualAttack();
-
-        //if (!CanStartBasicAttack())
-        //{
-        //    Debug.Log("PlayerCombat: pedido de ataque ignorado por regra de execu��o.");
-        //    return;
-        //}
-
     }
 
     private bool CanStartBasicAttack()
@@ -345,6 +341,11 @@ public class PlayerCombat : MonoBehaviour
     private bool IsRespawning()
     {
         return respawnController != null && respawnController.IsRespawning;
+    }
+
+    private bool IsLaneTransitioning()
+    {
+        return playerMovement != null && playerMovement.IsLaneTransitionActive;
     }
 
     public enum AttackType

@@ -9,6 +9,7 @@ public class PlayerAnimationController : MonoBehaviour
     [SerializeField] private PlayerCombat playerCombat;
     [SerializeField] private Health health;
     [SerializeField] private PlayerRespawnController respawnController;
+    [SerializeField] private PlayerLaneMovement playerLaneMovement;
 
     [Header("Air State Timing")]
     [SerializeField] private float jumpStartHoldTime = 0.10f;
@@ -16,7 +17,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public event Action OnDeathTransitionPoint;
     public event Action OnDeathAnimationFinished;
-    
+
     private static readonly int BaseStateHash = Animator.StringToHash("baseState");
     private static readonly int AttackHash = Animator.StringToHash("attackBasic");
     private static readonly int CrouchAttackHash = Animator.StringToHash("attackCrouch");
@@ -34,32 +35,36 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Awake()
     {
-        if(respawnController == null)
+        if (respawnController == null)
             respawnController = GetComponentInParent<PlayerRespawnController>();
+
         if (animator == null)
             animator = GetComponent<Animator>();
 
         if (health == null)
             health = GetComponentInParent<Health>();
+
+        if (playerLaneMovement == null)
+            playerLaneMovement = GetComponentInParent<PlayerLaneMovement>();
     }
 
     private void Update()
     {
-        if(health != null && health.IsDead)
+        if (health != null && health.IsDead)
             return;
-        
-        if(IsRespawning())
+
+        if (IsRespawning())
             return;
-        
+
         UpdateBaseState();
     }
 
     private void HandleDamageAnimation(DamageData damageData)
     {
-        if(animator == null)
+        if (animator == null)
             return;
 
-        if(health == null || health.IsDead)
+        if (health == null || health.IsDead)
             return;
 
         EndCurrentAttack();
@@ -72,7 +77,7 @@ public class PlayerAnimationController : MonoBehaviour
         if (deathAnimationStarted)
             return;
 
-        if(animator == null)
+        if (animator == null)
             return;
 
         deathAnimationStarted = true;
@@ -88,11 +93,17 @@ public class PlayerAnimationController : MonoBehaviour
                playerMovement != null &&
                playerMovement.JumpStartedThisFrame;
     }
-    
+
     private void UpdateBaseState()
     {
         if (animator == null || playerMovement == null)
             return;
+
+        if (playerLaneMovement != null && playerLaneMovement.IsMovingBetweenLanes)
+        {
+            UpdateLaneSwitchBaseState();
+            return;
+        }
 
         if (playerMovement.LandedThisFrame)
             SetTransientState(PlayerBaseState.JumpLanding, jumpLandingHoldTime);
@@ -162,8 +173,8 @@ public class PlayerAnimationController : MonoBehaviour
     {
         if (animator == null)
             return;
-        
-        if(IsRespawning())
+
+        if (IsRespawning())
             return;
 
         animator.SetTrigger(AttackHash);
@@ -200,7 +211,7 @@ public class PlayerAnimationController : MonoBehaviour
         if (animator == null)
             return;
 
-        if(IsRespawning())
+        if (IsRespawning())
             return;
 
         animator.SetTrigger(CrouchAttackHash);
@@ -211,7 +222,7 @@ public class PlayerAnimationController : MonoBehaviour
         if (animator == null)
             return;
 
-        if(IsRespawning())
+        if (IsRespawning())
             return;
 
         animator.SetTrigger(AirAttackHash);
@@ -225,20 +236,34 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void OnEnable()
     {
-        if(health == null)
-            return;
+        if (health != null)
+        {
+            health.OnDamaged += HandleDamageAnimation;
+            health.OnDied += HandleDeathAnimation;
+        }
 
-        health.OnDamaged += HandleDamageAnimation;
-        health.OnDied += HandleDeathAnimation;
-    } 
+        if (playerLaneMovement != null)
+        {
+            playerLaneMovement.OnLaneMovementStarted += HandleLaneMovementStarted;
+
+            playerLaneMovement.OnLaneMovementFinished += HandleLaneMovementFinished;
+        }
+    }
 
     private void OnDisable()
     {
-        if(health == null)
-            return;
+        if (health != null)
+        {
+            health.OnDamaged -= HandleDamageAnimation;
+            health.OnDied -= HandleDeathAnimation;    
+        }
 
-        health.OnDamaged -= HandleDamageAnimation;
-        health.OnDied -= HandleDeathAnimation;
+        if(playerLaneMovement != null)
+        {
+            playerLaneMovement.OnLaneMovementStarted -= HandleLaneMovementStarted;
+
+            playerLaneMovement.OnLaneMovementFinished -= HandleLaneMovementFinished;
+        }
     }
 
     public void AnimationEvent_DeathTransitionPoint()
@@ -255,7 +280,7 @@ public class PlayerAnimationController : MonoBehaviour
 
     public void PlayRespawn()
     {
-        if(animator == null)
+        if (animator == null)
             return;
 
         deathAnimationStarted = false;
@@ -274,6 +299,54 @@ public class PlayerAnimationController : MonoBehaviour
     private bool IsRespawning()
     {
         return respawnController != null && respawnController.IsRespawning;
+    }
+
+    private void UpdateLaneSwitchBaseState()
+    {
+        if (playerLaneMovement == null)
+            return;
+
+        float transitionDuration = Mathf.Max(0.01f, playerLaneMovement.TransitionDuration);
+
+        float jumpStartNormalizedEnd = Mathf.Clamp01(jumpStartHoldTime / transitionDuration);
+
+        PlayerBaseState targetState;
+
+        if (playerLaneMovement.TransitionProgress < jumpStartNormalizedEnd)
+        {
+            targetState = PlayerBaseState.JumpStart;
+        }
+
+        else
+        {
+            targetState = PlayerBaseState.JumpAir;
+        }
+
+        if (targetState == currentBaseState)
+            return;
+
+        currentBaseState = targetState;
+
+        animator.SetInteger(BaseStateHash, (int)currentBaseState);
+    }
+
+    private void HandleLaneMovementStarted()
+    {
+        isTransientStateActive = false;
+        transientStateTimer = 0f;
+
+        currentBaseState = PlayerBaseState.JumpStart;
+
+        animator.SetInteger(BaseStateHash, (int)currentBaseState);
+    }
+
+    private void HandleLaneMovementFinished()
+    {
+        SetTransientState(PlayerBaseState.JumpLanding, jumpLandingHoldTime);
+
+        currentBaseState = PlayerBaseState.JumpLanding;
+
+        animator.SetInteger(BaseStateHash, (int)currentBaseState);
     }
 
 }
