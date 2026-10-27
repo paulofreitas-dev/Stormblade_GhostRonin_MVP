@@ -4,7 +4,7 @@ public class EnemyTargetDetector : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private PlayerLaneController playerLaneController;
-    [SerializeField] private Collider2D enemyBodyCollider;
+    [SerializeField] private EnemyLaneController enemyLaneController;
 
     [Header("Attack Detection")]
     [SerializeField] private float attackRange = 1.5f;
@@ -17,31 +17,26 @@ public class EnemyTargetDetector : MonoBehaviour
 
     private Transform target;
 
-    private int frontLaneBodyLayer;
-    private int backLaneBodyLayer;
-
     public bool TargetInRange => targetInRange;
 
     private void Awake()
     {
-        frontLaneBodyLayer = LayerMask.NameToLayer("FrontLaneBody");
-        backLaneBodyLayer = LayerMask.NameToLayer("BackLaneBody");
-
+        
         if(playerLaneController == null)
             playerLaneController = FindFirstObjectByType<PlayerLaneController>();
 
         if(playerLaneController != null)
             target = playerLaneController.transform;
 
-        if(enemyBodyCollider == null)
-            Debug.LogWarning($"{name}: Enemy BodyCollider não configurado.", this);
+        if(enemyLaneController == null)
+            enemyLaneController = GetComponent<EnemyLaneController>();
     }
 
     public bool CanAttackTarget(float advanceDirection)
     {
         ResetRuntimeDebug();
 
-        if(target == null || playerLaneController == null || enemyBodyCollider == null)
+        if(target == null || playerLaneController == null || enemyLaneController == null)
             return false;
 
         //Durante a troca de lane, o Player não é considerado
@@ -49,10 +44,7 @@ public class EnemyTargetDetector : MonoBehaviour
         if(playerLaneController.IsTransitioning)
             return false;
 
-        if(!TryGetEnemyLane(out GameplayLane enemyLane))
-            return false;
-
-        sameLane = enemyLane == playerLaneController.CurrentLane;
+        sameLane = enemyLaneController.CurrentLane == playerLaneController.CurrentLane;
 
         if(!sameLane)
             return false;
@@ -69,27 +61,6 @@ public class EnemyTargetDetector : MonoBehaviour
         targetInRange = horizontalDistance <= attackRange;
 
         return targetInRange;
-    }
-
-    private bool TryGetEnemyLane(out GameplayLane lane)
-    {
-        lane = GameplayLane.Front;
-
-        int bodyLayer = enemyBodyCollider.gameObject.layer;
-
-        if(bodyLayer == frontLaneBodyLayer)
-        {
-            lane = GameplayLane.Front;
-            return true;
-        }
-
-        if(bodyLayer == backLaneBodyLayer)
-        {
-            lane = GameplayLane.Back;
-            return true;
-        }
-
-        return false;
     }
 
     private void ResetRuntimeDebug()

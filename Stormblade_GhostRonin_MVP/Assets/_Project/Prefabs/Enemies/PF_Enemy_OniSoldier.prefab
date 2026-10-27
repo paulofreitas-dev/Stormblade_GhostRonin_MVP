@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 7210822885682487922}
   - component: {fileID: 4334569684082372477}
   - component: {fileID: 360985334900416785}
+  - component: {fileID: 3698127657505594544}
+  - component: {fileID: 235654337181831527}
   - component: {fileID: 2140461510291503212}
   m_Layer: 0
   m_Name: PF_Enemy_OniSoldier
@@ -172,6 +174,40 @@ MonoBehaviour:
   horizontalViewportMargin: 0.1
   isDespawning: 0
   viewportX: 0
+--- !u!114 &3698127657505594544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074040092648803515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8c793d9307f794794a36e303713359, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyLaneController
+  startingLane: 0
+  bodyCollider: {fileID: 8393730202207824665}
+  currentLane: 0
+--- !u!114 &235654337181831527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1074040092648803515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6add82f7056f127429913ff1540c943c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyLaneVisualController
+  visualDepthRoot: {fileID: 0}
+  sortingGroup: {fileID: 0}
+  laneController: {fileID: 0}
+  frontScale: 1
+  backScale: 0.8
+  frontSortingOrder: 10
+  backSortingOrder: 5
 --- !u!114 &2140461510291503212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +415,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3922779483519081682}
+  - component: {fileID: 8025695556894181723}
   m_Layer: 0
   m_Name: VisualDepthRoot
   m_TagString: Untagged
@@ -402,6 +439,19 @@ Transform:
   - {fileID: 3995619143498874496}
   m_Father: {fileID: 6118128961144101165}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!210 &8025695556894181723
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3544219242719739656}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!1 &4791503199547220030
 GameObject:
   m_ObjectHideFlags: 0

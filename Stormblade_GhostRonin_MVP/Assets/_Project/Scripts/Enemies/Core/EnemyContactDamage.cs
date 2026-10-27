@@ -4,7 +4,7 @@ public class EnemyContactDamage : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Collider2D contactCollider;
-    [SerializeField] private Collider2D enemyBodyCollider;
+    [SerializeField] private EnemyLaneController enemyLaneController;
     [SerializeField] private Transform damageSource;
 
     [Header("Damage")]
@@ -20,6 +20,9 @@ public class EnemyContactDamage : MonoBehaviour
 
     private void Awake()
     {
+        if(enemyLaneController == null)
+            enemyLaneController = GetComponentInParent<EnemyLaneController>();
+
         if(contactCollider == null)
             contactCollider = GetComponent<Collider2D>();
 
@@ -74,17 +77,9 @@ public class EnemyContactDamage : MonoBehaviour
 
     private bool IsPlayerInSameLane(GameplayLane playerLane)
     {
-        if(enemyBodyCollider == null)
+        if(enemyLaneController == null)
             return false;
-
-        int enemyBodyLayer = enemyBodyCollider.gameObject.layer;
-
-        if(enemyBodyLayer == frontLaneBodyLayer)
-            return playerLane == GameplayLane.Front;
-
-        if(enemyBodyLayer == backLaneBodyLayer)
-            return playerLane == GameplayLane.Back;
-
-        return false;
+        
+        return enemyLaneController.CurrentLane == playerLane;
     }
 }
