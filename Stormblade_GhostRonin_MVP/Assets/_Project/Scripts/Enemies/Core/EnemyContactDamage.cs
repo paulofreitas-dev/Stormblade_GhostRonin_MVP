@@ -1,0 +1,90 @@
+using UnityEngine;
+
+public class EnemyContactDamage : MonoBehaviour
+{
+    [Header("References")]
+    [SerializeField] private Collider2D contactCollider;
+    [SerializeField] private Collider2D enemyBodyCollider;
+    [SerializeField] private Transform damageSource;
+
+    [Header("Damage")]
+    [SerializeField] private int damageAmount = 1;
+
+    [Header("Runtime Debug")]
+    [SerializeField] private bool damageEnabled = true;
+
+    private int frontLaneBodyLayer;
+    private int backLaneBodyLayer;
+
+    public bool DamageEnabled => damageEnabled;
+
+    private void Awake()
+    {
+        if(contactCollider == null)
+            contactCollider = GetComponent<Collider2D>();
+
+        if(damageSource == null)
+        {
+            Health ownerHealth = GetComponentInParent<Health>();
+
+            if(ownerHealth != null)
+                damageSource = ownerHealth.transform;
+        }
+
+        frontLaneBodyLayer = LayerMask.NameToLayer("FrontLaneBody");
+
+        backLaneBodyLayer = LayerMask.NameToLayer("BackLaneBody");
+
+        if(contactCollider != null)
+            contactCollider.isTrigger = true;
+    }
+
+    public void SetDamageEnabled(bool enabled)
+    {
+        damageEnabled = enabled;
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if(!damageEnabled)
+            return;
+
+        Hurtbox hurtbox = other.GetComponent<Hurtbox>();
+
+        if(hurtbox == null)
+            return;
+
+        PlayerLaneController playerLaneController = hurtbox.GetComponentInParent<PlayerLaneController>();
+
+        if(playerLaneController == null)
+            return;
+
+        if(playerLaneController.IsTransitioning)
+            return;
+
+        if(!IsPlayerInSameLane(playerLaneController.CurrentLane))
+            return;
+
+        DamageData damageData = new DamageData(damageAmount, damageSource);
+
+        hurtbox.ReceiveHit(damageData);
+
+        Debug.Log($"[ONI CONTACT] {name} causou {damageAmount} de dano.", this);
+    }
+
+    private bool IsPlayerInSameLane(GameplayLane playerLane)
+    {
+        if(enemyBodyCollider == null)
+            return false;
+
+        int enemyBodyLayer = enemyBodyCollider.gameObject.layer;
+
+        if(enemyBodyLayer == frontLaneBodyLayer)
+            return playerLane == GameplayLane.Front;
+
+        if(enemyBodyLayer == backLaneBodyLayer)
+            return playerLane == GameplayLane.Back;
+
+        return false;
+    }
+}

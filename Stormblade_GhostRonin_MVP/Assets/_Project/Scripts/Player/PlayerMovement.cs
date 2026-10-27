@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isFacingRight = true;
 
     [Header("Crouch State")]
-    [SerializeField]private bool isCrouching;
+    [SerializeField] private bool isCrouching;
     [SerializeField] private bool enteredCrouchThisFrame;
     [SerializeField] private bool wasCrouchingLastFrame;
 
@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        if(respawnController == null)
+        if (respawnController == null)
             respawnController = GetComponent<PlayerRespawnController>();
     }
 
@@ -147,7 +147,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         moveInputX = inputReader.MoveInputX;
- 
+
         UpdateCrouchState();
         UpdateBodyColliderForCrouch();
         UpdateHurtboxForCrouch();
@@ -169,16 +169,16 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if(IsRespawning())
+        if (IsRespawning())
         {
             StopMovementDuringRespawn();
             return;
         }
 
-        if(isLaneTransitionActive)
+        if (isLaneTransitionActive)
             return;
 
-        if(HandleDamagePushback())
+        if (HandleDamagePushback())
             return;
 
         if (enteredCrouchThisFrame)
@@ -230,7 +230,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleHorizontalMovement()
     {
-        if(airAttackLockedDirection != 0 && !isGrounded)
+        if (airAttackLockedDirection != 0 && !isGrounded)
         {
             HandleAirAttackHorizontalMovement();
             return;
@@ -332,7 +332,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckCeiling()
     {
-        if(ceilingCheck == null)
+        if (ceilingCheck == null)
         {
             isTouchingCeiling = false;
             return;
@@ -369,18 +369,18 @@ public class PlayerMovement : MonoBehaviour
         if (playerCombat != null && playerCombat.IsAttacking)
             return;
 
-        if(airAttackLockedDirection != 0 && !isGrounded)
+        if (airAttackLockedDirection != 0 && !isGrounded)
             return;
 
         if (isCrouching)
             return;
 
-        if(moveInputX > 0.01f && !isFacingRight)
+        if (moveInputX > 0.01f && !isFacingRight)
         {
             Flip(true);
         }
 
-        else if(moveInputX < -0.01f && isFacingRight)
+        else if (moveInputX < -0.01f && isFacingRight)
         {
             Flip(false);
         }
@@ -406,7 +406,7 @@ public class PlayerMovement : MonoBehaviour
             Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         }
 
-        if(ceilingCheck != null)
+        if (ceilingCheck != null)
         {
             Gizmos.color = Color.cyan;
             Gizmos.DrawWireSphere(ceilingCheck.position, ceilingCheckRadius);
@@ -433,13 +433,13 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if(playerCombat != null && playerCombat.IsBasicAttackActive || playerCombat != null && playerCombat.IsCrouchAttackActive)
+        if (playerCombat != null && playerCombat.IsBasicAttackActive || playerCombat != null && playerCombat.IsCrouchAttackActive)
         {
             inputReader.ConsumeJumpRequest();
             Debug.Log("Pulo bloqueado durante ataque básico.");
             return;
         }
-            
+
         if (isGrounded)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
@@ -551,19 +551,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void StartDamagePushback(float directionX, float speed, float duration)
     {
-        if(rb == null)
+        if (rb == null)
             return;
 
-        if(IsDead())
+        if (IsDead())
             return;
 
-        if(Mathf.Abs(directionX) < 0.01f)
+        if (Mathf.Abs(directionX) < 0.01f)
             return;
 
         speed = Mathf.Max(0f, speed);
         duration = Mathf.Max(0f, duration);
 
-        if(speed <= 0f || duration <= 0f)
+        if (speed <= 0f || duration <= 0f)
             return;
 
         damagePushbackVelocityX = Mathf.Sign(directionX) * speed;
@@ -576,14 +576,14 @@ public class PlayerMovement : MonoBehaviour
 
     private bool HandleDamagePushback()
     {
-        if(!isDamagePushbackActive)
+        if (!isDamagePushbackActive)
             return false;
-        
+
         rb.linearVelocity = new Vector2(damagePushbackVelocityX, rb.linearVelocity.y);
 
         damagePushbackTimer -= Time.fixedDeltaTime;
 
-        if(damagePushbackTimer <= 0f)
+        if (damagePushbackTimer <= 0f)
         {
             isDamagePushbackActive = false;
             damagePushbackTimer = 0f;
@@ -604,7 +604,7 @@ public class PlayerMovement : MonoBehaviour
         isCrouching = false;
         enteredCrouchThisFrame = false;
 
-        if(rb != null)
+        if (rb != null)
             rb.linearVelocity = Vector2.zero;
     }
 
@@ -612,7 +612,7 @@ public class PlayerMovement : MonoBehaviour
     {
         isLaneTransitionActive = active;
 
-        if(!active)
+        if (!active)
             return;
 
         moveInputX = 0f;

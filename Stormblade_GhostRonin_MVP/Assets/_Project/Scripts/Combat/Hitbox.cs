@@ -14,15 +14,20 @@ public class Hitbox : MonoBehaviour
 
     private void Awake()
     {
+        if(hitboxCollider == null)
+            hitboxCollider = GetComponent<Collider2D>();
+
         if(damageSource == null)
         {
-            damageSource = transform.root;
+            Health ownerHealth = GetComponentInParent<Health>();
+
+            if(ownerHealth != null)
+                damageSource = ownerHealth.transform;
+            else
+                damageSource = transform;
         }
 
-        if (hitboxCollider == null)
-        {
-            hitboxCollider = GetComponent<Collider2D>();
-        }
+        DisableHitbox();
     }
 
     public void EnableHitbox()

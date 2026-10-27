@@ -1,4 +1,5 @@
 using System.Text;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerHitReaction : MonoBehaviour
@@ -102,8 +103,10 @@ public class PlayerHitReaction : MonoBehaviour
         {
             float horizontalDifference = transform.position.x - damageSource.position.x;
 
+            float direction = Mathf.Sign(horizontalDifference);
+
             if(Mathf.Abs(horizontalDifference) > 0.01f)
-                return Mathf.Sign(horizontalDifference);
+                return direction;
         }
 
         // DecoderFallback para fontes sem posição válida ou quando fonte e player estiverem praticamente no mesmo eixo X.
