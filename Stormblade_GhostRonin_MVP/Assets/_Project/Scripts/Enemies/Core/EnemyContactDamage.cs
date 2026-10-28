@@ -13,9 +13,6 @@ public class EnemyContactDamage : MonoBehaviour
     [Header("Runtime Debug")]
     [SerializeField] private bool damageEnabled = true;
 
-    private int frontLaneBodyLayer;
-    private int backLaneBodyLayer;
-
     public bool DamageEnabled => damageEnabled;
 
     private void Awake()
@@ -33,10 +30,6 @@ public class EnemyContactDamage : MonoBehaviour
             if(ownerHealth != null)
                 damageSource = ownerHealth.transform;
         }
-
-        frontLaneBodyLayer = LayerMask.NameToLayer("FrontLaneBody");
-
-        backLaneBodyLayer = LayerMask.NameToLayer("BackLaneBody");
 
         if(contactCollider != null)
             contactCollider.isTrigger = true;

@@ -7,6 +7,7 @@ public class EnemyAnimationController : MonoBehaviour
 
     private static readonly int IsMovingHash = Animator.StringToHash("isMoving");
     private static readonly int BasicAttackHash = Animator.StringToHash("attackBasic");
+    private static readonly int DeathHash = Animator.StringToHash("death");
 
     private void Awake()
     {
@@ -28,5 +29,13 @@ public class EnemyAnimationController : MonoBehaviour
             return;
 
         animator.SetTrigger(BasicAttackHash);
+    }
+
+    public void PlayDeath()
+    {
+        if(animator == null)
+            return;
+
+        animator.SetTrigger(DeathHash);
     }
 }

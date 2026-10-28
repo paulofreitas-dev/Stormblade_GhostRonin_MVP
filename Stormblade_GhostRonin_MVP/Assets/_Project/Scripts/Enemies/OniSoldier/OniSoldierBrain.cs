@@ -7,6 +7,7 @@ public class OniSoldierBrain : MonoBehaviour
     [SerializeField] private EnemyAnimationController animationController;
     [SerializeField] private EnemyTargetDetector targetDetector;
     [SerializeField] private EnemyCombat combat;
+    [SerializeField] private EnemyFacingController facingController;
 
     [Header("Advance Settings")]
     [SerializeField] private float advanceDirection = -1f;
@@ -29,6 +30,16 @@ public class OniSoldierBrain : MonoBehaviour
 
         if(combat == null)
             combat = GetComponent<EnemyCombat>();
+
+        if(facingController == null)
+            facingController = GetComponent<EnemyFacingController>();
+
+        if(facingController != null)
+        {
+            advanceDirection = advanceDirection >= 0f ? 1f : -1f;
+            
+            facingController.SetFacing(advanceDirection);
+        }
     }
 
     private void Start()
