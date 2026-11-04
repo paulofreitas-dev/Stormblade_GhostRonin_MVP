@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class EnemyLaneController : MonoBehaviour
+public class EnemyLaneController : MonoBehaviour, IEnemySpawnLaneConfigurable
 {
     [Header("Initial State")]
     [SerializeField] private GameplayLane startingLane = GameplayLane.Front;
@@ -80,5 +80,10 @@ public class EnemyLaneController : MonoBehaviour
             return;
 
         bodyCollider.gameObject.layer = targetLayer;
+    }
+
+    public void SetInitialLane(GameplayLane lane)
+    {
+        SetLane(lane);
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class OniSoldierBrain : MonoBehaviour
+public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
 {
     [Header("References")]
     [SerializeField] private EnemyMovement movement;
@@ -34,12 +34,7 @@ public class OniSoldierBrain : MonoBehaviour
         if(facingController == null)
             facingController = GetComponent<EnemyFacingController>();
 
-        if(facingController != null)
-        {
-            advanceDirection = advanceDirection >= 0f ? 1f : -1f;
-            
-            facingController.SetFacing(advanceDirection);
-        }
+        ApplyAdvanceDirection();
     }
 
     private void Start()
@@ -78,12 +73,11 @@ public class OniSoldierBrain : MonoBehaviour
         if(movement == null)
             return;
 
-        advanceDirection = advanceDirection >= 0f ? 1f : -1f;
-
         isAdvancing = true;
 
         movement.SetMovementEnabled(true);
-        movement.SetMoveDirection(advanceDirection);
+        
+        ApplyAdvanceDirection();
 
         if(animationController != null)
             animationController.SetMoving(true);
@@ -111,5 +105,26 @@ public class OniSoldierBrain : MonoBehaviour
     private void HandleAttackFinished()
     {
         BeginAdvance();
+    }
+
+    public void SetInitialDirection(float direction)
+    {
+        if(Mathf.Approximately(direction, 0f))
+            return;
+
+        advanceDirection = Mathf.Sign(direction);
+
+        ApplyAdvanceDirection();
+    }
+
+    private void ApplyAdvanceDirection()
+    {
+        advanceDirection = advanceDirection >= 0f ? 1f : -1f;
+
+        if(movement != null)
+            movement.SetMoveDirection(advanceDirection);
+
+        if(facingController != null)
+            facingController.SetFacing(advanceDirection);
     }
 }
