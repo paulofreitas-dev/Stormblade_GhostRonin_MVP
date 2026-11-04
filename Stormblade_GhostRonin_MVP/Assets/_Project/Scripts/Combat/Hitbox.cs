@@ -64,6 +64,9 @@ public class Hitbox : MonoBehaviour
             return;
         }
 
+        if(!IsValidLaneHit(hurtbox))
+            return;
+
         if (hitHurtboxes.Contains(hurtbox))
         {
             Debug.Log($"{gameObject.name}: hurtbox j� atingida nesta ativa��o");
@@ -73,8 +76,24 @@ public class Hitbox : MonoBehaviour
         hitHurtboxes.Add(hurtbox);
 
         DamageData damageData = new DamageData(damageAmount, damageSource);
+
         hurtbox.ReceiveHit(damageData);
 
         Debug.Log($"{gameObject.name}: hitbox atingiu uma hurtbox v�lida.");
+    }
+
+    private bool IsValidLaneHit(Hurtbox hurtbox)
+    {
+        if(hurtbox == null)
+            return false;
+
+        IGameplayLaneProvider sourceLane = damageSource != null ? damageSource.GetComponentInParent<IGameplayLaneProvider>() : null;
+
+        IGameplayLaneProvider targetLane = hurtbox.GetComponentInParent<IGameplayLaneProvider>();
+
+        if(sourceLane == null || targetLane == null)
+            return true;
+
+        return sourceLane.CurrentLane == targetLane.CurrentLane;
     }
 }

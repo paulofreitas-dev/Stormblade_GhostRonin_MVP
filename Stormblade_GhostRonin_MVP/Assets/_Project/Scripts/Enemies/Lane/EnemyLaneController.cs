@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class EnemyLaneController : MonoBehaviour, IEnemySpawnLaneConfigurable
+public class EnemyLaneController : MonoBehaviour, IEnemySpawnLaneConfigurable, IGameplayLaneProvider
 {
     [Header("Initial State")]
     [SerializeField] private GameplayLane startingLane = GameplayLane.Front;

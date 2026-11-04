@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-public class PlayerLaneController : MonoBehaviour
+public class PlayerLaneController : MonoBehaviour, IGameplayLaneProvider
 {
     [Header("Initial State")]
     [SerializeField] private GameplayLane startingLane = GameplayLane.Front;

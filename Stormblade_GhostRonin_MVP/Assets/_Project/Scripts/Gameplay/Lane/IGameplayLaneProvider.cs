@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class IGameplayLaneProvider : MonoBehaviour
+public interface IGameplayLaneProvider
 {
-    
+    GameplayLane CurrentLane { get; }
 }
