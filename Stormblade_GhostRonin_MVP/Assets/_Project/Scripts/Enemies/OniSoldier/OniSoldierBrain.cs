@@ -34,7 +34,7 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
         if(facingController == null)
             facingController = GetComponent<EnemyFacingController>();
 
-        ApplyAdvanceDirection();
+        // ApplyAdvanceDirection();
     }
 
     private void Start()
