@@ -12,8 +12,16 @@ public class CameraTargetController : MonoBehaviour
 
     [Header("Vertical Progression")]
     [SerializeField, Range(0f, 1f)] private float lowerActivationViewportY = 0.15f;
-
     [SerializeField, Range(0f, 1f)] private float upperActivationViewportY = 0.85f;
+
+    [Header("Encounter Lock")]
+    [SerializeField] private float encounterForwardLimitViewportX = 0.90f;
+
+    [Header("Runtime Debug")]
+    [SerializeField] private bool isEncounterLocked;
+
+    public bool IsEncounterLocked => isEncounterLocked;
+    public bool IsBlockingForwardMovement { get; private set; }
 
     private float targetX;
     private float targetY;
@@ -54,13 +62,15 @@ public class CameraTargetController : MonoBehaviour
 
         IsBlockingBackwardMovement = playerViewportPosition.x <= backwardLimitViewportX;
 
+        IsBlockingForwardMovement = isEncounterLocked && playerViewportPosition.x >= encounterForwardLimitViewportX;
+
         float playerDeltaX = player.position.x - previousPlayerX;
 
         bool reachedForwardLimit = playerViewportPosition.x >= forwardActivationViewportX;
 
         bool playerMovedForward = playerDeltaX > 0f;
 
-        if(reachedForwardLimit && playerMovedForward)
+        if(!isEncounterLocked && reachedForwardLimit && playerMovedForward)
             targetX += playerDeltaX;
 
         // --------------------------------
@@ -105,5 +115,32 @@ public class CameraTargetController : MonoBehaviour
         previousPlayerY = playerPosition.y;
 
         IsBlockingBackwardMovement = false;
+    }
+
+    public void SetEncounterLock(bool locked)
+    {
+        if(isEncounterLocked == locked)
+            return;
+
+        isEncounterLocked = locked;
+
+        if (isEncounterLocked)
+        {
+            targetX = transform.position.x;
+
+            if(player != null)
+                previousPlayerX = player.position.x;
+
+            Debug.Log($"[CAMERA] Encounter Lock ativado em X = {targetX}.", this);
+
+            return;
+        }
+
+        IsBlockingForwardMovement = false;
+
+        if(player != null)
+            previousPlayerX = player.position.x;
+
+        Debug.Log("[CAMERA] Encounter Lock liberado.", this);
     }
 }

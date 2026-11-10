@@ -10,10 +10,13 @@ public class EncounterController : MonoBehaviour
     [Header("Runtime Debug")]
     [SerializeField] private bool hasActivated;
     [SerializeField] private bool isActive;
-
     [SerializeField] private List<GameObject> runtimeParticipants = new();
 
-    public bool HasActivated => HasActivated;
+    [Header("Camera")]
+    [SerializeField] private bool lockCameraOnActivate = true;
+    [SerializeField] private CameraTargetController cameraTargetController;
+
+    public bool HasActivated => hasActivated;
     public bool IsActive => isActive;
 
     public IReadOnlyList<GameObject> RuntimeParticipants => runtimeParticipants;
@@ -27,6 +30,9 @@ public class EncounterController : MonoBehaviour
 
         hasActivated = true;
         isActive = true;
+
+        if(lockCameraOnActivate && cameraTargetController != null)
+            cameraTargetController.SetEncounterLock(true);
 
         runtimeParticipants.Clear();
 
@@ -55,9 +61,26 @@ public class EncounterController : MonoBehaviour
         return true;
     }
 
+    public void ReleaseCameraLock()
+    {
+        if(!lockCameraOnActivate)
+            return;
+
+        if(cameraTargetController == null)
+            return;
+
+        cameraTargetController.SetEncounterLock(false);
+    }
+
     [ContextMenu("TEST/Activate Encounter")]
     private void TestActivateEncounter()
     {
         ActivateEncounter();
+    }
+
+    [ContextMenu("TEST/Release Camera Lock")]
+    private void TesteReleaseCameraLock()
+    {
+        ReleaseCameraLock();
     }
 }

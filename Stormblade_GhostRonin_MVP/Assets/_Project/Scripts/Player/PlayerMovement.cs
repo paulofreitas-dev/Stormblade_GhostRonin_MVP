@@ -220,10 +220,14 @@ public class PlayerMovement : MonoBehaviour
     {
         float filteredMoveInputX = moveInputX;
 
-        if (cameraTargetController != null && cameraTargetController.IsBlockingBackwardMovement && filteredMoveInputX < 0f)
-        {
+        if(cameraTargetController == null)
+            return filteredMoveInputX;
+
+        if (cameraTargetController.IsBlockingBackwardMovement && filteredMoveInputX < 0f)
             filteredMoveInputX = 0f;
-        }
+
+        if(cameraTargetController.IsBlockingForwardMovement && filteredMoveInputX > 0f)
+            filteredMoveInputX = 0f;
 
         return filteredMoveInputX;
     }
