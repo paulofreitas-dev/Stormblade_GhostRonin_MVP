@@ -1,5 +1,17 @@
 using UnityEngine;
 
+public enum EnemySpawnPositionMode
+{
+    WorldPosition,
+    CameraEdge
+}
+
+public enum CameraSpawnSide
+{
+    Left,
+    Right
+}
+
 public class EnemySpawnPoint : MonoBehaviour
 {
     [Header("Spawn")]
@@ -21,6 +33,15 @@ public class EnemySpawnPoint : MonoBehaviour
 
     [SerializeField] private bool overrideInitialDirection = true;
     [SerializeField] private EnemyHorizontalDirection initialDirection = EnemyHorizontalDirection.Left;
+
+    [Header("Position")]
+    [SerializeField] private EnemySpawnPositionMode positionMode = EnemySpawnPositionMode.WorldPosition;
+
+    [SerializeField] private CameraSpawnSide cameraSpawnSide;
+
+    [SerializeField] private Camera mainCamera;
+
+    [SerializeField] private float cameraEdgeMargin = 0.05f;
 
     public bool HasSpawned => hasSpawned;
     public GameObject LastSpawnedEnemy => lastSpawnedEnemy;

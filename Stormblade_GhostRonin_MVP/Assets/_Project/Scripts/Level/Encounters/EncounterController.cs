@@ -16,10 +16,24 @@ public class EncounterController : MonoBehaviour
     [SerializeField] private bool lockCameraOnActivate = true;
     [SerializeField] private CameraTargetController cameraTargetController;
 
+    [Header("Spawn Groups")]
+    [SerializeField] private List<EnemySpawnGroup> spawnGroups = new();
+
+    [Header("Spawn Runtime")]
+    [SerializeField] private int currentSpawnGroupIndex = -1;
+
+    [SerializeField] private List<GameObject> currentSpawnGroupParticipants = new();
+
     public bool HasActivated => hasActivated;
     public bool IsActive => isActive;
 
     public IReadOnlyList<GameObject> RuntimeParticipants => runtimeParticipants;
+
+    public int CurrentSpawnGroupIndex => currentSpawnGroupIndex;
+
+    public IReadOnlyList<GameObject> CurrentSpawnGroupParticipants => currentSpawnGroupParticipants;
+
+    public bool HasMoreSpawnGroups => currentSpawnGroupIndex + 1 < spawnGroups.Count;
 
     public event Action OnActivated;
 
@@ -40,6 +54,12 @@ public class EncounterController : MonoBehaviour
         {
             RegisterParticipant(participant);
         }
+
+        currentSpawnGroupIndex = -1;
+        currentSpawnGroupParticipants.Clear();
+
+        if(spawnGroups.Count > 0)
+            SpawnNextGroup();
 
         Debug.Log($"[ENCOUNTER] {name} ativado. " + $"Participantes iniciais: {runtimeParticipants.Count}.", this);
 
@@ -72,6 +92,50 @@ public class EncounterController : MonoBehaviour
         cameraTargetController.SetEncounterLock(false);
     }
 
+    public void SpawnNextGroup()
+    {
+        if (!isActive)
+        {
+            Debug.LogWarning($"{name}: tentativa de spawn com Encounter inativo.", this);
+
+            return;
+        }
+
+        if (!HasMoreSpawnGroups)
+        {
+            Debug.Log($"[ENCOUNTER] {name}: não existem mais Spawn Groups.", this);
+
+            return;
+        }
+
+        currentSpawnGroupIndex++;
+
+        EnemySpawnGroup spawnGroup = spawnGroups[currentSpawnGroupIndex];
+
+        currentSpawnGroupParticipants.Clear();
+
+        if(spawnGroup == null)
+        {
+            Debug.LogWarning($"{name}: Spawn Group {currentSpawnGroupIndex} não configurado.", this);
+
+            return;
+        }
+
+        IReadOnlyList<GameObject> spawnedEnemies = spawnGroup.SpawnAll();
+
+        foreach(GameObject enemy in spawnedEnemies)
+        {
+            if(enemy == null)
+                continue;
+
+            RegisterParticipant(enemy);
+
+            currentSpawnGroupParticipants.Add(enemy);
+        }
+
+        Debug.Log($"[ENCOUNTER] {name}: Spawn Group " + $"{currentSpawnGroupIndex + 1} iniciado com " + $"{currentSpawnGroupParticipants.Count} inimigo(s).", this);
+    }
+
     [ContextMenu("TEST/Activate Encounter")]
     private void TestActivateEncounter()
     {
@@ -79,8 +143,14 @@ public class EncounterController : MonoBehaviour
     }
 
     [ContextMenu("TEST/Release Camera Lock")]
-    private void TesteReleaseCameraLock()
+    private void TestReleaseCameraLock()
     {
         ReleaseCameraLock();
+    }
+
+    [ContextMenu("TEST/Spawn Next Group")]
+    private void TestSpawnNextGroup()
+    {
+        SpawnNextGroup();
     }
 }
