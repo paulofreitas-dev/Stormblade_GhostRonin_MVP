@@ -2,15 +2,27 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 
+[System.Serializable]
+public class PreplacedEncounterParticipant
+{
+    [SerializeField] private GameObject enemy;
+
+    [SerializeField] private EncounterResolutionRule resolutionRule = EncounterResolutionRule.DefeatedOnly;
+
+    public GameObject Enemy => enemy;
+
+    public EncounterResolutionRule ResolutionRule => resolutionRule;
+}
+
 public class EncounterController : MonoBehaviour
 {
     [Header("Preplaced Participants")]
-    [SerializeField] private List<GameObject> preplacedParticipants = new();
+    [SerializeField] private List<PreplacedEncounterParticipant> preplacedParticipants = new();
 
     [Header("Runtime Debug")]
     [SerializeField] private bool hasActivated;
     [SerializeField] private bool isActive;
-    [SerializeField] private List<GameObject> runtimeParticipants = new();
+    [SerializeField] private List<EncounterParticipant> runtimeParticipants = new();
 
     [Header("Camera")]
     [SerializeField] private bool lockCameraOnActivate = true;
@@ -27,7 +39,7 @@ public class EncounterController : MonoBehaviour
     public bool HasActivated => hasActivated;
     public bool IsActive => isActive;
 
-    public IReadOnlyList<GameObject> RuntimeParticipants => runtimeParticipants;
+    public IReadOnlyList<EncounterParticipant> RuntimeParticipants => runtimeParticipants;
 
     public int CurrentSpawnGroupIndex => currentSpawnGroupIndex;
 
@@ -50,9 +62,12 @@ public class EncounterController : MonoBehaviour
 
         runtimeParticipants.Clear();
 
-        foreach(GameObject participant in preplacedParticipants)
+        foreach(PreplacedEncounterParticipant participant in preplacedParticipants)
         {
-            RegisterParticipant(participant);
+            if(participant == null)
+                continue;
+
+            RegisterParticipant(participant.Enemy, participant.ResolutionRule);
         }
 
         currentSpawnGroupIndex = -1;
@@ -66,17 +81,22 @@ public class EncounterController : MonoBehaviour
         OnActivated?.Invoke();
     }
 
-    public bool RegisterParticipant(GameObject participant)
+    public bool RegisterParticipant(GameObject enemy, EncounterResolutionRule resolutionRule)
     {
-        if(participant == null)
+        if(enemy == null)
             return false;
 
-        if(runtimeParticipants.Contains(participant))
-            return false;
+        foreach(EncounterParticipant participant in runtimeParticipants)
+        {
+            if(participant.Enemy == enemy)
+                return false;
+        }
 
-        runtimeParticipants.Add(participant);
+        EncounterParticipant newParticipant = new EncounterParticipant(enemy, resolutionRule);
 
-        Debug.Log($"[ENCOUNTER] {participant.name} registrado em {name}.", this);
+        runtimeParticipants.Add(newParticipant);
+
+        Debug.Log($"[ENCOUNTER] {enemy.name} registrado em {name}. " + $"com regra {resolutionRule}.", this);
 
         return true;
     }
@@ -128,7 +148,7 @@ public class EncounterController : MonoBehaviour
             if(enemy == null)
                 continue;
 
-            RegisterParticipant(enemy);
+            RegisterParticipant(enemy, EncounterResolutionRule.DefeatedOrEscaped);
 
             currentSpawnGroupParticipants.Add(enemy);
         }

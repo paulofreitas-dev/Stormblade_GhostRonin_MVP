@@ -43,6 +43,11 @@ public class EnemySpawnPoint : MonoBehaviour
 
     [SerializeField] private float cameraEdgeMargin = 0.05f;
 
+    [Header("Encounter Participation")]
+    [SerializeField] private EncounterResolutionRule encounterResolutionRule = EncounterResolutionRule.DefeatedOrEscaped;
+
+    public EncounterResolutionRule EncounterResolutionRule => encounterResolutionRule;
+
     public bool HasSpawned => hasSpawned;
     public GameObject LastSpawnedEnemy => lastSpawnedEnemy;
 
