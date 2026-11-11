@@ -62,14 +62,16 @@ public class EnemySpawnPoint : MonoBehaviour
             return null;
         }
 
-        GameObject spawnedEnemy = Instantiate(enemyPrefab, transform.position, Quaternion.identity, spawnedEnemiesParent);
+        Vector3 spawnPosition = GetSpawnPosition();
+
+        GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, spawnedEnemiesParent);
 
         ApplyInitialConfiguration(spawnedEnemy);
 
         hasSpawned = true;
         lastSpawnedEnemy = spawnedEnemy;
 
-        Debug.Log($"[ENEMY SPAWN] {name} criou {spawnedEnemy.name}.", this);
+        Debug.Log($"[ENEMY SPAWN] {name} criou {spawnedEnemy.name} " + $"em {spawnPosition}.", this);
 
         return spawnedEnemy;
     }
@@ -89,6 +91,24 @@ public class EnemySpawnPoint : MonoBehaviour
             if(overrideInitialDirection && component is IEnemySpawnDirectionConfigurable directionConfigurable)
                 directionConfigurable.SetInitialDirection((float)initialDirection);
         }
+    }
+
+    private Vector3 GetSpawnPosition()
+    {
+        if(positionMode == EnemySpawnPositionMode.WorldPosition || mainCamera == null)
+            return transform.position;
+
+        float viewportX = cameraSpawnSide == CameraSpawnSide.Left ? -cameraEdgeMargin : 1f + cameraEdgeMargin;
+
+        Vector3 viewportPosition = new Vector3(viewportX, 0.5f, Mathf.Abs(mainCamera.transform.position.z));
+
+        Vector3 worldPosition = mainCamera.ViewportToWorldPoint(viewportPosition);
+
+        //Mantém o Y definido pelo Level Design
+        worldPosition.y = transform.position.y;
+        worldPosition.z = transform.position.z;
+
+        return worldPosition;
     }
 
     [ContextMenu("TEST/Spawn Enemy")]
