@@ -1367,6 +1367,7 @@ MonoBehaviour:
   cameraSpawnSide: 1
   mainCamera: {fileID: 1868121442}
   cameraEdgeMargin: 0.05
+  encounterResolutionRule: 1
 --- !u!1 &105337122
 GameObject:
   m_ObjectHideFlags: 0
@@ -2051,7 +2052,7 @@ Transform:
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -31.834698, y: 7.7899995, z: -10}
+  m_LocalPosition: {x: -31.845673, y: 7.7899995, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6668,11 +6669,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8414885926058704238, guid: dc5081105f3501a44862f857d1b7ac52, type: 3}
   m_PrefabInstance: {fileID: 423924301}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &425815106 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3141059034005948433, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-  m_PrefabInstance: {fileID: 1958635778}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &425815107 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7581219452783979406, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
@@ -7477,6 +7473,7 @@ MonoBehaviour:
   cameraSpawnSide: 1
   mainCamera: {fileID: 1868121442}
   cameraEdgeMargin: 0.05
+  encounterResolutionRule: 1
 --- !u!1 &512914701
 GameObject:
   m_ObjectHideFlags: 0
@@ -9559,6 +9556,7 @@ MonoBehaviour:
   cameraSpawnSide: 0
   mainCamera: {fileID: 0}
   cameraEdgeMargin: 0.05
+  encounterResolutionRule: 1
 --- !u!1 &719955277
 GameObject:
   m_ObjectHideFlags: 0
@@ -9873,6 +9871,7 @@ MonoBehaviour:
   cameraSpawnSide: 0
   mainCamera: {fileID: 0}
   cameraEdgeMargin: 0.05
+  encounterResolutionRule: 1
 --- !u!1 &756247122
 GameObject:
   m_ObjectHideFlags: 0
@@ -10661,6 +10660,7 @@ MonoBehaviour:
   cameraSpawnSide: 1
   mainCamera: {fileID: 1868121442}
   cameraEdgeMargin: 0.05
+  encounterResolutionRule: 1
 --- !u!1 &790873710
 GameObject:
   m_ObjectHideFlags: 0
@@ -25533,6 +25533,7 @@ MonoBehaviour:
   cameraSpawnSide: 0
   mainCamera: {fileID: 0}
   cameraEdgeMargin: 0.05
+  encounterResolutionRule: 1
 --- !u!1 &1214067895
 GameObject:
   m_ObjectHideFlags: 0
@@ -26016,6 +26017,7 @@ MonoBehaviour:
   cameraSpawnSide: 0
   mainCamera: {fileID: 1868121442}
   cameraEdgeMargin: 0.05
+  encounterResolutionRule: 1
 --- !u!1 &1230133741
 GameObject:
   m_ObjectHideFlags: 0
@@ -41803,6 +41805,7 @@ MonoBehaviour:
   cameraSpawnSide: 0
   mainCamera: {fileID: 0}
   cameraEdgeMargin: 0.05
+  encounterResolutionRule: 1
 --- !u!1 &1541982385
 GameObject:
   m_ObjectHideFlags: 0
@@ -42032,7 +42035,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EncounterController
   preplacedParticipants:
-  - {fileID: 425815106}
+  - enemy: {fileID: 0}
+    resolutionRule: 0
   hasActivated: 0
   isActive: 0
   runtimeParticipants: []
@@ -54891,6 +54895,7 @@ MonoBehaviour:
   cameraSpawnSide: 0
   mainCamera: {fileID: 0}
   cameraEdgeMargin: 0.05
+  encounterResolutionRule: 1
 --- !u!1 &1841005185
 GameObject:
   m_ObjectHideFlags: 0
@@ -56989,11 +56994,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3141059034005948433, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5374955887641407644, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_SortingOrder
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6926571711649386591, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_Size.x
@@ -57054,8 +57059,42 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3141059034005948433, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1958635781}
   m_SourcePrefab: {fileID: 100100000, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
+--- !u!114 &1958635779 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 777006968457942388, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
+  m_PrefabInstance: {fileID: 1958635778}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958635780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 387ee2837c75130448f4a5b0dc9480dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+--- !u!1 &1958635780 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3141059034005948433, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
+  m_PrefabInstance: {fileID: 1958635778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1958635781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958635780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a0800c27bc9154d87a954d8ea4fb38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyLifecycle
+  health: {fileID: 1958635779}
+  isFinalized: 0
+  finalResult: 0
 --- !u!1 &1973395440
 GameObject:
   m_ObjectHideFlags: 0
@@ -57755,6 +57794,7 @@ MonoBehaviour:
   cameraSpawnSide: 0
   mainCamera: {fileID: 1868121442}
   cameraEdgeMargin: 0.05
+  encounterResolutionRule: 1
 --- !u!4 &2018423637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8963917228564923544, guid: dd8c2ead9b16d0e4eb7e7816cd9558c2, type: 3}
@@ -59425,7 +59465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.834698
+      value: -31.845673
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y

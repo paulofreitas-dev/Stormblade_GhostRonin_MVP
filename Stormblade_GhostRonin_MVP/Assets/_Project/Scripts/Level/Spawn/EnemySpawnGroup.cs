@@ -11,21 +11,51 @@ public class EnemySpawnGroup : MonoBehaviour
 
     [SerializeField] private List<GameObject> spawnedEnemies = new();
 
+    private List<SpawnedEncounterEnemy> spawnedEncounterEnemies = new();
+
     public bool HasSpawned => hasSpawned;
 
     public IReadOnlyList<GameObject> SpawnedEnemies => spawnedEnemies;
 
+    // --------------------------------
+    // SPAWN NORMAL / TESTE
+    // --------------------------------
+
     public IReadOnlyList<GameObject> SpawnAll()
+    {
+        SpawnIfNeeded();
+
+        return spawnedEnemies;
+    }
+
+    // --------------------------------
+    // SPAWN PARA ENCOUNTER
+    // --------------------------------
+
+    public IReadOnlyList<SpawnedEncounterEnemy> SpawnAllForEncounter()
+    {
+        SpawnIfNeeded();
+
+        return spawnedEncounterEnemies;
+    }
+
+    // --------------------------------
+    // SPAWN INTERNO
+    // --------------------------------
+
+    private void SpawnIfNeeded()
     {
         if (hasSpawned)
         {
             Debug.LogWarning($"{name}: este Spawn Group já foi executado.", this);
 
-            return spawnedEnemies;
+            return;
         }
 
         hasSpawned = true;
+
         spawnedEnemies.Clear();
+        spawnedEncounterEnemies.Clear();
 
         foreach(EnemySpawnPoint spawnPoint in spawnPoints)
         {
@@ -38,12 +68,18 @@ public class EnemySpawnGroup : MonoBehaviour
                 continue;
 
             spawnedEnemies.Add(spawnedEnemy);
+
+            SpawnedEncounterEnemy encounterEnemy = new SpawnedEncounterEnemy(spawnedEnemy, spawnPoint.EncounterResolutionRule);
+
+            spawnedEncounterEnemies.Add(encounterEnemy);
         }
 
         Debug.Log($"[SPAWN GROUP] {name} criou " + $"{spawnedEnemies.Count} inimigo(s).", this);
-
-        return spawnedEnemies;
     }
+
+    // --------------------------------
+    // TEST
+    // --------------------------------
 
     [ContextMenu("TEST/Spawn Group")]
     private void TestSpawnGroup()

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public class EncounterParticipant : MonoBehaviour
+public class EncounterParticipant
 {
     [SerializeField] private GameObject enemy;
 
@@ -22,8 +22,24 @@ public class EncounterParticipant : MonoBehaviour
         isResolved = false;
     }
 
-    public void MarkResolved()
+    public bool TryResolve(EnemyLifecycleResult lifecycleResult)
     {
-        isResolved = true;
+        if(isResolved)
+            return false;
+
+        if(lifecycleResult == EnemyLifecycleResult.Defeated)
+        {
+            isResolved = true;
+            return true;
+        }
+        
+        if(lifecycleResult == EnemyLifecycleResult.Escaped && resolutionRule == EncounterResolutionRule.DefeatedOrEscaped)
+        {
+            isResolved = true;
+            return true;
+        }
+
+        return false;
+
     }
 }

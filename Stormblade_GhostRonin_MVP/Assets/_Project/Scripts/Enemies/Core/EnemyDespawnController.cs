@@ -8,6 +8,7 @@ public class EnemyDespawnController : MonoBehaviour
     [SerializeField] private EnemyMovement movement;
     [SerializeField] private EnemyCombat combat;
     [SerializeField] private Health health;
+    [SerializeField] private EnemyLifecycle enemyLifecycle;
 
     [Header("Despawn Settings")]
     [SerializeField, Range(0f, 0.5f)] private float horizontalViewportMargin = 0.10f;
@@ -31,6 +32,9 @@ public class EnemyDespawnController : MonoBehaviour
         
         if(health == null)
             health = GetComponent<Health>();
+
+        if(enemyLifecycle == null)
+            enemyLifecycle = GetComponent<EnemyLifecycle>();
     }
 
     private void Update()
@@ -85,6 +89,9 @@ public class EnemyDespawnController : MonoBehaviour
 
         if(combat != null)
             combat.DisableAllDamage();
+
+        if(enemyLifecycle != null)
+            enemyLifecycle.NotifyEscaped();
 
         Debug.Log($"[ENEMY DESPAWN] {name} saiu da área.", this);
 

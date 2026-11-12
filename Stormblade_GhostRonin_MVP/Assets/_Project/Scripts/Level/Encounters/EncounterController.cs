@@ -96,6 +96,14 @@ public class EncounterController : MonoBehaviour
 
         runtimeParticipants.Add(newParticipant);
 
+        EnemyLifecycle lifecycle = enemy.GetComponent<EnemyLifecycle>();
+
+        if(lifecycle != null)
+            lifecycle.OnFinalized += HandleEnemyLifecycleFinalized;
+
+        else
+            Debug.LogWarning($"[ENCOUNTER] {enemy.name} não possui EnemyLifecycle.", enemy);
+
         Debug.Log($"[ENCOUNTER] {enemy.name} registrado em {name}. " + $"com regra {resolutionRule}.", this);
 
         return true;
@@ -141,19 +149,57 @@ public class EncounterController : MonoBehaviour
             return;
         }
 
-        IReadOnlyList<GameObject> spawnedEnemies = spawnGroup.SpawnAll();
+        IReadOnlyList<SpawnedEncounterEnemy> spawnedEnemies = spawnGroup.SpawnAllForEncounter();
 
-        foreach(GameObject enemy in spawnedEnemies)
+        foreach(SpawnedEncounterEnemy spawned in spawnedEnemies)
         {
-            if(enemy == null)
+            if(spawned.Enemy == null)
                 continue;
 
-            RegisterParticipant(enemy, EncounterResolutionRule.DefeatedOrEscaped);
+            RegisterParticipant(spawned.Enemy, spawned.ResolutionRule);
 
-            currentSpawnGroupParticipants.Add(enemy);
+            currentSpawnGroupParticipants.Add(spawned.Enemy);
         }
 
         Debug.Log($"[ENCOUNTER] {name}: Spawn Group " + $"{currentSpawnGroupIndex + 1} iniciado com " + $"{currentSpawnGroupParticipants.Count} inimigo(s).", this);
+    }
+
+    private void HandleEnemyLifecycleFinalized(EnemyLifecycle lifecycle,
+    EnemyLifecycleResult result)
+    {
+        if(lifecycle == null)
+            return;
+
+        EncounterParticipant participant = FindParticipant(lifecycle.gameObject);
+
+        if(participant == null)
+            return;
+
+        bool resolved = participant.TryResolve(result);
+
+        Debug.Log($"[ENCOUNTER] {lifecycle.name} -> {result}. " + $"Rule: {participant.ResolutionRule}. " + $"Resolved: {participant.IsResolved}.", this);
+
+        if (resolved)
+        {
+            lifecycle.OnFinalized -= HandleEnemyLifecycleFinalized;
+        }
+    }
+
+    private EncounterParticipant FindParticipant(GameObject enemy)
+    {
+        if(enemy == null)
+            return null;
+
+        foreach(EncounterParticipant participant in runtimeParticipants)
+        {
+            if(participant == null)
+                continue;
+
+            if(participant.Enemy == enemy)
+                return participant;
+        }
+        
+        return null;
     }
 
     [ContextMenu("TEST/Activate Encounter")]
