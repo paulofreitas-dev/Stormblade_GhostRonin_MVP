@@ -34,7 +34,7 @@ public class EncounterController : MonoBehaviour
     [Header("Spawn Runtime")]
     [SerializeField] private int currentSpawnGroupIndex = -1;
 
-    [SerializeField] private List<GameObject> currentSpawnGroupParticipants = new();
+    [SerializeField] private List<EncounterParticipant> currentSpawnGroupParticipants = new();
 
     public bool HasActivated => hasActivated;
     public bool IsActive => isActive;
@@ -43,7 +43,7 @@ public class EncounterController : MonoBehaviour
 
     public int CurrentSpawnGroupIndex => currentSpawnGroupIndex;
 
-    public IReadOnlyList<GameObject> CurrentSpawnGroupParticipants => currentSpawnGroupParticipants;
+    public IReadOnlyList<EncounterParticipant> CurrentSpawnGroupParticipants => currentSpawnGroupParticipants;
 
     public bool HasMoreSpawnGroups => currentSpawnGroupIndex + 1 < spawnGroups.Count;
 
@@ -158,10 +158,64 @@ public class EncounterController : MonoBehaviour
 
             RegisterParticipant(spawned.Enemy, spawned.ResolutionRule);
 
-            currentSpawnGroupParticipants.Add(spawned.Enemy);
+            EncounterParticipant participant = FindParticipant(spawned.Enemy);
+
+            if(participant != null)
+                currentSpawnGroupParticipants.Add(participant);
         }
 
         Debug.Log($"[ENCOUNTER] {name}: Spawn Group " + $"{currentSpawnGroupIndex + 1} iniciado com " + $"{currentSpawnGroupParticipants.Count} inimigo(s).", this);
+
+        if(currentSpawnGroupParticipants.Count == 0)
+            EvaluateEncounterProgress();
+    }
+
+    private bool IsCurrentSpawnGroupResolved()
+    {
+        foreach(EncounterParticipant participant in currentSpawnGroupParticipants)
+        {
+            if(participant == null)
+                continue;
+
+            if(!participant.IsResolved)
+                return false;
+        }
+
+        return true;
+    }
+
+    private bool AreAllParticipantsResolved()
+    {
+        foreach(EncounterParticipant participant in runtimeParticipants)
+        {
+            if(participant == null)
+                continue;
+
+            if(!participant.IsResolved)
+                return false;
+        }
+
+        return true;
+    }
+
+    private void EvaluateEncounterProgress()
+    {
+        if(!isActive)
+            return;
+
+        if(!IsCurrentSpawnGroupResolved())
+            return;
+
+        if (HasMoreSpawnGroups)
+        {
+            SpawnNextGroup();
+            return;
+        }
+
+        if(!AreAllParticipantsResolved())
+            return;
+
+        // CompleteEncounter();
     }
 
     private void HandleEnemyLifecycleFinalized(EnemyLifecycle lifecycle,
@@ -179,10 +233,14 @@ public class EncounterController : MonoBehaviour
 
         Debug.Log($"[ENCOUNTER] {lifecycle.name} -> {result}. " + $"Rule: {participant.ResolutionRule}. " + $"Resolved: {participant.IsResolved}.", this);
 
-        if (resolved)
+        lifecycle.OnFinalized -= HandleEnemyLifecycleFinalized;
+
+        if (!resolved && result == EnemyLifecycleResult.Escaped && participant.ResolutionRule == EncounterResolutionRule.DefeatedOnly)
         {
-            lifecycle.OnFinalized -= HandleEnemyLifecycleFinalized;
+            Debug.LogWarning($"[ENCOUNTER] {lifecycle.name} escapou, " + "mas sua regra é DefeatedOnly. " + "O participant permanece pendente.", this);
         }
+
+        EvaluateEncounterProgress();
     }
 
     private EncounterParticipant FindParticipant(GameObject enemy)

@@ -2052,7 +2052,7 @@ Transform:
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -31.845673, y: 7.7899995, z: -10}
+  m_LocalPosition: {x: -31.843693, y: 7.7899995, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7473,7 +7473,7 @@ MonoBehaviour:
   cameraSpawnSide: 1
   mainCamera: {fileID: 1868121442}
   cameraEdgeMargin: 0.05
-  encounterResolutionRule: 1
+  encounterResolutionRule: 0
 --- !u!1 &512914701
 GameObject:
   m_ObjectHideFlags: 0
@@ -56992,30 +56992,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_Enemy_OniSoldier_Base_Required
       objectReference: {fileID: 0}
-    - target: {fileID: 3141059034005948433, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5374955887641407644, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-      propertyPath: m_SortingOrder
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 6926571711649386591, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-      propertyPath: m_Size.x
-      value: 0.6753082
-      objectReference: {fileID: 0}
-    - target: {fileID: 6926571711649386591, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-      propertyPath: m_Size.y
-      value: 2.357514
-      objectReference: {fileID: 0}
-    - target: {fileID: 6926571711649386591, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.06337738
-      objectReference: {fileID: 0}
-    - target: {fileID: 6926571711649386591, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.17359519
-      objectReference: {fileID: 0}
     - target: {fileID: 7581219452783979406, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_LocalPosition.x
       value: 146.4
@@ -57059,42 +57035,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3141059034005948433, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1958635781}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
---- !u!114 &1958635779 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 777006968457942388, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-  m_PrefabInstance: {fileID: 1958635778}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958635780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 387ee2837c75130448f4a5b0dc9480dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
---- !u!1 &1958635780 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3141059034005948433, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-  m_PrefabInstance: {fileID: 1958635778}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1958635781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1958635780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72a0800c27bc9154d87a954d8ea4fb38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyLifecycle
-  health: {fileID: 1958635779}
-  isFinalized: 0
-  finalResult: 0
 --- !u!1 &1973395440
 GameObject:
   m_ObjectHideFlags: 0
@@ -59465,7 +59407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.845673
+      value: -31.843693
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y

@@ -307,6 +307,7 @@ GameObject:
   - component: {fileID: 5502063256746347768}
   - component: {fileID: 2179984363648571606}
   - component: {fileID: 2156046213469184082}
+  - component: {fileID: 4303626694221243059}
   m_Layer: 0
   m_Name: PF_Enemy_OniSoldier_Base
   m_TagString: Untagged
@@ -460,6 +461,7 @@ MonoBehaviour:
   movement: {fileID: 868632654958514672}
   combat: {fileID: 3088063427947122241}
   health: {fileID: 777006968457942388}
+  enemyLifecycle: {fileID: 0}
   horizontalViewportMargin: 0.1
   isDespawning: 0
   viewportX: 0
@@ -568,6 +570,21 @@ MonoBehaviour:
   attackHitbox: {fileID: 2156513781217126747}
   spriteFacesRightByDefault: 0
   currentDirection: -1
+--- !u!114 &4303626694221243059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3141059034005948433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72a0800c27bc9154d87a954d8ea4fb38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyLifecycle
+  health: {fileID: 777006968457942388}
+  isFinalized: 0
+  finalResult: 0
 --- !u!1 &4112236442910924253
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +628,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
 --- !u!1 &7213167307369784739
@@ -681,7 +698,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0050086975, y: -0.36330795}
+  m_Offset: {x: -0.06337738, y: -0.17359519}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -691,7 +708,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.4029007, y: 1.9780884}
+  m_Size: {x: 0.6753082, y: 2.357514}
   m_EdgeRadius: 0
 --- !u!114 &1969174060464662217
 MonoBehaviour:
