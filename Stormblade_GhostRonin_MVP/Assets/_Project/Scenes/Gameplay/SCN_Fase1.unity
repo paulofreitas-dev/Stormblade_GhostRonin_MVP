@@ -2026,7 +2026,7 @@ MonoBehaviour:
   m_Follow: {fileID: 412040170}
   m_Lens:
     FieldOfView: 34
-    OrthographicSize: 8
+    OrthographicSize: 6
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -2052,7 +2052,7 @@ Transform:
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -31.843693, y: 7.7899995, z: -10}
+  m_LocalPosition: {x: -32.767933, y: 5.6699996, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22520,7 +22520,7 @@ Transform:
   m_GameObject: {fileID: 1002866261}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -112.1, y: 1.9, z: 0}
+  m_LocalPosition: {x: -112.1, y: -1.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26126,8 +26126,8 @@ MonoBehaviour:
   standingHurtboxOffset: {x: 0.01543713, y: -0.04}
   crouchingHurtboxSize: {x: 0.3824902, y: 0.9}
   crouchingHurtboxOffset: {x: 0, y: -0.27}
-  moveSpeed: 4.7
-  jumpImpulse: 13.5
+  moveSpeed: 4.1
+  jumpImpulse: 14
   groundCheckRadius: 0.1
   groundLayer:
     serializedVersion: 2
@@ -26376,8 +26376,8 @@ MonoBehaviour:
   playerMovement: {fileID: 1230133745}
   laneController: {fileID: 1230133754}
   targetDetection: {fileID: 1230133755}
-  transitionDuration: 0.8
-  arcHeight: 3.1
+  transitionDuration: 0.74
+  arcHeight: 2.5
   isMovingBetweenLanes: 0
   startPosition: {x: 0, y: 0}
   targetPosition: {x: 0, y: 0}
@@ -42014,7 +42014,7 @@ Transform:
   m_GameObject: {fileID: 1545560247}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 86, y: -1.4, z: 0}
+  m_LocalPosition: {x: 24.8, y: -1.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42040,6 +42040,7 @@ MonoBehaviour:
   hasActivated: 0
   isActive: 0
   runtimeParticipants: []
+  isCompleted: 0
   lockCameraOnActivate: 1
   cameraTargetController: {fileID: 412040171}
   spawnGroups:
@@ -56467,7 +56468,7 @@ Transform:
   m_GameObject: {fileID: 1916796041}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -112.1, y: 2.23, z: 0}
+  m_LocalPosition: {x: -112.1, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -56994,7 +56995,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7581219452783979406, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 146.4
+      value: 33.3
       objectReference: {fileID: 0}
     - target: {fileID: 7581219452783979406, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_LocalPosition.y
@@ -59407,11 +59408,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -31.843693
+      value: -32.767933
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.7899995
+      value: 5.6699996
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.z
@@ -59451,7 +59452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4521366998602920717, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: orthographic size
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4521366998602920717, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_BackGroundColor.a

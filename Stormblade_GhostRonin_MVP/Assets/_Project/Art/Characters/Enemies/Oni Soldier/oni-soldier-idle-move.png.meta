@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 6b090a79125a24a499a345ab1abd7a73
+guid: 64ab9b21ea57f7b48b94feb8c1e0e6a2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3862808208251295096
-    second: oni-soldier-idle_0
+      213: 8274467011016065606
+    second: oni-soldier-move-export_0
+  - first:
+      213: 6301746740026726489
+    second: oni-soldier-move-export_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,7 +103,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: oni-soldier-idle_0
+      name: oni-soldier-move-export_0
       rect:
         serializedVersion: 2
         x: 0
@@ -108,15 +111,37 @@ TextureImporter:
         width: 25
         height: 45
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 875184079937b9530800000000000000
-      internalID: 3862808208251295096
+      spriteID: 6420d4118efc4d270800000000000000
+      internalID: 8274467011016065606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: oni-soldier-move-export_1
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 0
+        width: 25
+        height: 45
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 958d4cf954d447750800000000000000
+      internalID: 6301746740026726489
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 8cfab529d08bba74fbda3d9d45bcd007
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      oni-soldier-idle_0: 3862808208251295096
+      oni-soldier-move-export_0: 8274467011016065606
+      oni-soldier-move-export_1: 6301746740026726489
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

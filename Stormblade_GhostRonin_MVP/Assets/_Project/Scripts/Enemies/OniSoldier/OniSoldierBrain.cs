@@ -12,8 +12,14 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
     [Header("Advance Settings")]
     [SerializeField] private float advanceDirection = -1f;
 
+    [Header("Step Advance")]
+    [SerializeField] private float pauseDuration = 0.15f;
+    [SerializeField] private float stepDuration = 0.10f;
+
     [Header("Runtime Debug")]
     [SerializeField] private bool isAdvancing;
+    [SerializeField] private bool isStepMoving;
+    [SerializeField] private float advanceTimer;
 
     public bool IsAdvancing => isAdvancing;
 
@@ -56,16 +62,10 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
         if(!isAdvancing)
             return;
 
-        if(targetDetector == null || combat == null)
+        if(TryBeginAttack())
             return;
 
-        if(!combat.CanAttack)
-            return;
-
-        if(!targetDetector.CanAttackTarget(advanceDirection))
-            return;
-
-        BeginAttack();
+        UpdateAdvanceCycle();
     }
 
     public void BeginAdvance()
@@ -73,19 +73,23 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
         if(movement == null)
             return;
 
+        advanceDirection = advanceDirection >= 0f ? 1f : -1f;
+
         isAdvancing = true;
 
         movement.SetMovementEnabled(true);
-        
-        ApplyAdvanceDirection();
 
-        if(animationController != null)
-            animationController.SetMoving(true);
+        if(facingController != null)
+            facingController.SetFacing(advanceDirection);
+
+        BeginPausePhase();
     }
 
     public void StopAdvance()
     {
         isAdvancing = false;
+        isStepMoving = false;
+        advanceTimer = 0f;
 
         if(movement != null)
             movement.Stop();
@@ -126,5 +130,67 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
 
         if(facingController != null)
             facingController.SetFacing(advanceDirection);
+    }
+
+    private void UpdateAdvanceCycle()
+    {
+        advanceTimer -= Time.deltaTime;
+
+        if(advanceTimer > 0f)
+            return;
+
+        if(isStepMoving)
+            BeginPausePhase();
+        else
+            BeginStepPhase();
+    }
+
+    private void BeginPausePhase()
+    {
+        isStepMoving = false;
+        advanceTimer = pauseDuration;
+
+        if(movement != null)
+            movement.Stop();
+
+        if(animationController != null)
+            animationController.SetMoving(false);
+    }
+
+    private void BeginStepPhase()
+    {
+        isStepMoving = true;
+        advanceTimer = stepDuration;
+
+        if(movement != null)
+        {
+            movement.SetMovementEnabled(true);
+            movement.SetMoveDirection(advanceDirection);
+        }
+
+        if(facingController != null)
+            facingController.SetFacing(advanceDirection);
+
+        if(animationController != null)
+            animationController.SetMoving(true);
+    }
+
+    private bool TryBeginAttack()
+    {
+        if(targetDetector == null)
+            return false;
+
+        if(combat == null)
+            return false;
+
+        if(!combat.CanAttack)
+            return false;
+
+        if(!targetDetector.CanAttackTarget(advanceDirection))
+            return false;
+
+        BeginAttack();
+
+        return true;
     }
 }

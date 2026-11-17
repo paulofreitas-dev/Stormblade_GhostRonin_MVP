@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   rb: {fileID: 5673000362283165251}
-  moveSpeed: 1.6
+  moveSpeed: 3.06
   currentDirection: 0
   lastNonZeroDirection: 0
   movementEnabled: 1
@@ -517,7 +517,11 @@ MonoBehaviour:
   combat: {fileID: 3088063427947122241}
   facingController: {fileID: 0}
   advanceDirection: -1
+  pauseDuration: 0.63
+  stepDuration: 0.44
   isAdvancing: 0
+  isStepMoving: 0
+  advanceTimer: 0
 --- !u!114 &5502063256746347768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -810,7 +814,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 16
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 6b090a79125a24a499a345ab1abd7a73, type: 3}
+  m_Sprite: {fileID: 8274467011016065606, guid: 64ab9b21ea57f7b48b94feb8c1e0e6a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

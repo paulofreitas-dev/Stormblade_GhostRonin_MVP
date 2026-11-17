@@ -23,6 +23,8 @@ public class EncounterController : MonoBehaviour
     [SerializeField] private bool hasActivated;
     [SerializeField] private bool isActive;
     [SerializeField] private List<EncounterParticipant> runtimeParticipants = new();
+    [SerializeField] private bool isCompleted;
+    public bool IsCompleted => isCompleted;
 
     [Header("Camera")]
     [SerializeField] private bool lockCameraOnActivate = true;
@@ -48,23 +50,24 @@ public class EncounterController : MonoBehaviour
     public bool HasMoreSpawnGroups => currentSpawnGroupIndex + 1 < spawnGroups.Count;
 
     public event Action OnActivated;
+    public event Action OnCompleted;
 
     public void ActivateEncounter()
     {
-        if(hasActivated)
+        if (hasActivated)
             return;
 
         hasActivated = true;
         isActive = true;
 
-        if(lockCameraOnActivate && cameraTargetController != null)
+        if (lockCameraOnActivate && cameraTargetController != null)
             cameraTargetController.SetEncounterLock(true);
 
         runtimeParticipants.Clear();
 
-        foreach(PreplacedEncounterParticipant participant in preplacedParticipants)
+        foreach (PreplacedEncounterParticipant participant in preplacedParticipants)
         {
-            if(participant == null)
+            if (participant == null)
                 continue;
 
             RegisterParticipant(participant.Enemy, participant.ResolutionRule);
@@ -73,22 +76,24 @@ public class EncounterController : MonoBehaviour
         currentSpawnGroupIndex = -1;
         currentSpawnGroupParticipants.Clear();
 
-        if(spawnGroups.Count > 0)
+        if (spawnGroups.Count > 0)
             SpawnNextGroup();
 
         Debug.Log($"[ENCOUNTER] {name} ativado. " + $"Participantes iniciais: {runtimeParticipants.Count}.", this);
 
         OnActivated?.Invoke();
+
+        EvaluateEncounterProgress();
     }
 
     public bool RegisterParticipant(GameObject enemy, EncounterResolutionRule resolutionRule)
     {
-        if(enemy == null)
+        if (enemy == null)
             return false;
 
-        foreach(EncounterParticipant participant in runtimeParticipants)
+        foreach (EncounterParticipant participant in runtimeParticipants)
         {
-            if(participant.Enemy == enemy)
+            if (participant.Enemy == enemy)
                 return false;
         }
 
@@ -98,7 +103,7 @@ public class EncounterController : MonoBehaviour
 
         EnemyLifecycle lifecycle = enemy.GetComponent<EnemyLifecycle>();
 
-        if(lifecycle != null)
+        if (lifecycle != null)
             lifecycle.OnFinalized += HandleEnemyLifecycleFinalized;
 
         else
@@ -111,10 +116,10 @@ public class EncounterController : MonoBehaviour
 
     public void ReleaseCameraLock()
     {
-        if(!lockCameraOnActivate)
+        if (!lockCameraOnActivate)
             return;
 
-        if(cameraTargetController == null)
+        if (cameraTargetController == null)
             return;
 
         cameraTargetController.SetEncounterLock(false);
@@ -142,7 +147,7 @@ public class EncounterController : MonoBehaviour
 
         currentSpawnGroupParticipants.Clear();
 
-        if(spawnGroup == null)
+        if (spawnGroup == null)
         {
             Debug.LogWarning($"{name}: Spawn Group {currentSpawnGroupIndex} não configurado.", this);
 
@@ -151,33 +156,33 @@ public class EncounterController : MonoBehaviour
 
         IReadOnlyList<SpawnedEncounterEnemy> spawnedEnemies = spawnGroup.SpawnAllForEncounter();
 
-        foreach(SpawnedEncounterEnemy spawned in spawnedEnemies)
+        foreach (SpawnedEncounterEnemy spawned in spawnedEnemies)
         {
-            if(spawned.Enemy == null)
+            if (spawned.Enemy == null)
                 continue;
 
             RegisterParticipant(spawned.Enemy, spawned.ResolutionRule);
 
             EncounterParticipant participant = FindParticipant(spawned.Enemy);
 
-            if(participant != null)
+            if (participant != null)
                 currentSpawnGroupParticipants.Add(participant);
         }
 
         Debug.Log($"[ENCOUNTER] {name}: Spawn Group " + $"{currentSpawnGroupIndex + 1} iniciado com " + $"{currentSpawnGroupParticipants.Count} inimigo(s).", this);
 
-        if(currentSpawnGroupParticipants.Count == 0)
+        if (currentSpawnGroupParticipants.Count == 0)
             EvaluateEncounterProgress();
     }
 
     private bool IsCurrentSpawnGroupResolved()
     {
-        foreach(EncounterParticipant participant in currentSpawnGroupParticipants)
+        foreach (EncounterParticipant participant in currentSpawnGroupParticipants)
         {
-            if(participant == null)
+            if (participant == null)
                 continue;
 
-            if(!participant.IsResolved)
+            if (!participant.IsResolved)
                 return false;
         }
 
@@ -186,12 +191,12 @@ public class EncounterController : MonoBehaviour
 
     private bool AreAllParticipantsResolved()
     {
-        foreach(EncounterParticipant participant in runtimeParticipants)
+        foreach (EncounterParticipant participant in runtimeParticipants)
         {
-            if(participant == null)
+            if (participant == null)
                 continue;
 
-            if(!participant.IsResolved)
+            if (!participant.IsResolved)
                 return false;
         }
 
@@ -200,10 +205,10 @@ public class EncounterController : MonoBehaviour
 
     private void EvaluateEncounterProgress()
     {
-        if(!isActive)
+        if (!isActive)
             return;
 
-        if(!IsCurrentSpawnGroupResolved())
+        if (!IsCurrentSpawnGroupResolved())
             return;
 
         if (HasMoreSpawnGroups)
@@ -212,32 +217,37 @@ public class EncounterController : MonoBehaviour
             return;
         }
 
-        if(!AreAllParticipantsResolved())
+        if (!AreAllParticipantsResolved())
             return;
 
-        // CompleteEncounter();
+        CompleteEncounter();
     }
 
     private void HandleEnemyLifecycleFinalized(EnemyLifecycle lifecycle,
     EnemyLifecycleResult result)
     {
-        if(lifecycle == null)
+        if (lifecycle == null)
             return;
 
         EncounterParticipant participant = FindParticipant(lifecycle.gameObject);
 
-        if(participant == null)
+        if (participant == null)
             return;
 
         bool resolved = participant.TryResolve(result);
 
-        Debug.Log($"[ENCOUNTER] {lifecycle.name} -> {result}. " + $"Rule: {participant.ResolutionRule}. " + $"Resolved: {participant.IsResolved}.", this);
+        Debug.Log($"[ENCOUNTER] {lifecycle.name} -> {result}. " +
+        $"Rule: {participant.ResolutionRule}. " +
+        $"Resolved: {participant.IsResolved}.",
+        this);
 
         lifecycle.OnFinalized -= HandleEnemyLifecycleFinalized;
 
         if (!resolved && result == EnemyLifecycleResult.Escaped && participant.ResolutionRule == EncounterResolutionRule.DefeatedOnly)
         {
-            Debug.LogWarning($"[ENCOUNTER] {lifecycle.name} escapou, " + "mas sua regra é DefeatedOnly. " + "O participant permanece pendente.", this);
+            Debug.LogWarning($"[ENCOUNTER] {lifecycle.name} escapou, " + "mas sua regra é DefeatedOnly. " +
+            "O participant permanece pendente.",
+            this);
         }
 
         EvaluateEncounterProgress();
@@ -245,19 +255,34 @@ public class EncounterController : MonoBehaviour
 
     private EncounterParticipant FindParticipant(GameObject enemy)
     {
-        if(enemy == null)
+        if (enemy == null)
             return null;
 
-        foreach(EncounterParticipant participant in runtimeParticipants)
+        foreach (EncounterParticipant participant in runtimeParticipants)
         {
-            if(participant == null)
+            if (participant == null)
                 continue;
 
-            if(participant.Enemy == enemy)
+            if (participant.Enemy == enemy)
                 return participant;
         }
-        
+
         return null;
+    }
+
+    private void CompleteEncounter()
+    {
+        if(!isActive)
+            return;
+
+        isActive = true;
+        isCompleted = true;
+
+        ReleaseCameraLock();
+
+        Debug.Log($"[ENCOUNTER] {name} concluído.", this);
+
+        OnCompleted?.Invoke();
     }
 
     [ContextMenu("TEST/Activate Encounter")]
