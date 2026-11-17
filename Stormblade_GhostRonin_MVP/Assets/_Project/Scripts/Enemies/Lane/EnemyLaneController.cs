@@ -11,11 +11,15 @@ public class EnemyLaneController : MonoBehaviour, IEnemySpawnLaneConfigurable, I
 
     [Header("Runtime Debug")]
     [SerializeField] private GameplayLane currentLane;
+    [SerializeField] private GameplayLane targetLane;
+    [SerializeField] private bool isTransitioning;
 
     private int frontLaneBodyLayer;
     private int backLaneBodyLayer;
 
     public GameplayLane CurrentLane => currentLane;
+    public GameplayLane TargetLane => targetLane;
+    public bool IsTransitioning => isTransitioning;
 
     public event Action<GameplayLane, GameplayLane> OnLaneChanged;
 
@@ -24,6 +28,8 @@ public class EnemyLaneController : MonoBehaviour, IEnemySpawnLaneConfigurable, I
         CacheLayers();
 
         currentLane = startingLane;
+        targetLane = currentLane;
+        isTransitioning = false;
 
         ApplyBodyLayer(currentLane);
     }
@@ -46,23 +52,42 @@ public class EnemyLaneController : MonoBehaviour, IEnemySpawnLaneConfigurable, I
         return currentLane == GameplayLane.Front ? GameplayLane.Back : GameplayLane.Front;
     }
 
+    public bool BeginTransition(GameplayLane newTargetLane)
+    {
+        if(isTransitioning)
+            return false;
+
+        if(newTargetLane == currentLane)
+            return false;
+
+        targetLane = newTargetLane;
+        isTransitioning = true;
+
+        Debug.Log($"[ENEMY LANE] {name}: transição iniciada. " + 
+        $"{currentLane} -> {targetLane}.",
+        this);
+
+        return true;
+    }
+
     public void SetLane(GameplayLane newLane)
     {
-        if(newLane == currentLane)
-        {
-            ApplyBodyLayer(currentLane);
-            return;
-        }
-
         GameplayLane previousLane = currentLane;
 
         currentLane = newLane;
+        targetLane = newLane;
+        isTransitioning = false;
 
         ApplyBodyLayer(currentLane);
 
+        if(previousLane == currentLane)
+            return;
+
         OnLaneChanged?.Invoke(previousLane, currentLane);
 
-        Debug.Log($"[ENEMY LANE] {name}: " + $"{previousLane} -> {currentLane}", this);
+        Debug.Log($"[ENEMY LANE] {name}: " +
+        $"{previousLane} -> {currentLane}",
+        this);
     }
 
     private void ApplyBodyLayer(GameplayLane lane)
@@ -84,6 +109,44 @@ public class EnemyLaneController : MonoBehaviour, IEnemySpawnLaneConfigurable, I
 
     public void SetInitialLane(GameplayLane lane)
     {
-        SetLane(lane);
+        currentLane = lane;
+        targetLane = lane;
+        isTransitioning = false;
+
+        ApplyBodyLayer(currentLane);
+    }
+
+    public void CompleteTransition()
+    {
+        if(!isTransitioning)
+            return;
+
+        GameplayLane previousLane = currentLane;
+
+        currentLane = targetLane;
+        isTransitioning = false;
+
+        ApplyBodyLayer(currentLane);
+
+        OnLaneChanged?.Invoke(previousLane, currentLane);
+
+        Debug.Log($"[ENEMY LANE] {name}: transição concluída. " +
+        $"{previousLane} -> {currentLane}.",
+        this);
+    }
+
+    public void CancelTransition()
+    {
+        if(!isTransitioning)
+            return;
+
+        targetLane = currentLane;
+        isTransitioning = false;
+
+        ApplyBodyLayer(currentLane);
+
+        Debug.Log($"[ENEMY LANE] {name}: transição cancelada. " + 
+        $"Lane atual: {currentLane}.", 
+        this);
     }
 }
