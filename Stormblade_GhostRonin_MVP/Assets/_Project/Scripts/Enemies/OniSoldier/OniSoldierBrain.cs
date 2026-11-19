@@ -8,6 +8,7 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
     [SerializeField] private EnemyTargetDetector targetDetector;
     [SerializeField] private EnemyCombat combat;
     [SerializeField] private EnemyFacingController facingController;
+    [SerializeField] private EnemyLaneMovement laneMovement;
 
     [Header("Advance Settings")]
     [SerializeField] private float advanceDirection = -1f;

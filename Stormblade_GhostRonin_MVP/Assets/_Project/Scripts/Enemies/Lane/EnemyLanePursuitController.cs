@@ -58,6 +58,8 @@ public class EnemyLanePursuitController : MonoBehaviour
             subscribedPlayer.OnLaneChanged -= HandlePlayerLaneChanged;
 
         subscribedPlayer = null;
+
+        pendingPlayerLaneChange = false;
     }
 
     private void Update()
@@ -76,20 +78,15 @@ public class EnemyLanePursuitController : MonoBehaviour
         if (hasEnteredCamera)
             return;
 
-        if (!hasEnteredCamera)
-        {
-            if (!IsInsideGameplayCamera())
-                return;
+        if (!IsInsideGameplayCamera())
+            return;
 
-            hasEnteredCamera = true;
+        hasEnteredCamera = true;
 
-            Debug.Log($"[ENEMY PURSUIT] {name} entrou na câmera. " + $"Modo: {pursuitMode}", this);
+        Debug.Log($"[ENEMY PURSUIT] {name} entrou na câmera. " + $"Modo: {pursuitMode}", this);
 
-            // Primeira avaliação de lane
-            TryMatchPlayerLane();
-
-
-        }
+        // Primeira avaliação de lane
+        TryMatchPlayerLane(); 
     }
     private void ResolveSceneReferences()
     {
@@ -139,18 +136,42 @@ public class EnemyLanePursuitController : MonoBehaviour
         if (!hasEnteredCamera)
             return;
 
+        if(enemyHealth != null && enemyHealth.IsDead)
+            return;
+
+        if(laneController == null || laneMovement == null)
+            return;
+
+        Debug.Log($"[ENEMY PURSUIT EVENT] Player concluiu " + $"{previousLane} -> {newLane}.",
+        this);
+        
+        //Se o inimigo já estiver em transição,
+        //registra a necessidade de reavaliar depois
+        if(laneController.IsTransitioning || laneMovement.IsMovingBetweenLanes)
+        {
+            pendingPlayerLaneChange = true;
+            return;
+        }
+
+        pendingPlayerLaneChange = false;
+
         TryMatchPlayerLane();
     }
 
     private void HandleMovementFinished()
     {
+        if(!pendingPlayerLaneChange)
+            return;
+        
+        pendingPlayerLaneChange = false;
+
         if (pursuitMode != EnemyLanePursuitMode.FollowPlayer)
             return;
 
         if (!hasEnteredCamera)
             return;
 
-        // Verifica se o Player mudou de lane enquanto o inimigo estava em transição
+        // Processa uma mudança do Player recebida durante a transição anterior do inimigo
         TryMatchPlayerLane();
     }
 

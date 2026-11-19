@@ -2052,7 +2052,7 @@ Transform:
   m_GameObject: {fileID: 149626097}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.754288, y: 5.6699996, z: -10}
+  m_LocalPosition: {x: -32.767357, y: 5.6699996, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -56989,14 +56989,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 562986690}
     m_Modifications:
-    - target: {fileID: 663406641276966153, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-      propertyPath: transitionDuration
-      value: 0.74
-      objectReference: {fileID: 0}
-    - target: {fileID: 2586395637067264020, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
-      propertyPath: pursuitMode
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3141059034005948433, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_Name
       value: PF_Enemy_OniSoldier_Base_Required
@@ -59416,7 +59408,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -32.754288
+      value: -32.767357
       objectReference: {fileID: 0}
     - target: {fileID: 3625052807464913158, guid: 425cf0b24a5e24341ad77ccea4eed0da, type: 3}
       propertyPath: m_LocalPosition.y

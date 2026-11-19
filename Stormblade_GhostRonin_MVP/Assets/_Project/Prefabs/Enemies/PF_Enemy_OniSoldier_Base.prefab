@@ -634,7 +634,7 @@ MonoBehaviour:
   rb: {fileID: 5673000362283165251}
   enemyMovement: {fileID: 868632654958514672}
   laneController: {fileID: 6303892786667907711}
-  transitionDuration: 3
+  transitionDuration: 0.74
   arcHeight: 2.5
   isMovingBetweenLanes: 0
   startPosition: {x: 0, y: 0}
@@ -652,7 +652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f84ec1c4959c0448f29401c93fee64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyLanePursuitController
-  pursuitMode: 0
+  pursuitMode: 2
   laneController: {fileID: 6303892786667907711}
   targetDetection: {fileID: 4917223864234468188}
   laneMovement: {fileID: 663406641276966153}
@@ -660,7 +660,6 @@ MonoBehaviour:
   playerLaneController: {fileID: 0}
   gameplayCamera: {fileID: 0}
   visualRenderer: {fileID: 6937745340423490612}
-  retryInterval: 0.5
   hasEnteredCamera: 0
 --- !u!1 &4112236442910924253
 GameObject:
