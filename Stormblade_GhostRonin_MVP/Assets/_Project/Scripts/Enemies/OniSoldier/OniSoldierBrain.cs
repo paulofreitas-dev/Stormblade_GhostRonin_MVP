@@ -21,6 +21,7 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
     [SerializeField] private bool isAdvancing;
     [SerializeField] private bool isStepMoving;
     [SerializeField] private float advanceTimer;
+    [SerializeField] private bool resumeAdvanceAfterLaneTransition;
 
     public bool IsAdvancing => isAdvancing;
 
@@ -41,6 +42,9 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
         if(facingController == null)
             facingController = GetComponent<EnemyFacingController>();
 
+        if(laneMovement == null)
+            laneMovement = GetComponent<EnemyLaneMovement>();
+
         // ApplyAdvanceDirection();
     }
 
@@ -49,6 +53,15 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
         if(combat != null)
             combat.OnAttackFinished += HandleAttackFinished;
 
+        if(laneMovement != null)
+        {
+            laneMovement.OnLaneMovementStarted += HandleLaneMovementStarted;
+
+            laneMovement.OnLaneMovementFinished += HandleLaneMovementEnded;
+
+            laneMovement.OnLaneMovementCancelled += HandleLaneMovementEnded;
+        }
+
         BeginAdvance();
     }
 
@@ -56,10 +69,23 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
     {
         if(combat != null)
             combat.OnAttackFinished -= HandleAttackFinished;
+
+        if(laneMovement != null)
+        {
+            laneMovement.OnLaneMovementStarted -= HandleLaneMovementStarted;
+
+            laneMovement.OnLaneMovementFinished -= HandleLaneMovementEnded;
+
+            laneMovement.OnLaneMovementCancelled -= HandleLaneMovementEnded;
+        }
     }
 
     private void Update()
     {
+        // Bloqueia a IA durante a troca de lane
+        if(laneMovement != null && laneMovement.IsMovingBetweenLanes)
+            return;
+
         if(!isAdvancing)
             return;
 
@@ -71,6 +97,14 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
 
     public void BeginAdvance()
     {
+        // Se estiver saltando, adia a retomada
+        if(laneMovement != null && laneMovement.IsMovingBetweenLanes)
+        {
+            resumeAdvanceAfterLaneTransition = true;
+
+            return;
+        }
+  
         if(movement == null)
             return;
 
@@ -101,6 +135,9 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
 
     private void BeginAttack()
     {
+        if(laneMovement != null && laneMovement.IsMovingBetweenLanes)
+            return;
+
         StopAdvance();
 
         if(!combat.TryStartAttack())
@@ -110,6 +147,35 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
     private void HandleAttackFinished()
     {
         BeginAdvance();
+    }
+
+    private void HandleLaneMovementStarted()
+    {
+        if(!isActiveAndEnabled)
+            return;
+
+        //Guarda a intenção de avançar
+        resumeAdvanceAfterLaneTransition = isAdvancing || resumeAdvanceAfterLaneTransition;
+
+        //Interrompe avanço e ciclo de passos
+        StopAdvance();
+    }
+
+    private void HandleLaneMovementEnded()
+    {
+        if(!isActiveAndEnabled)
+            return;
+
+        // Outra transição pode já ter começado
+        if(laneMovement != null && laneMovement.IsMovingBetweenLanes)
+            return;
+
+        bool shouldResume = resumeAdvanceAfterLaneTransition;
+
+        resumeAdvanceAfterLaneTransition = false;
+
+        if(shouldResume)
+            BeginAdvance();
     }
 
     public void SetInitialDirection(float direction)

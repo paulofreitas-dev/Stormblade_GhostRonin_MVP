@@ -45,6 +45,10 @@ public class EnemyContactDamage : MonoBehaviour
         if(!damageEnabled)
             return;
 
+        //Bloqueia dano de contato durante a transição de lane do inimigo
+        if(enemyLaneController == null || enemyLaneController.IsTransitioning)
+            return;
+
         Hurtbox hurtbox = other.GetComponent<Hurtbox>();
 
         if(hurtbox == null)

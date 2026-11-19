@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: 3088063427947122241}
   - component: {fileID: 8489217399081967990}
   - component: {fileID: 6303892786667907711}
-  - component: {fileID: 47585857692650855}
   - component: {fileID: 7494296706977249099}
   - component: {fileID: 5502063256746347768}
   - component: {fileID: 2179984363648571606}
@@ -486,25 +485,6 @@ MonoBehaviour:
   currentLane: 0
   targetLane: 0
   isTransitioning: 0
---- !u!114 &47585857692650855
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3141059034005948433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6add82f7056f127429913ff1540c943c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyLaneVisualController
-  visualDepthRoot: {fileID: 2248248174231283913}
-  sortingGroup: {fileID: 5374955887641407644}
-  laneController: {fileID: 6303892786667907711}
-  frontScale: 1
-  backScale: 0.8
-  frontSortingOrder: 15
-  backSortingOrder: 14
 --- !u!114 &7494296706977249099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,13 +501,15 @@ MonoBehaviour:
   animationController: {fileID: 7982624914878777417}
   targetDetector: {fileID: 467318507878840922}
   combat: {fileID: 3088063427947122241}
-  facingController: {fileID: 0}
+  facingController: {fileID: 2156046213469184082}
+  laneMovement: {fileID: 663406641276966153}
   advanceDirection: -1
   pauseDuration: 0.78
   stepDuration: 0.33
   isAdvancing: 0
   isStepMoving: 0
   advanceTimer: 0
+  resumeAdvanceAfterLaneTransition: 0
 --- !u!114 &5502063256746347768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -671,6 +653,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2248248174231283913}
   - component: {fileID: 5374955887641407644}
+  - component: {fileID: 3816841968698370466}
   m_Layer: 0
   m_Name: VisualDepthRoot
   m_TagString: Untagged
@@ -707,6 +690,25 @@ SortingGroup:
   m_SortingOrder: 20
   m_SortAtRoot: 0
   m_Sort3DAs2D: 0
+--- !u!114 &3816841968698370466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112236442910924253}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6add82f7056f127429913ff1540c943c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyLaneVisualController
+  visualDepthRoot: {fileID: 2248248174231283913}
+  sortingGroup: {fileID: 5374955887641407644}
+  laneController: {fileID: 6303892786667907711}
+  frontScale: 1
+  backScale: 0.85
+  frontSortingOrder: 15
+  backSortingOrder: 14
 --- !u!1 &4162873771350705425
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,8 +40,12 @@ public class EnemyTargetDetector : MonoBehaviour
             return false;
 
         //Durante a troca de lane, o Player não é considerado
-        //um alvo válido para este ataque lane.
+        //um alvo válido para este ataque lane
         if(playerLaneController.IsTransitioning)
+            return false;
+
+        //Durante a troca de lane, o inimigo não pode iniciar ataques
+        if(enemyLaneController.IsTransitioning)
             return false;
 
         sameLane = enemyLaneController.CurrentLane == playerLaneController.CurrentLane;
