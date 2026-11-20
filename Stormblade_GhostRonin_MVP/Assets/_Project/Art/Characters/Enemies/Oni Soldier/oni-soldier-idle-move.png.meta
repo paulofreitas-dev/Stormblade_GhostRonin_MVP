@@ -103,45 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: oni-soldier-move-export_0
+      name: oni-soldier-idle-move_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 25
         height: 45
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 6420d4118efc4d270800000000000000
-      internalID: 8274467011016065606
+      spriteID: 247ca441b89ad3f4091ba14ca190f026
+      internalID: 217365171
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: oni-soldier-move-export_1
+      name: oni-soldier-idle-move_1
       rect:
         serializedVersion: 2
         x: 25
         y: 0
         width: 25
         height: 45
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 958d4cf954d447750800000000000000
-      internalID: 6301746740026726489
+      spriteID: 5a237132bbee0974b9618d76330171e8
+      internalID: -1781396026
       vertices: []
       indices: 
       edges: []
@@ -158,10 +158,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":25.0,"y":45.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      oni-soldier-move-export_0: 8274467011016065606
-      oni-soldier-move-export_1: 6301746740026726489
+      oni-soldier-idle-move_0: 217365171
+      oni-soldier-idle-move_1: -1781396026
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
