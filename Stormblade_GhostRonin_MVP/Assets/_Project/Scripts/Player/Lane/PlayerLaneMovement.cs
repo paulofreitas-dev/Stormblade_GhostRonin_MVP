@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class PlayerLaneMovement : MonoBehaviour
 {
@@ -32,16 +33,47 @@ public class PlayerLaneMovement : MonoBehaviour
 
     private void Update()
     {
-        if (isMovingBetweenLanes)
-            return;
-
         if (inputReader == null)
             return;
 
-        if(!inputReader.LaneSwitchRequested)
+        // Não acumula comandos durante uma transição
+        if (isMovingBetweenLanes)
+        {
+            inputReader.ConsumeLaneBackRequest();
+            inputReader.ConsumeLaneFrontRequest();
+            inputReader.ConsumeLaneSwitchRequest();
+            return;
+        }
+
+        bool backRequested = inputReader.LaneBackRequested;
+        bool frontRequested = inputReader.LaneFrontRequested;
+        bool switchRequested = inputReader.LaneSwitchRequested;
+
+        if (!backRequested && !frontRequested && !switchRequested)
             return;
 
-        TryStartLaneSwitch();
+        // Consome os pedidos antes de validar o destino
+        inputReader.ConsumeLaneBackRequest();
+        inputReader.ConsumeLaneFrontRequest();
+        inputReader.ConsumeLaneSwitchRequest();
+
+        // Dois destinos opostos simultâneos: ignora
+        if (backRequested && frontRequested)
+            return;
+
+        if (laneController == null)
+            return;
+
+        GameplayLane requestedLane;
+
+        if (backRequested)
+            requestedLane = GameplayLane.Back;
+        else if (frontRequested)
+            requestedLane = GameplayLane.Front;
+        else
+            requestedLane = laneController.GetOppositeLane();
+
+        TryStartLaneSwitch(requestedLane);
     }
 
     private void FixedUpdate()
@@ -52,20 +84,16 @@ public class PlayerLaneMovement : MonoBehaviour
         UpdateLaneMovement();
     }
 
-    private void TryStartLaneSwitch()
+    private void TryStartLaneSwitch(GameplayLane requestedLane)
     {
-        if(inputReader == null)
-            return;
-
-        if(!inputReader.LaneSwitchRequested)
-            return;
-
-        inputReader.ConsumeLaneSwitchRequest();
-
         if (rb == null || laneController == null || targetDetection == null)
             return;
 
         if (laneController.IsTransitioning)
+            return;
+
+        // Já estamos na lane solicitada
+        if(laneController.CurrentLane == requestedLane)
             return;
 
         if (playerMovement != null)
@@ -80,16 +108,14 @@ public class PlayerLaneMovement : MonoBehaviour
                 return;
         }
 
-        GameplayLane targetLane = laneController.GetOppositeLane();
-
-        if (!targetDetection.TryFindTarget(targetLane, out Vector2 detectedTargetPosition))
+        if (!targetDetection.TryFindTarget(requestedLane, out Vector2 detectedTargetPosition))
         {
-            Debug.Log($"[LANE MOVE] Nenhum destino válido em {targetLane}", this);
+            Debug.Log($"[LANE MOVE] Nenhum destino válido em {requestedLane}", this);
 
             return;
         }
 
-        if (!laneController.BeginTransition(targetLane))
+        if (!laneController.BeginTransition(requestedLane))
             return;
 
         StartLaneMovement(detectedTargetPosition);
@@ -112,7 +138,7 @@ public class PlayerLaneMovement : MonoBehaviour
 
         OnLaneMovementStarted?.Invoke();
 
-        if(playerMovement != null)
+        if (playerMovement != null)
             playerMovement.SetLaneTransitionActive(true);
 
         Debug.Log($"[LANE MOVE] Início: {startPosition} -> {targetPosition}", this);
@@ -120,7 +146,7 @@ public class PlayerLaneMovement : MonoBehaviour
 
     private void UpdateLaneMovement()
     {
-        if(rb == null)
+        if (rb == null)
             return;
 
         float duration = Mathf.Max(0.01f, transitionDuration);
@@ -133,13 +159,13 @@ public class PlayerLaneMovement : MonoBehaviour
 
         Vector2 basePosition = Vector2.Lerp(startPosition, targetPosition, t);
 
-        float arcOffset = 4f * arcHeight * t * (1f -t);
+        float arcOffset = 4f * arcHeight * t * (1f - t);
 
         Vector2 finalPosition = basePosition + Vector2.up * arcOffset;
 
         rb.MovePosition(finalPosition);
 
-        if(t >= 1f)
+        if (t >= 1f)
             FinishLaneMovement();
 
     }
@@ -156,7 +182,7 @@ public class PlayerLaneMovement : MonoBehaviour
         isMovingBetweenLanes = false;
         transitionProgress = 1f;
 
-        if(playerMovement != null)
+        if (playerMovement != null)
             playerMovement.SetLaneTransitionActive(false);
 
         OnLaneMovementFinished?.Invoke();

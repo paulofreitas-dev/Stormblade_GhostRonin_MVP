@@ -9,6 +9,8 @@ public class PlayerInputReader : MonoBehaviour
     [SerializeField] private InputActionReference crouchAction;
     [SerializeField] private InputActionReference specialAction;
     [SerializeField] private InputActionReference laneModifierAction;
+    [SerializeField] private InputActionReference laneBackAction;
+    [SerializeField] private InputActionReference laneFrontAction;
 
     [Header("Debug")]
     [SerializeField] private float moveInputX;
@@ -17,6 +19,8 @@ public class PlayerInputReader : MonoBehaviour
     [SerializeField] private bool specialRequested;
     [SerializeField] private bool isCrouchHeld;
     [SerializeField] private bool laneSwitchRequested;
+    [SerializeField] private bool laneBackRequested;
+    [SerializeField] private bool laneFrontRequested;
 
     [Header("Input State")]
     [SerializeField] private bool gameplayInputBlocked;
@@ -28,71 +32,61 @@ public class PlayerInputReader : MonoBehaviour
     public bool SpecialRequested => specialRequested;
     public bool IsCrouchHeld => isCrouchHeld; 
     public bool LaneSwitchRequested => laneSwitchRequested;
+    public bool LaneBackRequested => laneBackRequested;
+    public bool LaneFrontRequested => laneFrontRequested;
 
     private void OnEnable()
     {
         if(moveAction != null)
-        {
             moveAction.action.Enable();
-        }
 
         if(jumpAction != null)
-        {
             jumpAction.action.Enable();
-        }
 
         if (attackAction != null)
-        {
             attackAction.action.Enable();
-        }
 
         if (crouchAction != null)
-        {
             crouchAction.action.Enable();
-        }
 
         if (specialAction != null)
-        {
             specialAction.action.Enable();
-        }
 
         if (laneModifierAction != null)
-        {   
             laneModifierAction.action.Enable();
-        }
+
+        if(laneBackAction != null)
+            laneBackAction.action.Enable();
+
+        if(laneFrontAction != null)
+            laneFrontAction.action.Enable();   
     }
 
     private void OnDisable()
     {
         if(moveAction != null)
-        {
             moveAction.action.Disable();
-        }
 
         if (jumpAction != null)
-        {
             jumpAction.action.Disable();
-        }
 
         if (attackAction != null)
-        {
             attackAction.action.Disable();
-        }
 
         if (crouchAction != null)
-        {
             crouchAction.action.Disable();
-        }
 
         if (specialAction != null)
-        {
             specialAction.action.Disable();
-        }
 
         if (laneModifierAction != null)
-        {
             laneModifierAction.action.Disable();
-        }
+
+        if(laneBackAction != null)
+            laneBackAction.action.Disable();
+
+        if(laneFrontAction != null)
+            laneFrontAction.action.Disable();
     }
 
     private void Update()
@@ -105,6 +99,7 @@ public class PlayerInputReader : MonoBehaviour
         
         ReadMoveInput();
         ReadJumpInput();
+        ReadLaneDestinationInput();
         ReadAttackInput();
         ReadSpecialInput();
         ReadCrouchInput();
@@ -146,6 +141,15 @@ public class PlayerInputReader : MonoBehaviour
         }
 
         jumpRequested = true;
+    }
+
+    private void ReadLaneDestinationInput()
+    {
+        if(laneBackAction != null && laneBackAction.action.WasPressedThisFrame())
+            laneBackRequested = true;
+
+        if(laneFrontAction != null && laneFrontAction.action.WasPressedThisFrame())
+            laneFrontRequested = true;
     }
 
     private void ReadAttackInput()
@@ -215,11 +219,23 @@ public class PlayerInputReader : MonoBehaviour
         laneSwitchRequested = false;
     }
 
+    public void ConsumeLaneBackRequest()
+    {
+        laneBackRequested = false;
+    }
+
+    public void ConsumeLaneFrontRequest()
+    {
+        laneFrontRequested = false;
+    }
+
     public void ClearActionRequests()
     {
         jumpRequested = false;
         attackRequested = false;
         laneSwitchRequested = false;
+        laneBackRequested = false;
+        laneFrontRequested = false;
     }
 
     public void SetGamePlayInputBlocked(bool blocked)
@@ -237,6 +253,8 @@ public class PlayerInputReader : MonoBehaviour
         specialRequested = false;
         isCrouchHeld = false;
         laneSwitchRequested = false;
+        laneBackRequested = false;
+        laneFrontRequested = false;
     }
 
 }

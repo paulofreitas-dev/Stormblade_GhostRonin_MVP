@@ -61,9 +61,27 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "LaneBack",
+                    "type": "Button",
+                    "id": "0bfb1e6f-747b-496b-be9a-f68e4a238979",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LaneFront",
+                    "type": "Button",
+                    "id": "d7373bb1-1c84-4577-9ceb-d206be8e5d92",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "LaneModifier",
                     "type": "Button",
-                    "id": "d019ca01-416b-4ae9-82fd-4b82f509c266",
+                    "id": "6f6af3e4-d360-41eb-8e43-e767bb462a69",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -172,17 +190,6 @@
                 },
                 {
                     "name": "",
-                    "id": "6c7146b4-189a-48b0-bc0f-3346e483d83d",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Special",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1aa6c137-8bcb-40ea-8cba-c8102ff0b496",
                     "path": "<Keyboard>/enter",
                     "interactions": "",
@@ -194,8 +201,41 @@
                 },
                 {
                     "name": "",
-                    "id": "2e6515af-816d-4ded-83c4-b31cbdc316c4",
-                    "path": "<Gamepad>/start",
+                    "id": "3e73a79c-ff25-4f04-9f42-ee07f2ac683b",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Special",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ee625413-5920-4d52-b42e-6597ebd65689",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Special",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dc6b6d10-df2a-4a0d-b6e1-789bcbe612f7",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Special",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2a89a4c2-ac41-4bd8-8651-e7a4cd3b5782",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -359,7 +399,29 @@
                 },
                 {
                     "name": "",
-                    "id": "3a3e2b9b-cc51-4ea5-a2cc-f737359fa29c",
+                    "id": "25f0f719-908e-4cdc-9947-ad78b90a5698",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LaneBack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf9efdc2-5bab-4f94-b0c2-289dfd235de9",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LaneFront",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "31d473c7-1aa9-4d3d-b2f6-3a5e587ba816",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
@@ -370,7 +432,7 @@
                 },
                 {
                     "name": "",
-                    "id": "50a045cd-9552-44b1-a553-f6b881266632",
+                    "id": "54d7487c-3cc8-4917-a2ff-70df37d51cc7",
                     "path": "<Keyboard>/rightShift",
                     "interactions": "",
                     "processors": "",

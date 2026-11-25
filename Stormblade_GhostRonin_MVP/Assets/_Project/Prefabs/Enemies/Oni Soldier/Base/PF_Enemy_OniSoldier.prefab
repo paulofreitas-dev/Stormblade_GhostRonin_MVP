@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 663406641276966153}
   - component: {fileID: 2586395637067264020}
   m_Layer: 0
-  m_Name: PF_Enemy_OniSoldier_Base
+  m_Name: PF_Enemy_OniSoldier
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -394,10 +394,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyMovement
   rb: {fileID: 5673000362283165251}
-  moveSpeed: 4.25
+  moveSpeed: 4.3
   currentDirection: 0
   lastNonZeroDirection: 0
   movementEnabled: 1
+  isDamagePushbackActive: 0
+  damagePushbackTimer: 0
 --- !u!114 &7982624914878777417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -411,6 +413,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationController
   animator: {fileID: 7833437160226291480}
+  health: {fileID: 777006968457942388}
+  hitReactionController: {fileID: 0}
+  laneMovement: {fileID: 0}
+  laneController: {fileID: 0}
 --- !u!114 &467318507878840922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,9 +451,13 @@ MonoBehaviour:
   attackHitbox: {fileID: 947831477252368157}
   animationController: {fileID: 7982624914878777417}
   contactDamage: {fileID: 1969174060464662217}
+  hitReactionController: {fileID: 0}
+  health: {fileID: 777006968457942388}
   attackCooldown: 1
   isAttacking: 0
   nextAttackAllowedTime: 0
+  isHitLocked: 0
+  wasAttackInterruptedByHit: 0
 --- !u!114 &8489217399081967990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,13 +513,16 @@ MonoBehaviour:
   combat: {fileID: 3088063427947122241}
   facingController: {fileID: 2156046213469184082}
   laneMovement: {fileID: 663406641276966153}
+  hitReactionController: {fileID: 0}
+  health: {fileID: 777006968457942388}
   advanceDirection: -1
-  pauseDuration: 0.78
+  pauseDuration: 0.45
   stepDuration: 0.33
   isAdvancing: 0
   isStepMoving: 0
   advanceTimer: 0
   resumeAdvanceAfterLaneTransition: 0
+  resumeAdvanceAfterHitReaction: 0
 --- !u!114 &5502063256746347768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -634,7 +647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62f84ec1c4959c0448f29401c93fee64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyLanePursuitController
-  pursuitMode: 2
+  pursuitMode: 0
   laneController: {fileID: 6303892786667907711}
   targetDetection: {fileID: 4917223864234468188}
   laneMovement: {fileID: 663406641276966153}

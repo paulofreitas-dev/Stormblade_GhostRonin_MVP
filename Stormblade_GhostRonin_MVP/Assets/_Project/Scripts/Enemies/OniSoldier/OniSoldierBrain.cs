@@ -9,6 +9,8 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
     [SerializeField] private EnemyCombat combat;
     [SerializeField] private EnemyFacingController facingController;
     [SerializeField] private EnemyLaneMovement laneMovement;
+    [SerializeField] private EnemyHitReactionController hitReactionController;
+    [SerializeField] private Health health;
 
     [Header("Advance Settings")]
     [SerializeField] private float advanceDirection = -1f;
@@ -22,6 +24,7 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
     [SerializeField] private bool isStepMoving;
     [SerializeField] private float advanceTimer;
     [SerializeField] private bool resumeAdvanceAfterLaneTransition;
+    [SerializeField] private bool resumeAdvanceAfterHitReaction;
 
     public bool IsAdvancing => isAdvancing;
 
@@ -45,6 +48,12 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
         if(laneMovement == null)
             laneMovement = GetComponent<EnemyLaneMovement>();
 
+        if(hitReactionController == null)
+            hitReactionController = GetComponent<EnemyHitReactionController>();
+
+        if(health == null)
+            health = GetComponent<Health>();
+
         // ApplyAdvanceDirection();
     }
 
@@ -60,6 +69,14 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
             laneMovement.OnLaneMovementFinished += HandleLaneMovementEnded;
 
             laneMovement.OnLaneMovementCancelled += HandleLaneMovementEnded;
+        }
+
+        // Integração com a reação de Hit
+        if(hitReactionController != null)
+        {
+            hitReactionController.OnHitReactionStarted += HandleHitReactionStarted;
+
+            hitReactionController.OnHitReactionFinished += HandleHitReactionFinished;
         }
 
         BeginAdvance();
@@ -78,10 +95,24 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
 
             laneMovement.OnLaneMovementCancelled -= HandleLaneMovementEnded;
         }
+
+        if(hitReactionController != null)
+        {
+            hitReactionController.OnHitReactionStarted -= HandleHitReactionStarted;
+
+            hitReactionController.OnHitReactionFinished -= HandleHitReactionFinished;
+        }
     }
 
     private void Update()
     {
+        if(health != null && health.IsDead)
+            return;
+
+        //Bloqueia decisões da IA durante o Hit
+        if(hitReactionController != null && hitReactionController.IsHitReacting)
+            return;
+
         // Bloqueia a IA durante a troca de lane
         if(laneMovement != null && laneMovement.IsMovingBetweenLanes)
             return;
@@ -97,11 +128,20 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
 
     public void BeginAdvance()
     {
+        if(health != null && health.IsDead)
+            return;
+
+        // Se estiver reagindo a Hit, adia a retomada
+        if(hitReactionController != null && hitReactionController.IsHitReacting)
+        {
+            resumeAdvanceAfterHitReaction = true;
+            return;
+        }
+
         // Se estiver saltando, adia a retomada
         if(laneMovement != null && laneMovement.IsMovingBetweenLanes)
         {
             resumeAdvanceAfterLaneTransition = true;
-
             return;
         }
   
@@ -135,6 +175,12 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
 
     private void BeginAttack()
     {
+        if(health != null && health.IsDead)
+            return;
+
+        if(hitReactionController != null && hitReactionController.IsHitReacting)
+            return;
+
         if(laneMovement != null && laneMovement.IsMovingBetweenLanes)
             return;
 
@@ -146,7 +192,59 @@ public class OniSoldierBrain : MonoBehaviour, IEnemySpawnDirectionConfigurable
 
     private void HandleAttackFinished()
     {
+        if(!isActiveAndEnabled)
+            return;
+
+        if(health != null && health.IsDead)
+            return;
+
+        resumeAdvanceAfterHitReaction = false;
+
         BeginAdvance();
+    }
+
+    private void HandleHitReactionStarted()
+    {
+        if(!isActiveAndEnabled)
+            return;
+
+        if(health != null && health.IsDead)
+            return;
+
+        // Registra se o inimigo deverá retomar o avanço. Considera também um ataque que já estava ativo ou uma retomada pendente após troca de lane
+        resumeAdvanceAfterHitReaction = resumeAdvanceAfterHitReaction || isAdvancing || (combat != null && (combat.IsAttacking || combat.WasAttackInterruptedByHit)) || resumeAdvanceAfterLaneTransition;
+
+        // Interrompe o ciclo de pequenos passos
+        StopAdvance();
+
+        Debug.Log($"[ONI BRAIN] {name}: avanço interrompido por Hit",
+        this);
+    }
+
+    private void HandleHitReactionFinished()
+    {
+        if(!isActiveAndEnabled)
+            return;
+
+        if(health != null && health.IsDead)
+            return;
+
+        if(hitReactionController != null && hitReactionController.IsHitReacting)
+            return;
+
+        if(!resumeAdvanceAfterHitReaction)
+            return;
+
+        // Enquanto o combate considerar um ataque ativo, aguardaremos seu encerramento
+        if(combat != null && combat.IsAttacking)
+            return;
+
+        resumeAdvanceAfterHitReaction = false;
+
+        BeginAdvance();
+
+        Debug.Log($"[ONI BRAIN] {name}: reação concluída.", 
+        this);
     }
 
     private void HandleLaneMovementStarted()

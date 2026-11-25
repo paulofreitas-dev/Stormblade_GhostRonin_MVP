@@ -8,17 +8,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2586395637067264020, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
+      propertyPath: pursuitMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3141059034005948433, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_Name
-      value: PF_Enemy_OniSoldier_Base
+      value: PF_Enemy_OniSoldier_FollowPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 7581219452783979406, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 28.53
       objectReference: {fileID: 0}
     - target: {fileID: 7581219452783979406, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1.46
       objectReference: {fileID: 0}
     - target: {fileID: 7581219452783979406, guid: ac6a1a01ba421c4499425c0669a49147, type: 3}
       propertyPath: m_LocalPosition.z
